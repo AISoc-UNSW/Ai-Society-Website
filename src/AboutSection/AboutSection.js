@@ -1,0 +1,27 @@
+import React from "react";
+
+import "./AboutSection.css";
+
+function AboutSection() {
+  return (
+    <div className="boxContainer">
+      <div className="textBlurb">
+        <p className="text-blurb-bold box-container-text">
+          Empowering Minds, Advancing AI: Exploring the Frontiers of Artificial
+          Intelligence
+        </p>
+        <p className="box-container-text text-blurb-non">
+          Welcome to our university society dedicated to the study and
+          application of artificial intelligence. Through engaging events,
+          workshops, and projects, we aim to foster a community of AI
+          enthusiasts and drive innovation in this rapidly evolving field.
+        </p>
+      </div>
+      <div className="aboutImage">
+        <img src={require("./build.png")} className="aboutImage-size" />
+      </div>
+    </div>
+  );
+}
+
+export default AboutSection;

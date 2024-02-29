@@ -1,0 +1,46 @@
+.newletter-body {
+    display: flex;
+    flex-direction: column;
+    padding: 10rem 0;
+    justify-content: center;
+    align-items:  center;
+}
+
+.newsletter-body-mini {
+    font-weight: bold;
+}
+
+.newsletter-body-header {
+    font-weight: bold;
+    font-size: 3.5rem;
+}
+
+
+.newsletter-body-blub {
+    font-size: 2.2rem;
+}
+
+.newsletter-stories-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    padding-top: 5.5rem;
+
+}
+
+.newsletter-display-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* .aboutImage-size {
+
+} */
+
+.newsletter-display-box {
+    width: 30%;
+    border-style: solid;
+}
