@@ -1,6 +1,7 @@
 import React from "react";
 
 import "./NewsLetterSection.css";
+import NewsLetterStory from "./NewsLetterStory";
 
 function NewsLetterSection() {
   return (
@@ -12,21 +13,25 @@ function NewsLetterSection() {
       </p>
 
       <div className="newsletter-stories-container">
-        <div className="newsletter-display-box">
-          <img src={require("./gptstore.png")} className="aboutImage-size" />
-          <p>The WatchTower: 11th Edition</p>
-          <p>By Shetal, Andrew Suryanto</p>
-        </div>
-        <div className="newsletter-display-box">
-          {" "}
-          <img src={require("./gptstore.png")} className="aboutImage-size" />
-        </div>
-        <div className="newsletter-display-box">
-          {" "}
-          <img src={require("./gptstore.png")} className="aboutImage-size" />
-        </div>
+        <NewsLetterStory
+          image={"./gptstore.png"}
+          edition={" The WatchTower: 11th Edition"}
+          authors={"By Shetal, Andrew Suryanto"}
+        />
+        <NewsLetterStory
+          image={"./gptstore.png"}
+          edition={" The WatchTower: 11th Edition"}
+          authors={"By Shetal, Andrew Suryanto"}
+        />
+        <NewsLetterStory
+          image={"./gptstore.png"}
+          edition={" The WatchTower: 11th Edition"}
+          authors={"By Shetal, Andrew Suryanto"}
+        />
       </div>
-      <button className="newsletter-button">View All</button>
+      <button class="button-4" role="button">
+        View all
+      </button>
     </div>
   );
 }
