@@ -3,6 +3,7 @@ import Header from "./HeroSection/Header";
 import FrequentlyAskedQuestion from "./FrequentlyAskedQuestion/FrequentlyAskedQuestion";
 import NewsLetterSection from "./NewsLetterSection/NewsLetterSection";
 import UpcomingSection from "./UpcomingSection/UpcomingSection";
+import JoinUsSection from "./JoinUsSection/JoinUsSection";
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <AboutSection />
       <NewsLetterSection />
       <UpcomingSection />
+      <JoinUsSection />
       <FrequentlyAskedQuestion />
     </div>
   );
