@@ -1,6 +1,6 @@
 
 .heroSection {
-    background: url('./Hero-Image.webp');
+    background: url('./Hero-Image.png');
     background-position: center, bottom left;
     background-size: cover, cover;
     height: 100vh;
