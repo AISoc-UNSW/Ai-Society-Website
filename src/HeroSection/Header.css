@@ -1,5 +1,5 @@
 
-.heroSection {
+.hero-section {
     background: url('./Hero-Image.png');
     background-position: center, bottom left;
     background-size: cover, cover;
@@ -7,7 +7,7 @@
     width: 100%;
 }
 
-.heroInner {
+.hero-inner {
     display: flex;
     font-size: 1rem;
     align-items: center;
@@ -20,20 +20,20 @@
     max-height: 3.5rem;
     width: 3.5rem;
 }
-.heroNav {
+.hero-nav {
     margin-left: 2.5rem;
 }
 
-.middleSection {
+.middlesection {
     margin-top: 15rem;
     color: white;
     text-align: center;
 }
 
-.middleText {
+.middletext {
     font-size: 2.2rem;
 }
 
-.boldText {
+.text-bold {
     font-size: 3.5rem;
 }

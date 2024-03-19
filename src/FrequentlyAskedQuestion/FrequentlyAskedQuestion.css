@@ -1,4 +1,4 @@
-.boxContainer {
+.box-container {
     display: flex;
     flex-direction: row;
     padding: 5rem 0;
@@ -6,7 +6,7 @@
     margin-left: 1.5rem;
 }
 
-.textBlurb {
+.text-blurb {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -21,17 +21,4 @@
 }
 .box-container-text {
     width: 85%;
-}
-.aboutImage {
-    width: 50vw;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding-right: 2.5rem;
-}
-.aboutImage-size {
-    display: block;
-    max-width:32.5rem;
-    width: auto;
-    height: auto;
 }

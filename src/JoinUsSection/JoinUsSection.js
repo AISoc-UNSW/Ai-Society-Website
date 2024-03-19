@@ -3,8 +3,8 @@ import "./JoinUsSection.css";
 
 function JoinUsSection() {
   return (
-    <div className="boxContainer">
-      <div className="textBlurb">
+    <div className="box-container">
+      <div className="text-blurb">
         <p className="text-blurb-bold box-container-text">
           Join our AI Society Today!
         </p>

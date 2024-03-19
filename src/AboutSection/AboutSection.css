@@ -1,10 +1,10 @@
-.boxContainer {
+.box-container {
     display: flex;
     flex-direction: row;
     padding: 5rem 0;
 }
 
-.textBlurb {
+.text-blurb {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -20,14 +20,14 @@
 .box-container-text {
     width: 85%;
 }
-.aboutImage {
+.aboutimage {
     width: 50vw;
     display: flex;
     align-items: center;
     justify-content: center;
     padding-right: 2.5rem;
 }
-.aboutImage-size {
+.aboutimage-size {
     display: block;
     max-width:32.5rem;
     width: auto;

@@ -4,8 +4,8 @@ import "./AboutSection.css";
 
 function AboutSection() {
   return (
-    <div className="boxContainer">
-      <div className="textBlurb">
+    <div className="box-container">
+      <div className="text-blurb">
         <p className="text-blurb-bold box-container-text">
           Empowering Minds, Advancing AI: Exploring the Frontiers of Artificial
           Intelligence
@@ -17,8 +17,8 @@ function AboutSection() {
           enthusiasts and drive innovation in this rapidly evolving field.
         </p>
       </div>
-      <div className="aboutImage">
-        <img src={require("./build.png")} className="aboutImage-size" />
+      <div className="aboutimage">
+        <img src={require("./build.png")} className="aboutimage-size" />
       </div>
     </div>
   );

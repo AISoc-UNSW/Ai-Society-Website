@@ -1,11 +1,11 @@
-.boxContainer {
+.box-container {
     display: flex;
     flex-direction: row;
     padding: 5rem 0;
     justify-content: start;
 }
 
-.textBlurb {
+.text-blurb {
     display: flex;
     flex-direction: column;
     justify-content: center;

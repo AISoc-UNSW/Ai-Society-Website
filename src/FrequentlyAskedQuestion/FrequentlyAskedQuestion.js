@@ -3,8 +3,8 @@ import "./FrequentlyAskedQuestion.css";
 
 function FrequentlyAskedQuestion() {
   return (
-    <div className="boxContainer">
-      <div className="textBlurb">
+    <div className="box-container">
+      <div className="text-blurb">
         <p className="text-blurb-bold box-container-text">
           Frequently Asked Questions
         </p>
