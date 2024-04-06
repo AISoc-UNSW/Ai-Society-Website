@@ -6,15 +6,19 @@ import JoinUsSection from "./components/JoinUsSection/JoinUsSection";
 import MeetUs from "./components/meet_us";
 import Faq from "./components/Faq";
 import Footer from "./components/Footer";
+import NavBar from "./components/NavBar";
 
 function App() {
     return (
         <div className="App">
-            <Header />
+            {/* <Header /> */}
+            <NavBar />
+
             <AboutSection />
             <NewsLetterSection />
             <UpcomingSection />
             <JoinUsSection />
+
             <Faq />
             <MeetUs />
             <Footer />
