@@ -6,13 +6,12 @@ import Logo from "../assets/logo.png";
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        marginTop: "-64px",
+        marginTop: "-120px",
         background: "transparent",
         height: 120, // Initial height
     },
     shrink: {
         height: 64, // Shrunk height
-        opacity: 1,
     },
 }));
 
@@ -33,8 +32,10 @@ const NavBar = () => {
     return (
         <AppBar
             sx={{
-                transition: "height 0.3s ease",
-                backgroundColor: isScrolled ? "purple" : "black",
+                transition:
+                    "height 0.5s ease, background-color 0.3s ease, padding-top 0.5s ease",
+                backgroundColor: isScrolled ? "purple" : "transparent",
+                paddingTop: isScrolled ? "" : "3vh",
             }}
             position="sticky"
             className={`${classes.root} ${isScrolled ? classes.shrink : ""}`}
