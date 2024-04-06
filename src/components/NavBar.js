@@ -34,7 +34,7 @@ const NavBar = () => {
             sx={{
                 transition:
                     "height 0.5s ease, background-color 0.3s ease, padding-top 0.5s ease",
-                backgroundColor: isScrolled ? "purple" : "transparent",
+                backgroundColor: isScrolled ? "#480A53" : "transparent",
                 paddingTop: isScrolled ? "" : "3vh",
             }}
             position="sticky"
@@ -142,7 +142,7 @@ const NavBar = () => {
                     <Button color="inherit">
                         <Link
                             activeClass="active"
-                            to="section2"
+                            to="sponsor"
                             spy={true}
                             smooth={true}
                             offset={-70}
