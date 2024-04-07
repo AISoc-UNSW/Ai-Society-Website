@@ -52,7 +52,7 @@ const NavBar = () => {
                         variant="h6"
                         noWrap
                         component="a"
-                        href=""
+                        href="/"
                         sx={{
                             mr: 4,
                             display: { xs: "none", md: "flex" },
@@ -106,7 +106,7 @@ const NavBar = () => {
                     <Button color="inherit">
                         <Link
                             activeClass="active"
-                            to="section1"
+                            to="about"
                             spy={true}
                             smooth={true}
                             offset={-70}

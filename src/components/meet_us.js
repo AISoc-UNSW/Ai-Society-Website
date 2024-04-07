@@ -80,7 +80,7 @@ const MeetUs = () => {
             </Typography>
             <Button
                 variant="outlined"
-                href="#outlined-buttons"
+                href="/join"
                 sx={{
                     margin: "15px 0px",
                     color: "black",

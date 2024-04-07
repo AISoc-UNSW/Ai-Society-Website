@@ -1,6 +1,5 @@
 import React from "react";
 import { Box, Typography, Button, AppBar } from "@mui/material";
-import { Link } from "react-scroll";
 import Unova from "../assets/unova.png";
 const Sponsor = () => {
     return (
