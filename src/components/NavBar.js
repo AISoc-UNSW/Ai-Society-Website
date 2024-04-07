@@ -12,6 +12,7 @@ const useStyles = makeStyles((theme) => ({
     },
     shrink: {
         height: 64, // Shrunk height
+        marginTop: "-64px",
     },
 }));
 
@@ -36,6 +37,7 @@ const NavBar = () => {
                     "height 0.5s ease, background-color 0.3s ease, padding-top 0.5s ease",
                 backgroundColor: isScrolled ? "#480A53" : "transparent",
                 paddingTop: isScrolled ? "" : "3vh",
+                boxShadow: "none",
             }}
             position="sticky"
             className={`${classes.root} ${isScrolled ? classes.shrink : ""}`}
@@ -45,6 +47,7 @@ const NavBar = () => {
                     sx={{
                         display: "flex",
                         alignItems: "center",
+                        paddingLeft: "2.5vw",
                     }}
                 >
                     <img src={Logo} style={{ width: 50, marginRight: 10 }} />
@@ -69,6 +72,7 @@ const NavBar = () => {
                 <Box
                     sx={{
                         display: "flex",
+                        marginLeft: "auto",
                         // justifyContent: "space-evenly",
                         "& > button": {
                             fontWeight: 700,
