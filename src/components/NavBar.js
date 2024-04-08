@@ -73,6 +73,7 @@ const NavBar = () => {
                     sx={{
                         display: "flex",
                         marginLeft: "auto",
+                        marginRight: "1.5vw",
                         // justifyContent: "space-evenly",
                         "& > button": {
                             fontWeight: 700,

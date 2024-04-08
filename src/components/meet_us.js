@@ -134,6 +134,7 @@ const TeamMember = ({ name, image, role }) => {
     );
 };
 
+export default MeetUs;
 // const styles = {
 //     container: {
 //         position: "relative",
@@ -159,9 +160,6 @@ const TeamMember = ({ name, image, role }) => {
 //         // gap: "20px",
 //     },
 // };
-
-export default MeetUs;
-
 //  DRAGGING COMPONENTS STUFF <- SCRAPPED FOR NOW
 //   const containerRef = useRef(null);
 //   const [isDragging, setIsDragging] = useState(false);

@@ -9,15 +9,20 @@ import Footer from "../components/Footer";
 import NavBar from "../components/NavBar";
 import Sponsor from "../components/Sponsor";
 import Events from "../components/Events";
+import About from "../components/About";
+import NewsLetter from "../components/Newsletter";
 
 function Home() {
     return (
         <div className="App">
             <NavBar />
             <Header />
-            <AboutSection />
-            <NewsLetterSection />
+            <About />
+            {/* <AboutSection /> */}
+            {/* <NewsLetterSection /> */}
             <Events />
+            <NewsLetter />
+
             <JoinUsSection />
             <Faq />
             <MeetUs />

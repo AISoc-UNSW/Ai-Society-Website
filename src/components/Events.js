@@ -4,8 +4,8 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, Typography } from "@mui/material";
-
-import bbq from "../assets/bbq.jpg";
+import llm_workshop from "../assets/llm-workshop.png";
+import bbq from "../assets/bbq.png";
 
 const useCarouselStyles = makeStyles({
     dotContainer: {
@@ -41,7 +41,7 @@ const imageData = [
         alt: "Image 1",
     },
     {
-        src: "https://cdn.discordapp.com/emojis/1154952884119670844.gif?size=128&quality=lossless",
+        src: llm_workshop,
         alt: "Image 2",
     },
     {
