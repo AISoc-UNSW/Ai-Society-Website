@@ -8,6 +8,7 @@ import Faq from "../components/Faq";
 import Footer from "../components/Footer";
 import NavBar from "../components/NavBar";
 import Sponsor from "../components/Sponsor";
+import Events from "../components/Events";
 
 function Home() {
     return (
@@ -16,7 +17,7 @@ function Home() {
             <Header />
             <AboutSection />
             <NewsLetterSection />
-            <UpcomingSection />
+            <Events />
             <JoinUsSection />
             <Faq />
             <MeetUs />

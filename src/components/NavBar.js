@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
     },
     shrink: {
         height: 64, // Shrunk height
-        marginTop: "-64px",
+        // marginTop: "-64px",
     },
 }));
 
@@ -42,7 +42,7 @@ const NavBar = () => {
             position="sticky"
             className={`${classes.root} ${isScrolled ? classes.shrink : ""}`}
         >
-            <Toolbar>
+            <Toolbar sx={{ minHeight: "64px" }}>
                 <Box
                     sx={{
                         display: "flex",
@@ -122,7 +122,7 @@ const NavBar = () => {
                     <Button color="inherit">
                         <Link
                             activeClass="active"
-                            to="section2"
+                            to="events"
                             spy={true}
                             smooth={true}
                             offset={-70}
