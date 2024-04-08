@@ -28,19 +28,20 @@ const TypingAnimation = ({ text }) => {
     useEffect(() => {
         let currentIndex = -1;
         const typingSpeed = 3; // typing speed
+        let timeoutId; // keep track of the timeout ID
 
         const typeNextCharacter = () => {
             if (currentIndex < text.length - 1) {
                 setDisplayedText((prevText) => prevText + text[currentIndex]);
                 currentIndex++;
-                setTimeout(typeNextCharacter, typingSpeed);
+                timeoutId = setTimeout(typeNextCharacter, typingSpeed); // save the timeout ID
             }
         };
 
         setDisplayedText(""); // Clear displayed text when text changes
         typeNextCharacter();
 
-        return () => clearTimeout();
+        return () => clearTimeout(timeoutId); // clear the timeout when the text changes
     }, [text]);
 
     return <Typography>{displayedText}</Typography>;
