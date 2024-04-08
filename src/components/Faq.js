@@ -10,12 +10,16 @@ const Faq = () => {
                 backgroundColor: "#f5f5f5",
                 padding: "3rem",
                 border: "2px solid black",
+                flexWrap: "wrap",
             }}
         >
             <Box
                 sx={{
                     flex: 4.5,
                     textAlign: "left",
+                    marginRight: "30px",
+                    marginBottom: "30px",
+                    minWidth: "400px",
                 }}
             >
                 <Typography
@@ -45,7 +49,13 @@ const Faq = () => {
                     Contact
                 </Button>
             </Box>
-            <Box sx={{ flex: 5.5, textAlign: "left", marginLeft: "10px" }}>
+            <Box
+                sx={{
+                    flex: 5.5,
+                    textAlign: "left",
+                    minWidth: "500px",
+                }}
+            >
                 <Typography
                     variant="h6"
                     sx={{ fontWeight: "bold", marginBottom: "15px" }}

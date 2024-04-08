@@ -1,6 +1,11 @@
 import React from "react";
 import { Box, Typography, Button, AppBar } from "@mui/material";
 import Unova from "../assets/unova.png";
+
+const handleClick = () => {
+    window.location.href = "mailto:aisoc@unsw.edu.au";
+};
+
 const Sponsor = () => {
     return (
         <Box
@@ -26,7 +31,7 @@ const Sponsor = () => {
             />
             <Button
                 variant="outlined"
-                href="#outlined-buttons"
+                onClick={handleClick}
                 sx={{
                     color: "black",
                     borderColor: "black",
