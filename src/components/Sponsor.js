@@ -26,7 +26,12 @@ const Sponsor = () => {
             </Typography>
             <img
                 src={Unova}
-                style={{ width: "500px", height: "auto", marginBottom: "20px" }}
+                style={{
+                    width: "500px",
+                    maxWidth: "90vw",
+                    height: "auto",
+                    marginBottom: "20px",
+                }}
                 alt="Unova"
             />
             <Button

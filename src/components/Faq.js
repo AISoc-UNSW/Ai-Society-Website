@@ -19,7 +19,7 @@ const Faq = () => {
                     textAlign: "left",
                     marginRight: "30px",
                     marginBottom: "30px",
-                    minWidth: "400px",
+                    // minWidth: "400px",
                 }}
             >
                 <Typography
@@ -53,7 +53,7 @@ const Faq = () => {
                 sx={{
                     flex: 5.5,
                     textAlign: "left",
-                    minWidth: "500px",
+                    minWidth: "70vw",
                 }}
             >
                 <Typography

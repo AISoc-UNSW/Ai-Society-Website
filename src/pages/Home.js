@@ -11,12 +11,14 @@ import Sponsor from "../components/Sponsor";
 import Events from "../components/Events";
 import About from "../components/About";
 import NewsLetter from "../components/Newsletter";
+import Landing from "../components/Landing";
 
 function Home() {
     return (
-        <div className="App">
+        <div style={{ width: "100vw", margin: 0, padding: 0 }}>
             <NavBar />
-            <Header />
+            <Landing />
+            {/* <Header /> */}
             <About />
             {/* <AboutSection /> */}
             {/* <NewsLetterSection /> */}

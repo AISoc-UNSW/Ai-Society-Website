@@ -60,7 +60,13 @@ const About = () => {
                     textAlign: "left",
                 }}
             >
-                <img src={build} style={{ minWidth: "350px", width: "25vw" }} />
+                <img
+                    src={build}
+                    style={{
+                        width: "25vw",
+                        maxWidth: "80vw",
+                    }}
+                />
             </Box>
         </Box>
     );
