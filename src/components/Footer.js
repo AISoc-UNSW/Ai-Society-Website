@@ -11,7 +11,7 @@ const Footer = () => {
                 sx={{
                     display: "flex",
                     marginBottom: "10px",
-                    borderBottom: "1px solid silver",
+                    borderBottom: "2px solid silver",
                     paddingBottom: "10px",
                 }}
             >
@@ -62,16 +62,20 @@ const Footer = () => {
     };
     return (
         <Reveal>
-            <Box sx={{ margin: "10px 30px", borderTop: "1px solid silver" }}>
-                <Box sx={{ textAlign: "left" }}>
-                    <img
-                        src={Logo}
-                        style={{ width: "200px", marginRight: 10 }}
-                        alt="logo"
-                    />
-                    <Typography>The AI Society of UNSW</Typography>
-                    <SocialMediaIcons />
-                    <Typography>© 2024 — AISoc UNSW</Typography>
+            <Box
+                sx={{
+                    padding: "10px 30px",
+                    borderTop: "1px solid silver",
+                    backgroundColor: "black",
+                }}
+            >
+                <Box sx={{ textAlign: "left", color: "white" }}>
+                    <img src={Logo} style={{ width: "200px" }} alt="logo" />
+                    <Box sx={{ padding: "0 38px" }}>
+                        <Typography>The AI Society of UNSW</Typography>
+                        <SocialMediaIcons />
+                        <Typography>© 2024 — AISoc UNSW</Typography>
+                    </Box>
                 </Box>
             </Box>
         </Reveal>

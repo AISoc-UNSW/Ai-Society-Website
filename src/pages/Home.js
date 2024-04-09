@@ -16,8 +16,9 @@ function Home() {
             <About />
             <Events />
             <NewsLetter />
-            <Faq />
             <MeetUs />
+            <Faq />
+
             <Sponsor />
             <Footer />
         </div>

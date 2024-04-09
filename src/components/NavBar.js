@@ -50,7 +50,8 @@ const NavBar = () => {
             sx={{
                 transition:
                     "height 0.5s ease, background-color 0.3s ease, padding-top 0.5s ease",
-                backgroundColor: isScrolled ? "#480A53" : "transparent",
+                backgroundColor: isScrolled ? "#1F1F23" : "transparent",
+                opacity: isScrolled ? 0.95 : 1,
                 paddingTop: isScrolled ? "" : "3vh",
                 boxShadow: "none",
             }}

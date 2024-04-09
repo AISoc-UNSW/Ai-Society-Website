@@ -58,6 +58,7 @@ const imageData = [
         alt: "Image 3",
     },
 ];
+
 const Events = () => {
     const classes = useCarouselStyles();
 
@@ -70,17 +71,28 @@ const Events = () => {
         autoplay: true,
         autoplaySpeed: 3000,
         pauseOnHover: true,
+        arrow: true,
         className: classes.dotContainer,
     };
 
     return (
-        <Box id="events">
+        <Box
+            id="events"
+            sx={{
+                margin: "10vh 0",
+                backgroundColor: "white",
+                padding: "40px 0",
+            }}
+        >
             <Reveal>
                 <Box sx={{ textAlign: "center" }}>
-                    <Typography variant="h4" sx={{ fontWeight: "bold" }}>
+                    <Typography
+                        variant="h3"
+                        sx={{ fontWeight: "bold", marginBottom: "15px" }}
+                    >
                         Discover
                     </Typography>
-                    <Typography gutterBottom>
+                    <Typography gutterBottom sx={{ marginBottom: "15px" }}>
                         Stay updated with the latest events, lectures, and
                         meetings related to artifical intelligence.
                     </Typography>
@@ -110,7 +122,10 @@ const Events = () => {
                                     alt={image.alt}
                                     style={{
                                         margin: "0 auto",
-                                        maxHeight: "300px",
+                                        maxWidth: "100%", // Make sure images don't overflow their containers
+                                        height: "50vh", // Maintain aspect ratio
+                                        // width: "90vw",
+                                        // objectFit: "contain", // Ensure image fits without distortion
                                     }}
                                 />
                             </Box>

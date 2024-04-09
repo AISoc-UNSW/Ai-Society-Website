@@ -35,11 +35,21 @@ const cardData = [
 
 const NewsLetter = () => {
     return (
-        <Box id="newsletter" sx={{ textAlign: "center", marginTop: "30px" }}>
-            <Typography variant="h4" sx={{ fontWeight: "bold" }}>
+        <Box
+            id="newsletter"
+            sx={{
+                textAlign: "center",
+                marginTop: "30px",
+                marginBottom: "10vh",
+            }}
+        >
+            <Typography
+                variant="h4"
+                sx={{ fontWeight: "bold", margin: "0 10vw" }}
+            >
                 The Watchtower Newsletter
             </Typography>
-            <Typography gutterBottom>
+            <Typography gutterBottom sx={{ margin: "0 10vw" }}>
                 Explore the recent and upcoming AI news
             </Typography>
             <Box
@@ -54,7 +64,6 @@ const NewsLetter = () => {
                         key={index}
                         sx={{
                             maxWidth: 400,
-                            m: 2,
                             width: { xs: "100%", sm: "60%", md: "30%" },
                         }}
                     >
@@ -62,7 +71,7 @@ const NewsLetter = () => {
                             <CardMedia
                                 component="img"
                                 alt={card.title}
-                                height="250"
+                                height="450"
                                 image={card.img}
                             />
                             <CardContent>

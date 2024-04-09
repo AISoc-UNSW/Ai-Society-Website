@@ -37,9 +37,8 @@ const MeetUs = () => {
     ];
 
     return (
-        <Box id="section1" sx={{ margin: "20px 0", textAlign: "center" }}>
+        <Box id="section1" sx={{ margin: "10vh 0", textAlign: "center" }}>
             <Reveal>
-                <Typography>Innovate</Typography>
                 <Typography
                     sx={{ fontWeight: "bold", margin: "15px 0" }}
                     variant="h4"

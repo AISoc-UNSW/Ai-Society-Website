@@ -1,6 +1,6 @@
 import React from "react";
 import { Box } from "@mui/material";
-// import landing from "../assets/Hero-Image.png";
+import landing from "../assets/Hero-Image.png";
 
 const Landing = () => {
     return (
@@ -8,10 +8,9 @@ const Landing = () => {
             sx={{
                 height: "100vh",
                 // width: "100vw",
-                // backgroundImage: `url(${landing})`,
-                // backgroundSize: "cover",
-                // backgroundPosition: "center",
-                backgroundImage: "linear-gradient(to bottom, purple, blue)",
+                backgroundImage: `url(${landing})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",

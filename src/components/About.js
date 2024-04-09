@@ -3,6 +3,10 @@ import { Box, Typography, Button } from "@mui/material";
 import Reveal from "../util/Reveal";
 import build from "../assets/build.png";
 
+const handleClick = () => {
+    window.location.href = "mailto:aisoc@unsw.edu.au";
+};
+
 const About = () => {
     return (
         <Box
@@ -12,7 +16,9 @@ const About = () => {
                 flexDirection: "row",
                 padding: "3rem",
                 flexWrap: "wrap",
-                marginTop: "20px",
+                // marginTop: "8vh",
+                // marginBottom: "10vh",
+                margin: "10vh 10vw",
             }}
         >
             <Box
@@ -47,7 +53,7 @@ const About = () => {
                 <Reveal>
                     <Button
                         variant="outlined"
-                        href="#outlined-buttons"
+                        onClick={handleClick}
                         sx={{
                             color: "black",
                             borderColor: "black",

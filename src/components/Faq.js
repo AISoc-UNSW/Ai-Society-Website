@@ -1,6 +1,10 @@
 import React from "react";
 import { Box, Typography, Button } from "@mui/material";
 
+const handleClick = () => {
+    window.location.href = "mailto:aisoc@unsw.edu.au";
+};
+
 const Faq = () => {
     return (
         <Box
@@ -9,7 +13,7 @@ const Faq = () => {
                 flexDirection: "row",
                 backgroundColor: "#f5f5f5",
                 padding: "3rem",
-                border: "2px solid black",
+                // border: "2px solid black",
                 flexWrap: "wrap",
             }}
         >
@@ -36,7 +40,7 @@ const Faq = () => {
                 </Typography>
                 <Button
                     variant="outlined"
-                    href="#outlined-buttons"
+                    onClick={handleClick}
                     sx={{
                         color: "black",
                         borderColor: "black",
