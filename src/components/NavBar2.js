@@ -25,6 +25,7 @@ const NavBar2 = () => {
                         <img
                             src={Logo}
                             style={{ width: 50, marginRight: 10 }}
+                            alt="logo"
                         />
                         <Typography
                             variant="h6"

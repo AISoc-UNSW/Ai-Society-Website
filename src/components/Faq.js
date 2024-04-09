@@ -53,7 +53,7 @@ const Faq = () => {
                 sx={{
                     flex: 5.5,
                     textAlign: "left",
-                    minWidth: "70vw",
+                    minWidth: "60vw",
                 }}
             >
                 <Typography

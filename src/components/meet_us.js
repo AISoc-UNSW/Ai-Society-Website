@@ -1,7 +1,7 @@
-import React, { useEffect, useState, useRef } from "react";
+import React from "react";
 import { Box, Typography, Button } from "@mui/material";
 import { makeStyles } from "@material-ui/core/styles";
-
+import Reveal from "../util/Reveal";
 const MeetUs = () => {
     const team = [
         {
@@ -38,61 +38,67 @@ const MeetUs = () => {
 
     return (
         <Box id="section1" sx={{ margin: "20px 0", textAlign: "center" }}>
-            <Typography>Innovate</Typography>
-            <Typography
-                sx={{ fontWeight: "bold", margin: "15px 0" }}
-                variant="h4"
-            >
-                Meet Our Exec Team
-            </Typography>
-            <Typography sx={{ marginBottom: "40px" }}>
-                Get to know the leading members of our society.
-            </Typography>
-            <Box
-                sx={{
-                    display: "flex",
-                    flexWrap: "wrap",
-                    margin: "20px 60px",
-                    justifyContent: "space-evenly",
-                }}
-            >
-                {team.map((person, index) => (
-                    <Box
-                        key={index}
-                        sx={{
-                            display: "flex",
-                            flexBasis: "32%",
-                            minWidth: "300px",
-                            justifyContent: "space-evenly",
-                            marginBottom: "30px",
-                        }}
-                    >
-                        <TeamMember
-                            name={person.name}
-                            image={person.image}
-                            role={person.role}
-                        />
-                    </Box>
-                ))}
-            </Box>
-            <Typography variant="h5" sx={{ fontWeight: "bold" }}>
-                We are currently looking for students to join our team
-            </Typography>
-            <Button
-                variant="outlined"
-                href="/join"
-                sx={{
-                    margin: "15px 0px",
-                    color: "black",
-                    borderColor: "black",
-                    "&:hover": {
-                        backgroundColor: "#B9B7BD",
+            <Reveal>
+                <Typography>Innovate</Typography>
+                <Typography
+                    sx={{ fontWeight: "bold", margin: "15px 0" }}
+                    variant="h4"
+                >
+                    Meet Our Exec Team
+                </Typography>
+                <Typography sx={{ marginBottom: "40px" }}>
+                    Get to know the leading members of our society.
+                </Typography>
+            </Reveal>
+            <Reveal>
+                <Box
+                    sx={{
+                        display: "flex",
+                        flexWrap: "wrap",
+                        margin: "20px 60px",
+                        justifyContent: "space-evenly",
+                    }}
+                >
+                    {team.map((person, index) => (
+                        <Box
+                            key={index}
+                            sx={{
+                                display: "flex",
+                                flexBasis: "32%",
+                                minWidth: "300px",
+                                justifyContent: "space-evenly",
+                                marginBottom: "30px",
+                            }}
+                        >
+                            <TeamMember
+                                name={person.name}
+                                image={person.image}
+                                role={person.role}
+                            />
+                        </Box>
+                    ))}
+                </Box>
+            </Reveal>
+            <Reveal>
+                <Typography variant="h5" sx={{ fontWeight: "bold" }}>
+                    We are currently looking for students to join our team
+                </Typography>
+                <Button
+                    variant="outlined"
+                    href="/join"
+                    sx={{
+                        margin: "15px 0px",
+                        color: "black",
                         borderColor: "black",
-                    },
-                }}
-            >
-                Join Here
-            </Button>
+                        "&:hover": {
+                            backgroundColor: "#B9B7BD",
+                            borderColor: "black",
+                        },
+                    }}
+                >
+                    Join Here
+                </Button>
+            </Reveal>
         </Box>
     );
 };
@@ -260,8 +266,7 @@ export default MeetUs;
 //     </div>
 //   );
 
-{
-    /* <h2 style={styles.header}>Meet the Team</h2>
+/* <h2 style={styles.header}>Meet the Team</h2>
             <Box style={styles.profiles}>
                 <Profile
                     imageUrl={
@@ -296,4 +301,3 @@ export default MeetUs;
                     y={830}
                 />
             </Box> */
-}

@@ -1,9 +1,9 @@
 import React from "react";
-import { Box, Typography, Button, AppBar } from "@mui/material";
-import { Link } from "react-scroll";
+import { Box, Typography } from "@mui/material";
 import Logo from "../assets/aisoc-logo.png";
 import { Facebook, Instagram, GitHub, LinkedIn } from "@mui/icons-material";
 import { ReactComponent as DiscordIcon } from "../assets/discord-icon.svg";
+import Reveal from "../util/Reveal";
 const Footer = () => {
     const SocialMediaIcons = () => {
         return (
@@ -61,14 +61,20 @@ const Footer = () => {
         );
     };
     return (
-        <Box sx={{ margin: "10px 30px", borderTop: "1px solid silver" }}>
-            <Box sx={{ textAlign: "left" }}>
-                <img src={Logo} style={{ width: "200px", marginRight: 10 }} />
-                <Typography>The AI Society of UNSW</Typography>
-                <SocialMediaIcons />
-                <Typography>© 2024 — AISoc UNSW</Typography>
+        <Reveal>
+            <Box sx={{ margin: "10px 30px", borderTop: "1px solid silver" }}>
+                <Box sx={{ textAlign: "left" }}>
+                    <img
+                        src={Logo}
+                        style={{ width: "200px", marginRight: 10 }}
+                        alt="logo"
+                    />
+                    <Typography>The AI Society of UNSW</Typography>
+                    <SocialMediaIcons />
+                    <Typography>© 2024 — AISoc UNSW</Typography>
+                </Box>
             </Box>
-        </Box>
+        </Reveal>
     );
 };
 

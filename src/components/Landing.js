@@ -1,6 +1,6 @@
 import React from "react";
-import { Box, Typography, Button } from "@mui/material";
-import landing from "../assets/Hero-Image.png";
+import { Box } from "@mui/material";
+// import landing from "../assets/Hero-Image.png";
 
 const Landing = () => {
     return (

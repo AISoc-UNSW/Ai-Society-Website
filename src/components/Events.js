@@ -6,6 +6,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Box, Typography } from "@mui/material";
 import llm_workshop from "../assets/llm-workshop.png";
 import bbq from "../assets/bbq.png";
+import Reveal from "../util/Reveal";
 
 const useCarouselStyles = makeStyles({
     dotContainer: {
@@ -74,46 +75,49 @@ const Events = () => {
 
     return (
         <Box id="events">
-            <Box sx={{ textAlign: "center" }}>
-                <Typography variant="h4" sx={{ fontWeight: "bold" }}>
-                    Discover
-                </Typography>
-                <Typography gutterBottom>
-                    Stay updated with the latest events, lectures, and meetings
-                    related to artifical intelligence.
-                </Typography>
-            </Box>
-
-            <Box
-                sx={{
-                    maxWidth: "70vw",
-                    margin: "auto",
-                    border: "2px solid silver",
-                    borderRadius: "50px",
-                }}
-            >
-                <Slider {...settings}>
-                    {imageData.map((image, index) => (
-                        <Box
-                            key={index}
-                            sx={{
-                                display: "flex",
-                                justifyContent: "center",
-                                alignItems: "center",
-                            }}
-                        >
-                            <img
-                                src={image.src}
-                                alt={image.alt}
-                                style={{
-                                    margin: "0 auto",
-                                    maxHeight: "300px",
+            <Reveal>
+                <Box sx={{ textAlign: "center" }}>
+                    <Typography variant="h4" sx={{ fontWeight: "bold" }}>
+                        Discover
+                    </Typography>
+                    <Typography gutterBottom>
+                        Stay updated with the latest events, lectures, and
+                        meetings related to artifical intelligence.
+                    </Typography>
+                </Box>
+            </Reveal>
+            <Reveal>
+                <Box
+                    sx={{
+                        maxWidth: "70vw",
+                        margin: "auto",
+                        border: "2px solid silver",
+                        borderRadius: "50px",
+                    }}
+                >
+                    <Slider {...settings}>
+                        {imageData.map((image, index) => (
+                            <Box
+                                key={index}
+                                sx={{
+                                    display: "flex",
+                                    justifyContent: "center",
+                                    alignItems: "center",
                                 }}
-                            />
-                        </Box>
-                    ))}
-                </Slider>
-            </Box>
+                            >
+                                <img
+                                    src={image.src}
+                                    alt={image.alt}
+                                    style={{
+                                        margin: "0 auto",
+                                        maxHeight: "300px",
+                                    }}
+                                />
+                            </Box>
+                        ))}
+                    </Slider>
+                </Box>
+            </Reveal>
         </Box>
     );
 };

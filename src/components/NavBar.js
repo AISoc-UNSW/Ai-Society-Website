@@ -32,7 +32,6 @@ const NavBar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     const toggleMenu = () => {
-        console.log("fire");
         setIsMenuOpen(!isMenuOpen);
     };
 
@@ -73,6 +72,7 @@ const NavBar = () => {
                         <img
                             src={Logo}
                             style={{ width: 50, marginRight: 10 }}
+                            alt="logo"
                         />
                         <Typography
                             variant="h6"
@@ -99,7 +99,7 @@ const NavBar = () => {
                         edge="end"
                         color="inherit"
                         aria-label="menu"
-                        sx={{ ml: "auto" }}
+                        sx={{ ml: "auto", mr: "0.5vw" }}
                         onClick={toggleMenu}
                     >
                         <MenuIcon />
