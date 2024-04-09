@@ -35,7 +35,7 @@ const cardData = [
 
 const NewsLetter = () => {
     return (
-        <Box sx={{ textAlign: "center", marginTop: "30px" }}>
+        <Box id="newsletter" sx={{ textAlign: "center", marginTop: "30px" }}>
             <Typography variant="h4" sx={{ fontWeight: "bold" }}>
                 The Watchtower Newsletter
             </Typography>
@@ -55,7 +55,7 @@ const NewsLetter = () => {
                         sx={{
                             maxWidth: 400,
                             m: 2,
-                            width: { xs: "100%", sm: "45%", md: "30%" },
+                            width: { xs: "100%", sm: "60%", md: "30%" },
                         }}
                     >
                         <Card>

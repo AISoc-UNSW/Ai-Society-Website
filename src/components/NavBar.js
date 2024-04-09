@@ -1,5 +1,15 @@
 import { React, useState, useEffect } from "react";
-import { AppBar, Toolbar, Typography, Button, Box } from "@mui/material";
+import {
+    AppBar,
+    Toolbar,
+    Typography,
+    Button,
+    Box,
+    Hidden,
+    IconButton,
+    Drawer,
+} from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
 import { makeStyles } from "@material-ui/core";
 import { Link } from "react-scroll";
 import Logo from "../assets/logo.png";
@@ -19,6 +29,12 @@ const useStyles = makeStyles((theme) => ({
 const NavBar = () => {
     const classes = useStyles();
     const [isScrolled, setIsScrolled] = useState(false);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+    const toggleMenu = () => {
+        console.log("fire");
+        setIsMenuOpen(!isMenuOpen);
+    };
 
     useEffect(() => {
         const listener = () => {
@@ -43,43 +59,142 @@ const NavBar = () => {
             className={`${classes.root} ${isScrolled ? classes.shrink : ""}`}
         >
             <Toolbar sx={{ minHeight: "64px" }}>
-                <Box
-                    sx={{
-                        display: "flex",
-                        alignItems: "center",
-                        paddingLeft: "2.5vw",
-                    }}
+                <a
+                    href="/"
+                    style={{ textDecoration: "none", color: "inherit" }}
                 >
-                    <img src={Logo} style={{ width: 50, marginRight: 10 }} />
-                    <Typography
-                        variant="h6"
-                        noWrap
-                        component="a"
-                        href="/"
+                    <Box
                         sx={{
-                            mr: 4,
-                            display: { xs: "none", md: "flex" },
-                            fontFamily: "monospace",
-                            fontWeight: 700,
-                            letterSpacing: ".3rem",
-                            color: "inherit",
-                            textDecoration: "none",
+                            display: "flex",
+                            alignItems: "center",
+                            paddingLeft: "2.5vw",
                         }}
                     >
-                        AISOC
-                    </Typography>
-                </Box>
-                <Box
-                    sx={{
-                        display: "flex",
-                        marginLeft: "auto",
-                        marginRight: "1.5vw",
-                        // justifyContent: "space-evenly",
-                        "& > button": {
-                            fontWeight: 700,
-                            position: "relative",
-                            paddingBottom: "0.2rem", // Add some padding at the bottom of the button
-                            "&:hover": {
+                        <img
+                            src={Logo}
+                            style={{ width: 50, marginRight: 10 }}
+                        />
+                        <Typography
+                            variant="h6"
+                            noWrap
+                            component="span" // Change from "a" to "span" to prevent nested anchor elements
+                            sx={{
+                                mr: 4,
+                                display: { display: "flex" },
+                                fontFamily: "monospace",
+                                fontWeight: 700,
+                                letterSpacing: ".3rem",
+                                color: "inherit",
+                                textDecoration: "none",
+                            }}
+                        >
+                            AISOC
+                        </Typography>
+                    </Box>
+                </a>
+                <Hidden mdUp>
+                    {/* Mobile Menu Button */}
+                    <IconButton
+                        size="large"
+                        edge="end"
+                        color="inherit"
+                        aria-label="menu"
+                        sx={{ ml: "auto" }}
+                        onClick={toggleMenu}
+                    >
+                        <MenuIcon />
+                    </IconButton>
+                    <Drawer anchor="top" open={isMenuOpen} onClose={toggleMenu}>
+                        <Box
+                            sx={{
+                                // p: 2,
+                                display: "flex",
+                                flexDirection: "column",
+                            }}
+                        >
+                            <Link
+                                activeClass="active"
+                                to="about"
+                                spy={true}
+                                smooth={true}
+                                offset={-70}
+                                duration={500}
+                                onClick={toggleMenu}
+                            >
+                                <Button color="inherit" sx={{ width: "100vw" }}>
+                                    ABOUT
+                                </Button>
+                            </Link>
+                            <Link
+                                activeClass="active"
+                                to="events"
+                                spy={true}
+                                smooth={true}
+                                offset={-70}
+                                duration={500}
+                                onClick={toggleMenu}
+                            >
+                                <Button color="inherit" sx={{ width: "100vw" }}>
+                                    EVENTS
+                                </Button>
+                            </Link>
+
+                            <Link
+                                activeClass="active"
+                                to="newsletter"
+                                spy={true}
+                                smooth={true}
+                                offset={-70}
+                                duration={500}
+                                onClick={toggleMenu}
+                            >
+                                <Button color="inherit" sx={{ width: "100vw" }}>
+                                    NEWSLETTER
+                                </Button>
+                            </Link>
+
+                            <Link
+                                activeClass="active"
+                                to="sponsor"
+                                spy={true}
+                                smooth={true}
+                                offset={-70}
+                                duration={500}
+                                onClick={toggleMenu}
+                            >
+                                <Button color="inherit" sx={{ width: "100vw" }}>
+                                    SPONSOR
+                                </Button>
+                            </Link>
+                        </Box>
+                    </Drawer>
+                </Hidden>
+                <Hidden mdDown>
+                    <Box
+                        sx={{
+                            display: "flex",
+                            marginLeft: "auto",
+                            marginRight: "1.5vw",
+                            // justifyContent: "space-evenly",
+                            "& > button": {
+                                fontWeight: 700,
+                                position: "relative",
+                                paddingBottom: "0.2rem", // Add some padding at the bottom of the button
+                                "&:hover": {
+                                    "&::after": {
+                                        content: '""',
+                                        position: "absolute",
+                                        left: 0,
+                                        bottom: 0, // Position the underline at the bottom of the text
+                                        width: "100%",
+                                        height: 2,
+                                        backgroundColor: "white",
+                                        transform: "scaleX(1)",
+                                        transformOrigin: "left", // Set the transform origin to the left
+                                        transition:
+                                            "transform 0.3s ease-in-out",
+                                    },
+                                },
                                 "&::after": {
                                     content: '""',
                                     position: "absolute",
@@ -88,191 +203,121 @@ const NavBar = () => {
                                     width: "100%",
                                     height: 2,
                                     backgroundColor: "white",
-                                    transform: "scaleX(1)",
+                                    transform: "scaleX(0)",
                                     transformOrigin: "left", // Set the transform origin to the left
                                     transition: "transform 0.3s ease-in-out",
                                 },
                             },
-                            "&::after": {
-                                content: '""',
-                                position: "absolute",
-                                left: 0,
-                                bottom: 0, // Position the underline at the bottom of the text
-                                width: "100%",
-                                height: 2,
-                                backgroundColor: "white",
-                                transform: "scaleX(0)",
-                                transformOrigin: "left", // Set the transform origin to the left
-                                transition: "transform 0.3s ease-in-out",
-                            },
-                        },
-                    }}
-                >
-                    <Button color="inherit">
-                        <Link
-                            activeClass="active"
-                            to="about"
-                            spy={true}
-                            smooth={true}
-                            offset={-70}
-                            duration={500}
-                        >
-                            ABOUT
-                        </Link>
-                    </Button>
-                    <Button color="inherit">
-                        <Link
-                            activeClass="active"
-                            to="events"
-                            spy={true}
-                            smooth={true}
-                            offset={-70}
-                            duration={500}
-                        >
-                            EVENTS
-                        </Link>
-                    </Button>
-                    <Button color="inherit">
-                        <Link
-                            activeClass="active"
-                            to="section2"
-                            spy={true}
-                            smooth={true}
-                            offset={-70}
-                            duration={500}
-                        >
-                            CONTACT
-                        </Link>
-                    </Button>
-                    <Button color="inherit">
-                        <Link
-                            activeClass="active"
-                            to="sponsor"
-                            spy={true}
-                            smooth={true}
-                            offset={-70}
-                            duration={500}
-                        >
-                            SPONSOR
-                        </Link>
-                    </Button>
-                </Box>
+                        }}
+                    >
+                        <Button color="inherit">
+                            <Link
+                                activeClass="active"
+                                to="about"
+                                spy={true}
+                                smooth={true}
+                                offset={-70}
+                                duration={500}
+                            >
+                                ABOUT
+                            </Link>
+                        </Button>
+                        <Button color="inherit">
+                            <Link
+                                activeClass="active"
+                                to="events"
+                                spy={true}
+                                smooth={true}
+                                offset={-70}
+                                duration={500}
+                            >
+                                EVENTS
+                            </Link>
+                        </Button>
+                        <Button color="inherit">
+                            <Link
+                                activeClass="active"
+                                to="newsletter"
+                                spy={true}
+                                smooth={true}
+                                offset={-70}
+                                duration={500}
+                            >
+                                NEWSLETTER
+                            </Link>
+                        </Button>
+                        <Button color="inherit">
+                            <Link
+                                activeClass="active"
+                                to="sponsor"
+                                spy={true}
+                                smooth={true}
+                                offset={-70}
+                                duration={500}
+                            >
+                                SPONSOR
+                            </Link>
+                        </Button>
+                    </Box>
+                </Hidden>
             </Toolbar>
         </AppBar>
     );
 };
 
-const appbarcontent = () => {
-    return (
-        <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
-            <Box sx={{ display: "flex", alignItems: "center" }}>
-                <img src={Logo} style={{ width: 50, marginRight: 10 }} />
-                <Typography
-                    variant="h6"
-                    noWrap
-                    component="a"
-                    href=""
-                    sx={{
-                        mr: 4,
-                        display: { xs: "none", md: "flex" },
-                        fontFamily: "monospace",
-                        fontWeight: 700,
-                        letterSpacing: ".3rem",
-                        color: "inherit",
-                        textDecoration: "none",
-                    }}
-                >
-                    AISOC
-                </Typography>
-            </Box>
-            <Box
-                sx={{
-                    display: "flex",
-                    // justifyContent: "space-evenly",
-                    "& > button": {
-                        fontWeight: 700,
-                        position: "relative",
-                        paddingBottom: "0.2rem", // Add some padding at the bottom of the button
-                        "&:hover": {
-                            "&::after": {
-                                content: '""',
-                                position: "absolute",
-                                left: 0,
-                                bottom: 0, // Position the underline at the bottom of the text
-                                width: "100%",
-                                height: 2,
-                                backgroundColor: "white",
-                                transform: "scaleX(1)",
-                                transformOrigin: "left", // Set the transform origin to the left
-                                transition: "transform 0.3s ease-in-out",
-                            },
-                        },
-                        "&::after": {
-                            content: '""',
-                            position: "absolute",
-                            left: 0,
-                            bottom: 0, // Position the underline at the bottom of the text
-                            width: "100%",
-                            height: 2,
-                            backgroundColor: "white",
-                            transform: "scaleX(0)",
-                            transformOrigin: "left", // Set the transform origin to the left
-                            transition: "transform 0.3s ease-in-out",
-                        },
-                    },
-                }}
-            >
-                <Button color="inherit">
-                    <Link
-                        activeClass="active"
-                        to="section1"
-                        spy={true}
-                        smooth={true}
-                        offset={-70}
-                        duration={500}
-                    >
-                        ABOUT
-                    </Link>
-                </Button>
-                <Button color="inherit">
-                    <Link
-                        activeClass="active"
-                        to="section2"
-                        spy={true}
-                        smooth={true}
-                        offset={-70}
-                        duration={500}
-                    >
-                        EVENTS
-                    </Link>
-                </Button>
-                <Button color="inherit">
-                    <Link
-                        activeClass="active"
-                        to="section2"
-                        spy={true}
-                        smooth={true}
-                        offset={-70}
-                        duration={500}
-                    >
-                        CONTACT
-                    </Link>
-                </Button>
-                <Button color="inherit">
-                    <Link
-                        activeClass="active"
-                        to="section2"
-                        spy={true}
-                        smooth={true}
-                        offset={-70}
-                        duration={500}
-                    >
-                        SPONSOR
-                    </Link>
-                </Button>
-            </Box>
-        </Toolbar>
-    );
-};
-
 export default NavBar;
+
+// const AppbarButtons = () => {
+//     return (
+//         <Box>
+//             <Button color="inherit">
+//                 <Link
+//                     activeClass="active"
+//                     to="about"
+//                     spy={true}
+//                     smooth={true}
+//                     offset={-70}
+//                     duration={500}
+//                 >
+//                     ABOUT
+//                 </Link>
+//             </Button>
+//             <Button color="inherit">
+//                 <Link
+//                     activeClass="active"
+//                     to="events"
+//                     spy={true}
+//                     smooth={true}
+//                     offset={-70}
+//                     duration={500}
+//                 >
+//                     EVENTS
+//                 </Link>
+//             </Button>
+//             <Button color="inherit">
+//                 <Link
+//                     activeClass="active"
+//                     to="section2"
+//                     spy={true}
+//                     smooth={true}
+//                     offset={-70}
+//                     duration={500}
+//                 >
+//                     CONTACT
+//                 </Link>
+//             </Button>
+//             <Button color="inherit">
+//                 <Link
+//                     activeClass="active"
+//                     to="sponsor"
+//                     spy={true}
+//                     smooth={true}
+//                     offset={-70}
+//                     duration={500}
+//                 >
+//                     SPONSOR
+//                 </Link>
+//             </Button>
+//         </Box>
+//     );
+// };

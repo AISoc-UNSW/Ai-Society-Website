@@ -23,7 +23,7 @@ function Home() {
             <Events />
             <NewsLetter />
 
-            <JoinUsSection />
+            {/* <JoinUsSection /> */}
             <Faq />
             <MeetUs />
             <Sponsor />
