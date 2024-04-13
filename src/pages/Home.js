@@ -8,12 +8,13 @@ import About from "../components/About";
 import NewsLetter from "../components/Newsletter";
 import Landing from "../components/Landing";
 import SvgTrace from "../components/SvgTrace";
+import Brain from "../components/Brain";
 
 function Home() {
     return (
         <div>
             <NavBar />
-            <Landing />
+            <Brain />
             <About />
             <Events />
             <NewsLetter />

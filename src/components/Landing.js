@@ -1,5 +1,6 @@
 import React from "react";
 import { Box } from "@mui/material";
+import Brain from "./Brain";
 import landing from "../assets/Hero-Image.png";
 
 const Landing = () => {
@@ -8,19 +9,18 @@ const Landing = () => {
             sx={{
                 height: "100vh",
                 // width: "100vw",
-                backgroundImage: `url(${landing})`,
-                backgroundSize: "cover",
                 backgroundPosition: "center",
                 display: "flex",
+                flexDirection: "column", // Align items vertically
                 alignItems: "center",
                 justifyContent: "center",
-                color: "#ffffff", // Text color
+                color: "red", // Text color
                 fontFamily: "sans-serif",
                 fontSize: "3rem",
                 fontWeight: "bold",
             }}
         >
-            LANDING PAGE WAITING ROOM
+            <Brain />
         </Box>
     );
 };
