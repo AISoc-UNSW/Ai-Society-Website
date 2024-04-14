@@ -1,5 +1,5 @@
 import { Canvas, useFrame } from "@react-three/fiber";
-import { OrbitControls, shaderMaterial, Text } from "@react-three/drei";
+import { OrbitControls, shaderMaterial } from "@react-three/drei";
 import { data } from "../util/data";
 import { extend } from "@react-three/fiber";
 import * as THREE from "three";
@@ -38,7 +38,7 @@ function BrainParticles({ allTheCurves }) {
             );
         }
         return new Float32Array(positions);
-    }, []);
+    });
 
     let randoms = useMemo(() => {
         let randoms = [];
@@ -171,11 +171,11 @@ const Brain = () => {
                         color: "white",
                         fontFamily: "sans-serif",
                         fontSize: "4rem",
-                        fontWeight: "250",
+                        fontWeight: "300",
                         opacity: "0.8",
                     }}
                 >
-                    {/* IM A FUCKING BEAST */}
+                    HELLOO
                 </Typography>
             </div>
         </div>

@@ -29,7 +29,7 @@ const Faq = () => {
                 <Typography
                     variant="h3"
                     align="left"
-                    gutterBottom="true"
+                    gutterBottom={true}
                     sx={{ fontWeight: "bold" }}
                 >
                     Frequently Asked Questions

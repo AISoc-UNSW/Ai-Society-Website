@@ -2,12 +2,16 @@ import { useFrame } from "@react-three/fiber";
 import { shaderMaterial } from "@react-three/drei";
 import { extend, useThree } from "@react-three/fiber";
 import * as THREE from "three";
-import { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 
 function Tube({ curve }) {
     const brainMat = useRef();
 
     const { viewport } = useThree();
+
+    const meshRef = useRef();
+    const [targetRotationX, setTargetRotationX] = React.useState(0);
+    const [targetRotationY, setTargetRotationY] = React.useState(0);
 
     useFrame(({ clock, mouse }) => {
         brainMat.current.uniforms.time.value = clock.getElapsedTime();
@@ -17,7 +21,35 @@ function Tube({ curve }) {
             (mouse.y * viewport.height) / 2,
             0
         );
+        if (meshRef.current) {
+            // Lerp rotation towards target rotation
+            const lerpFactor = 0.01; // Adjust this value to control the ease-in speed
+            meshRef.current.rotation.x +=
+                (targetRotationX - meshRef.current.rotation.x) * lerpFactor;
+            meshRef.current.rotation.y +=
+                (targetRotationY - meshRef.current.rotation.y) * lerpFactor;
+        }
     });
+
+    useEffect(() => {
+        const handleMouseMove = (event) => {
+            const mousePosX =
+                ((event.clientX / window.innerWidth) * 2 - 1) * 0.05;
+            const mousePosY =
+                (-(event.clientY / window.innerHeight) * 2 + 1) * 0.05;
+
+            // Update target rotations based on mouse position
+            setTargetRotationX(mousePosY * Math.PI);
+            setTargetRotationY(mousePosX * Math.PI);
+        };
+
+        window.addEventListener("mousemove", handleMouseMove);
+
+        return () => {
+            window.removeEventListener("mousemove", handleMouseMove);
+        };
+    }, []);
+
     const BrainMaterial = shaderMaterial(
         {
             time: 0,
@@ -53,13 +85,13 @@ function Tube({ curve }) {
           varying vec2 vUv;
           varying float vProgress;
           void main() {
+            float minProgress = 0.7; // Minimum value for adjustedProgress
+            float maxProgress = 1.0; // Maximum value for adjustedProgress
+            float adjustedProgress = clamp(vProgress, minProgress, maxProgress);
             vec3 lightPurple = vec3(180.0 / 255.0, 65.0 / 255.0, 251.0 / 255.0);
-            vec3 finalColor = mix(lightPurple, color, vProgress);
-            float hideCorners = smoothstep(0.,0.5,vUv.x);
-            float hideCorners1 = smoothstep(0.,0.1,vUv.x);
-
+            vec3 finalColor = mix(lightPurple, color, adjustedProgress);
             gl_FragColor.rgba = vec4(finalColor,
-                hideCorners*hideCorners1);
+                1);
           }
         `
     );
@@ -68,7 +100,7 @@ function Tube({ curve }) {
     extend({ BrainMaterial });
     return (
         <>
-            <mesh>
+            <mesh ref={meshRef}>
                 <tubeGeometry args={[curve, 64, 0.001, 3, false]} />
                 <brainMaterial
                     ref={brainMat}
