@@ -1,16 +1,32 @@
-import MeetUs from "../components/meet_us";
-import Faq from "../components/Faq";
-import Footer from "../components/Footer";
-import NavBar from "../components/NavBar";
-import Sponsor from "../components/Sponsor";
-import Events from "../components/Events";
-import About from "../components/About";
-import NewsLetter from "../components/Newsletter";
-import Landing from "../components/Landing";
-import SvgTrace from "../components/SvgTrace";
-import Brain from "../components/Brain";
+import MeetUs from '../components/meet_us';
+import Faq from '../components/Faq';
+import Footer from '../components/Footer';
+import NavBar from '../components/NavBar';
+import Sponsor from '../components/Sponsor';
+import Events from '../components/Events';
+import About from '../components/About';
+import NewsLetter from '../components/Newsletter';
+import Landing from '../components/Landing';
+import LoadingScreen from '../components/LoadingScreen';
+import Brain from '../components/Brain';
+
+import { useState, useEffect } from 'react';
 
 function Home() {
+    const [isLoading, setLoading] = useState(true);
+    const [twoSeconds, setTwoSeconds] = useState(true);
+
+    window.onload = () => {
+        setLoading(false);
+    };
+
+    useEffect(() => {
+        // Simulate loading process
+        setTimeout(() => {
+            setTwoSeconds(false);
+        }, 2000);
+    }, []);
+
     return (
         <div>
             <NavBar />
@@ -23,7 +39,8 @@ function Home() {
 
             <Sponsor />
             <Footer />
-            <SvgTrace />
+
+            {(twoSeconds || isLoading) && <LoadingScreen />}
         </div>
     );
 }

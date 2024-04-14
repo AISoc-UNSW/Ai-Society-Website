@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from "react";
+import { React, useState, useEffect } from 'react';
 import {
     AppBar,
     Toolbar,
@@ -8,16 +8,16 @@ import {
     Hidden,
     IconButton,
     Drawer,
-} from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
-import { makeStyles } from "@material-ui/core";
-import { Link } from "react-scroll";
-import Logo from "../assets/logo.png";
+} from '@mui/material';
+import MenuIcon from '@mui/icons-material/Menu';
+import { makeStyles } from '@material-ui/core';
+import { Link } from 'react-scroll';
+import Logo from '../assets/logo.png';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        marginTop: "-120px",
-        background: "transparent",
+        marginTop: '-120px',
+        background: 'transparent',
         height: 120, // Initial height
     },
     shrink: {
@@ -39,9 +39,9 @@ const NavBar = () => {
         const listener = () => {
             setIsScrolled(window.scrollY > 0);
         };
-        window.addEventListener("scroll", listener);
+        window.addEventListener('scroll', listener);
         return () => {
-            window.removeEventListener("scroll", listener);
+            window.removeEventListener('scroll', listener);
         };
     }, []);
 
@@ -49,25 +49,25 @@ const NavBar = () => {
         <AppBar
             sx={{
                 transition:
-                    "height 0.5s ease, background-color 0.3s ease, padding-top 0.5s ease",
-                backgroundColor: isScrolled ? "#1F1F23" : "transparent",
+                    'height 0.5s ease, background-color 0.3s ease, padding-top 0.5s ease',
+                backgroundColor: isScrolled ? '#1F1F23' : 'transparent',
                 opacity: isScrolled ? 0.95 : 1,
-                paddingTop: isScrolled ? "" : "3vh",
-                boxShadow: "none",
+                paddingTop: isScrolled ? '' : '3vh',
+                boxShadow: 'none',
             }}
             position="sticky"
-            className={`${classes.root} ${isScrolled ? classes.shrink : ""}`}
+            className={`${classes.root} ${isScrolled ? classes.shrink : ''}`}
         >
-            <Toolbar sx={{ minHeight: "64px" }}>
+            <Toolbar sx={{ minHeight: '64px' }}>
                 <a
                     href="/"
-                    style={{ textDecoration: "none", color: "inherit" }}
+                    style={{ textDecoration: 'none', color: 'inherit' }}
                 >
                     <Box
                         sx={{
-                            display: "flex",
-                            alignItems: "center",
-                            paddingLeft: "2.5vw",
+                            display: 'flex',
+                            alignItems: 'center',
+                            paddingLeft: '2.5vw',
                         }}
                     >
                         <img
@@ -75,18 +75,20 @@ const NavBar = () => {
                             style={{ width: 50, marginRight: 10 }}
                             alt="logo"
                         />
+
                         <Typography
                             variant="h6"
                             noWrap
                             component="span" // Change from "a" to "span" to prevent nested anchor elements
                             sx={{
                                 mr: 4,
-                                display: { display: "flex" },
-                                fontFamily: "monospace",
+                                display: { display: 'flex' },
+                                fontFamily: 'monospace',
+                                marginRight: '6px',
                                 fontWeight: 700,
-                                letterSpacing: ".3rem",
-                                color: "inherit",
-                                textDecoration: "none",
+                                letterSpacing: '.3rem',
+                                color: 'inherit',
+                                textDecoration: 'none',
                             }}
                         >
                             AISOC
@@ -100,7 +102,7 @@ const NavBar = () => {
                         edge="end"
                         color="inherit"
                         aria-label="menu"
-                        sx={{ ml: "auto", mr: "0.5vw" }}
+                        sx={{ ml: 'auto', mr: '0.5vw' }}
                         onClick={toggleMenu}
                     >
                         <MenuIcon />
@@ -109,8 +111,8 @@ const NavBar = () => {
                         <Box
                             sx={{
                                 // p: 2,
-                                display: "flex",
-                                flexDirection: "column",
+                                display: 'flex',
+                                flexDirection: 'column',
                             }}
                         >
                             <Link
@@ -122,7 +124,7 @@ const NavBar = () => {
                                 duration={500}
                                 onClick={toggleMenu}
                             >
-                                <Button color="inherit" sx={{ width: "100vw" }}>
+                                <Button color="inherit" sx={{ width: '100vw' }}>
                                     ABOUT
                                 </Button>
                             </Link>
@@ -135,7 +137,7 @@ const NavBar = () => {
                                 duration={500}
                                 onClick={toggleMenu}
                             >
-                                <Button color="inherit" sx={{ width: "100vw" }}>
+                                <Button color="inherit" sx={{ width: '100vw' }}>
                                     EVENTS
                                 </Button>
                             </Link>
@@ -149,7 +151,7 @@ const NavBar = () => {
                                 duration={500}
                                 onClick={toggleMenu}
                             >
-                                <Button color="inherit" sx={{ width: "100vw" }}>
+                                <Button color="inherit" sx={{ width: '100vw' }}>
                                     NEWSLETTER
                                 </Button>
                             </Link>
@@ -163,7 +165,7 @@ const NavBar = () => {
                                 duration={500}
                                 onClick={toggleMenu}
                             >
-                                <Button color="inherit" sx={{ width: "100vw" }}>
+                                <Button color="inherit" sx={{ width: '100vw' }}>
                                     SPONSOR
                                 </Button>
                             </Link>
@@ -173,40 +175,40 @@ const NavBar = () => {
                 <Hidden mdDown>
                     <Box
                         sx={{
-                            display: "flex",
-                            marginLeft: "auto",
-                            marginRight: "1.5vw",
+                            display: 'flex',
+                            marginLeft: 'auto',
+                            marginRight: '1.5vw',
                             // justifyContent: "space-evenly",
-                            "& > button": {
+                            '& > button': {
                                 fontWeight: 700,
-                                position: "relative",
-                                paddingBottom: "0.2rem", // Add some padding at the bottom of the button
-                                "&:hover": {
-                                    "&::after": {
+                                position: 'relative',
+                                paddingBottom: '0.2rem', // Add some padding at the bottom of the button
+                                '&:hover': {
+                                    '&::after': {
                                         content: '""',
-                                        position: "absolute",
+                                        position: 'absolute',
                                         left: 0,
                                         bottom: 0, // Position the underline at the bottom of the text
-                                        width: "100%",
+                                        width: '100%',
                                         height: 2,
-                                        backgroundColor: "white",
-                                        transform: "scaleX(1)",
-                                        transformOrigin: "left", // Set the transform origin to the left
+                                        backgroundColor: 'white',
+                                        transform: 'scaleX(1)',
+                                        transformOrigin: 'left', // Set the transform origin to the left
                                         transition:
-                                            "transform 0.3s ease-in-out",
+                                            'transform 0.3s ease-in-out',
                                     },
                                 },
-                                "&::after": {
+                                '&::after': {
                                     content: '""',
-                                    position: "absolute",
+                                    position: 'absolute',
                                     left: 0,
                                     bottom: 0, // Position the underline at the bottom of the text
-                                    width: "100%",
+                                    width: '100%',
                                     height: 2,
-                                    backgroundColor: "white",
-                                    transform: "scaleX(0)",
-                                    transformOrigin: "left", // Set the transform origin to the left
-                                    transition: "transform 0.3s ease-in-out",
+                                    backgroundColor: 'white',
+                                    transform: 'scaleX(0)',
+                                    transformOrigin: 'left', // Set the transform origin to the left
+                                    transition: 'transform 0.3s ease-in-out',
                                 },
                             },
                         }}

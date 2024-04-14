@@ -1,11 +1,11 @@
-import { Canvas, useFrame } from "@react-three/fiber";
-import { OrbitControls, shaderMaterial } from "@react-three/drei";
-import { data } from "../util/data";
-import { extend } from "@react-three/fiber";
-import * as THREE from "three";
-import { useMemo, useRef, useEffect } from "react";
-import { Tubes } from "./BrainTubes";
-import { Box, Typography } from "@mui/material";
+import { Canvas, useFrame } from '@react-three/fiber';
+import { OrbitControls, shaderMaterial } from '@react-three/drei';
+import { data } from '../util/data';
+import { extend } from '@react-three/fiber';
+import * as THREE from 'three';
+import { useMemo, useRef, useEffect } from 'react';
+import { Tubes } from './BrainTubes';
+import { Box, Typography, useTheme, useMediaQuery } from '@mui/material';
 
 const PATHS = data.economics[0].paths;
 
@@ -139,16 +139,52 @@ function BrainParticles({ allTheCurves }) {
 }
 
 const Brain = () => {
+    const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
     return (
-        <div
-            style={{
-                position: "relative",
-                height: "100vh",
-                backgroundColor: "black",
+        <Box
+            sx={{
+                display: 'flex',
+                flexDirection: isMobile ? 'column' : 'row',
+                position: 'relative',
+                height: '100vh',
+                backgroundColor: 'black',
+                alignItems: 'center',
+                justifyContent: 'center',
             }}
         >
+            <Box
+                sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignContent: 'center',
+                    maxWidth: isMobile ? '100vw' : '50vw',
+                    padding: isMobile ? '20px' : '10vw',
+                    textAlign: isMobile ? 'center' : 'left', // Center text on mobile
+                }}
+            >
+                <Typography
+                    sx={{
+                        color: 'white',
+                        fontFamily: 'sans-serif',
+                        fontSize: isMobile ? '2rem' : '4rem', // Smaller text on mobile
+                        fontWeight: '300',
+                        opacity: '0.8',
+                    }}
+                >
+                    INSPIRATIONAL QUOTE
+                </Typography>
+                <div style={{ color: 'white' }}>
+                    AI Society gives out free money to all UNSW students that
+                    join.
+                </div>
+            </Box>
             <Canvas
-                style={{ position: "absolute", top: 0, left: 0, zIndex: 0 }}
+                style={{
+                    width: isMobile ? '100vw' : '50vw',
+                    height: isMobile ? '50vh' : '100vh', // Adjust height on mobile
+                    minWidth: isMobile ? '100vw' : '50vw',
+                }}
                 camera={{ position: [0, 0, 0.3], near: 0.001, far: 5 }}
             >
                 <ambientLight />
@@ -157,28 +193,7 @@ const Brain = () => {
                 <BrainParticles allTheCurves={brainCurves} />
                 <OrbitControls enableZoom={false} />
             </Canvas>
-            <div
-                style={{
-                    position: "absolute",
-                    top: "50%",
-                    left: "50%",
-                    transform: "translate(-50%, -50%)",
-                    zIndex: 1,
-                }}
-            >
-                <Typography
-                    sx={{
-                        color: "white",
-                        fontFamily: "sans-serif",
-                        fontSize: "4rem",
-                        fontWeight: "300",
-                        opacity: "0.8",
-                    }}
-                >
-                    HELLOO
-                </Typography>
-            </div>
-        </div>
+        </Box>
     );
 };
 

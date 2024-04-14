@@ -1,6 +1,6 @@
-import Home from "./pages/Home";
-import Join from "./pages/Join";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from './pages/Home';
+import Join from './pages/Join';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 function App() {
     return (
