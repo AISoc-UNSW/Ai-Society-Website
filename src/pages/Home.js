@@ -1,16 +1,15 @@
-import MeetUs from '../components/meet_us';
-import Faq from '../components/Faq';
-import Footer from '../components/Footer';
-import NavBar from '../components/NavBar';
-import Sponsor from '../components/Sponsor';
-import Events from '../components/Events';
-import About from '../components/About';
-import NewsLetter from '../components/Newsletter';
-import Landing from '../components/Landing';
-import LoadingScreen from '../components/LoadingScreen';
-import Brain from '../components/Brain';
+import MeetUs from "../components/meet_us";
+import Faq from "../components/Faq";
+import Footer from "../components/Footer";
+import NavBar from "../components/NavBar";
+import Sponsor from "../components/Sponsor";
+import Events from "../components/Events";
+import About from "../components/About";
+import NewsLetter from "../components/Newsletter";
+import LoadingScreen from "../components/LoadingScreen";
+import Brain from "../components/Brain";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 function Home() {
     const [isLoading, setLoading] = useState(true);
@@ -40,7 +39,8 @@ function Home() {
             <Sponsor />
             <Footer />
 
-            {(twoSeconds || isLoading) && <LoadingScreen />}
+            {/* {(twoSeconds || isLoading) && <LoadingScreen />} */}
+            <LoadingScreen twoSeconds={twoSeconds} isLoading={isLoading} />
         </div>
     );
 }

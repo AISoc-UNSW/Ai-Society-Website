@@ -1,11 +1,11 @@
-import { Canvas, useFrame } from '@react-three/fiber';
-import { OrbitControls, shaderMaterial } from '@react-three/drei';
-import { data } from '../util/data';
-import { extend } from '@react-three/fiber';
-import * as THREE from 'three';
-import { useMemo, useRef, useEffect } from 'react';
-import { Tubes } from './BrainTubes';
-import { Box, Typography, useTheme, useMediaQuery } from '@mui/material';
+import { Canvas, useFrame } from "@react-three/fiber";
+import { OrbitControls, shaderMaterial } from "@react-three/drei";
+import { data } from "../util/data";
+import { extend } from "@react-three/fiber";
+import * as THREE from "three";
+import { useMemo, useRef, useEffect } from "react";
+import { Tubes } from "./BrainTubes";
+import { Box, Typography, useTheme, useMediaQuery } from "@mui/material";
 
 const PATHS = data.economics[0].paths;
 
@@ -38,7 +38,7 @@ function BrainParticles({ allTheCurves }) {
             );
         }
         return new Float32Array(positions);
-    });
+    }, [numberOfPoints]);
 
     let randoms = useMemo(() => {
         let randoms = [];
@@ -46,7 +46,7 @@ function BrainParticles({ allTheCurves }) {
             randoms.push(randomRange(0.3, 1));
         }
         return new Float32Array(randoms);
-    }, []);
+    }, [numberOfPoints]);
 
     useEffect(() => {
         for (let i = 0; i < allTheCurves.length; i++) {
@@ -140,50 +140,50 @@ function BrainParticles({ allTheCurves }) {
 
 const Brain = () => {
     const theme = useTheme();
-    const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+    const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
     return (
         <Box
             sx={{
-                display: 'flex',
-                flexDirection: isMobile ? 'column' : 'row',
-                position: 'relative',
-                height: '100vh',
-                backgroundColor: 'black',
-                alignItems: 'center',
-                justifyContent: 'center',
+                display: "flex",
+                flexDirection: isMobile ? "column" : "row",
+                position: "relative",
+                height: "100vh",
+                backgroundColor: "black",
+                alignItems: "center",
+                justifyContent: "center",
             }}
         >
             <Box
                 sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignContent: 'center',
-                    maxWidth: isMobile ? '100vw' : '50vw',
-                    padding: isMobile ? '20px' : '10vw',
-                    textAlign: isMobile ? 'center' : 'left', // Center text on mobile
+                    display: "flex",
+                    flexDirection: "column",
+                    alignContent: "center",
+                    maxWidth: isMobile ? "100vw" : "50vw",
+                    padding: isMobile ? "20px" : "10vw",
+                    textAlign: isMobile ? "center" : "left", // Center text on mobile
                 }}
             >
                 <Typography
                     sx={{
-                        color: 'white',
-                        fontFamily: 'sans-serif',
-                        fontSize: isMobile ? '2rem' : '4rem', // Smaller text on mobile
-                        fontWeight: '300',
-                        opacity: '0.8',
+                        color: "white",
+                        fontFamily: "sans-serif",
+                        fontSize: isMobile ? "2rem" : "4rem", // Smaller text on mobile
+                        fontWeight: "300",
+                        opacity: "0.8",
                     }}
                 >
                     INSPIRATIONAL QUOTE
                 </Typography>
-                <div style={{ color: 'white' }}>
+                <div style={{ color: "white" }}>
                     AI Society gives out free money to all UNSW students that
                     join.
                 </div>
             </Box>
             <Canvas
                 style={{
-                    width: isMobile ? '100vw' : '50vw',
-                    height: isMobile ? '50vh' : '100vh', // Adjust height on mobile
-                    minWidth: isMobile ? '100vw' : '50vw',
+                    width: isMobile ? "100vw" : "50vw",
+                    height: isMobile ? "50vh" : "100vh", // Adjust height on mobile
+                    minWidth: isMobile ? "100vw" : "50vw",
                 }}
                 camera={{ position: [0, 0, 0.3], near: 0.001, far: 5 }}
             >

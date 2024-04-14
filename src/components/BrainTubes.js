@@ -1,8 +1,8 @@
-import { useFrame } from '@react-three/fiber';
-import { shaderMaterial } from '@react-three/drei';
-import { extend, useThree } from '@react-three/fiber';
-import * as THREE from 'three';
-import React, { useRef, useState, useEffect } from 'react';
+import { useFrame } from "@react-three/fiber";
+import { shaderMaterial } from "@react-three/drei";
+import { extend, useThree } from "@react-three/fiber";
+import * as THREE from "three";
+import React, { useRef, useEffect } from "react";
 
 function Tube({ curve }) {
     const brainMat = useRef();
@@ -43,10 +43,10 @@ function Tube({ curve }) {
             setTargetRotationY(mousePosX * Math.PI);
         };
 
-        window.addEventListener('mousemove', handleMouseMove);
+        window.addEventListener("mousemove", handleMouseMove);
 
         return () => {
-            window.removeEventListener('mousemove', handleMouseMove);
+            window.removeEventListener("mousemove", handleMouseMove);
         };
     }, []);
 
