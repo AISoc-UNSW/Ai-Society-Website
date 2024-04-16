@@ -6,6 +6,7 @@ import * as THREE from "three";
 import { useMemo, useRef, useEffect } from "react";
 import { Tubes } from "./BrainTubes";
 import { Box, Typography, useTheme, useMediaQuery } from "@mui/material";
+import Stars from "./Stars";
 
 const PATHS = data.economics[0].paths;
 
@@ -153,6 +154,8 @@ const Brain = () => {
                 justifyContent: "center",
             }}
         >
+            <Stars />
+
             <Box
                 sx={{
                     display: "flex",
@@ -172,12 +175,12 @@ const Brain = () => {
                         opacity: "0.8",
                     }}
                 >
-                    INSPIRATIONAL QUOTE
+                    WE ARE THREE JS MAINS NOW
                 </Typography>
-                <div style={{ color: "white" }}>
+                <Typography style={{ color: "white", zIndex: 500 }}>
                     AI Society gives out free money to all UNSW students that
                     join.
-                </div>
+                </Typography>
             </Box>
             <Canvas
                 style={{

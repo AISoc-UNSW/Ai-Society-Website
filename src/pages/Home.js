@@ -8,9 +8,7 @@ import About from "../components/About";
 import NewsLetter from "../components/Newsletter";
 import LoadingScreen from "../components/LoadingScreen";
 import Brain from "../components/Brain";
-
 import { useState, useEffect } from "react";
-
 function Home() {
     const [isLoading, setLoading] = useState(true);
     const [twoSeconds, setTwoSeconds] = useState(true);
@@ -38,7 +36,6 @@ function Home() {
 
             <Sponsor />
             <Footer />
-
             {/* {(twoSeconds || isLoading) && <LoadingScreen />} */}
             <LoadingScreen twoSeconds={twoSeconds} isLoading={isLoading} />
         </div>
