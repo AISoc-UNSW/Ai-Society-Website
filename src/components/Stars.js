@@ -16,8 +16,8 @@ const Stars = () => {
         const stars = [];
         const geometry = new THREE.SphereGeometry(1, 8, 8);
 
-        // THE CPU KILLER
-        for (let i = 0; i < 10000; i++) {
+        // THE CPU KILLER (number of stars)
+        for (let i = 0; i < 5000; i++) {
             const x = (Math.random() * 2 - 1) * 2000;
             const y = (Math.random() * 2 - 1) * 2000;
             const z = (Math.random() * 2 - 1) * 2000;
@@ -136,7 +136,7 @@ const Stars = () => {
 
         const animate = () => {
             requestAnimationFrame(animate);
-            renderer.setSize(window.innerWidth, window.innerHeight);
+            // renderer.setSize(window.innerWidth, window.innerHeight);
 
             const camera = cameraRef.current;
             const target = targetRef.current;
