@@ -34,7 +34,7 @@ const About = () => {
                     <Typography
                         variant="h3"
                         align="left"
-                        gutterBottom="true"
+                        gutterBottom={true}
                         sx={{ fontWeight: "bold" }}
                     >
                         Empowering Minds, Advancing AI: Exploring the Frontiers

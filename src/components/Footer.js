@@ -3,7 +3,6 @@ import { Box, Typography } from "@mui/material";
 import Logo from "../assets/aisoc-logo.png";
 import { Facebook, Instagram, GitHub, LinkedIn } from "@mui/icons-material";
 import { ReactComponent as DiscordIcon } from "../assets/discord-icon.svg";
-import Reveal from "../util/Reveal";
 const Footer = () => {
     const SocialMediaIcons = () => {
         return (
@@ -61,24 +60,22 @@ const Footer = () => {
         );
     };
     return (
-        <Reveal>
-            <Box
-                sx={{
-                    padding: "10px 30px",
-                    borderTop: "1px solid silver",
-                    backgroundColor: "black",
-                }}
-            >
-                <Box sx={{ textAlign: "left", color: "white" }}>
-                    <img src={Logo} style={{ width: "200px" }} alt="logo" />
-                    <Box sx={{ padding: "0 38px" }}>
-                        <Typography>The AI Society of UNSW</Typography>
-                        <SocialMediaIcons />
-                        <Typography>© 2024 — AISoc UNSW</Typography>
-                    </Box>
+        <Box
+            sx={{
+                padding: "10px 30px",
+                borderTop: "1px solid silver",
+                backgroundColor: "black",
+            }}
+        >
+            <Box sx={{ textAlign: "left", color: "white" }}>
+                <img src={Logo} style={{ width: "200px" }} alt="logo" />
+                <Box sx={{ padding: "0 38px" }}>
+                    <Typography>The AI Society of UNSW</Typography>
+                    <SocialMediaIcons />
+                    <Typography>© 2024 — AISoc UNSW</Typography>
                 </Box>
             </Box>
-        </Reveal>
+        </Box>
     );
 };
 
