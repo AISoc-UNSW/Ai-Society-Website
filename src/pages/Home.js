@@ -10,6 +10,7 @@ import LoadingScreen from "../components/LoadingScreen";
 import Brain from "../components/Brain";
 import ParticlePattern from "../components/ParticlePattern";
 import { useState, useEffect } from "react";
+import Stars from "../components/Stars";
 function Home() {
     const [isLoading, setLoading] = useState(true);
     const [twoSeconds, setTwoSeconds] = useState(true);
@@ -40,6 +41,7 @@ function Home() {
             {/* {(twoSeconds || isLoading) && <LoadingScreen />} */}
             <LoadingScreen twoSeconds={false} isLoading={isLoading} />
             <ParticlePattern />
+            <Stars />
         </div>
     );
 }

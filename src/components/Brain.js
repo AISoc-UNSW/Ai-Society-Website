@@ -7,6 +7,7 @@ import { useMemo, useRef, useEffect } from "react";
 import { Tubes } from "./BrainTubes";
 import { Box, Typography, useTheme, useMediaQuery } from "@mui/material";
 import Stars from "./Stars";
+import ParticlePattern from "./ParticlePattern";
 
 const PATHS = data.economics[0].paths;
 
@@ -155,6 +156,7 @@ const Brain = () => {
             }}
         >
             <Stars />
+            <ParticlePattern />
 
             <Box
                 sx={{
@@ -182,14 +184,17 @@ const Brain = () => {
                     join.
                 </Typography>
             </Box>
+
             <Canvas
                 style={{
                     width: isMobile ? "100vw" : "50vw",
                     height: isMobile ? "50vh" : "100vh", // Adjust height on mobile
                     minWidth: isMobile ? "100vw" : "50vw",
+                    zIndex: 500,
                 }}
                 camera={{ position: [0, 0, 0.3], near: 0.001, far: 5 }}
             >
+                {/* <Stars /> */}
                 <ambientLight />
                 <pointLight position={[10, 10, 10]} />
                 <Tubes allTheCurve={brainCurves} />

@@ -3,6 +3,7 @@ import * as THREE from "three";
 import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer.js";
 import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass.js";
 import { UnrealBloomPass } from "three/examples/jsm/postprocessing/UnrealBloomPass.js";
+import ParticlePattern from "./ParticlePattern";
 
 const Stars = () => {
     const canvasRef = useRef(null);
@@ -36,10 +37,10 @@ const Stars = () => {
         const colors = [];
         const sizes = [];
 
-        for (let i = 0; i < 5000; i++) {
+        for (let i = 0; i < 200; i++) {
             const x = (Math.random() * 2 - 1) * 2000;
             const y = (Math.random() * 2 - 1) * 2000;
-            const z = (Math.random() * 2 - 1) * 1000;
+            const z = Math.random() * 50 + 350;
             positions.push(x, y, z);
             velocities.push(
                 (Math.random() * 2 - 1) * 0.1,
@@ -52,7 +53,7 @@ const Stars = () => {
                 new THREE.Color("#b441fb"),
                 Math.random()
             );
-            const transparency = 0.11;
+            const transparency = 0.3;
             console.log(transparency);
             colors.push(color.r, color.g, color.b, transparency);
             sizes.push(5); // Size of each star
@@ -106,14 +107,14 @@ const Stars = () => {
             velocities[i + 1] += gravity.y;
             velocities[i + 2] += gravity.z;
 
-            velocities[i] = Math.max(-0.1, Math.min(0.1, velocities[i]));
+            velocities[i] = Math.max(-0.01, Math.min(0.01, velocities[i]));
             velocities[i + 1] = Math.max(
-                -0.1,
-                Math.min(0.1, velocities[i + 1])
+                -0.01,
+                Math.min(0.01, velocities[i + 1])
             );
             velocities[i + 2] = Math.max(
-                -0.1,
-                Math.min(0.1, velocities[i + 2])
+                -0.01,
+                Math.min(0.01, velocities[i + 2])
             );
 
             if (positions[i] > width / 2) positions[i] -= width;
@@ -143,6 +144,7 @@ const Stars = () => {
         const renderer = new THREE.WebGLRenderer({
             antialias: true,
             canvas: canvasRef.current,
+            alpha: true,
         });
         renderer.setSize(window.innerWidth, window.innerHeight);
 
@@ -210,7 +212,12 @@ const Stars = () => {
     return (
         <canvas
             ref={canvasRef}
-            style={{ position: "absolute", height: "100vh", maxWidth: "100%" }}
+            style={{
+                position: "absolute",
+                height: "100vh",
+                maxWidth: "100%",
+                zIndex: 2,
+            }}
         />
     );
 };

@@ -12,10 +12,9 @@ const ParticlePattern = () => {
     const cameraRef = useRef(null);
     const targetRef = useRef(null);
     const starsRef = useRef(null);
-    const gravityRef = useRef(new THREE.Vector3());
     const canvasSizeRef = useRef({ width: 0, height: 0 });
 
-    const createCircleTexture = () => {
+    const createCircleTextureParticle = () => {
         const size = 128;
         const canvas = document.createElement("canvas");
         canvas.width = size;
@@ -32,7 +31,7 @@ const ParticlePattern = () => {
         return new THREE.CanvasTexture(canvas);
     };
 
-    const stars = useMemo(() => {
+    const particles = useMemo(() => {
         const starsGeometry = new THREE.BufferGeometry();
         const positions = [];
         const velocities = [];
@@ -49,28 +48,38 @@ const ParticlePattern = () => {
             const theta = spiralLoops * Math.PI * Math.sqrt(i / totalStars);
             const phi = 4 * Math.PI * (i / totalStars);
 
+            const x = spiralRadius * Math.sin(theta) * Math.cos(phi);
+            const y = spiralRadius * Math.sin(theta) * Math.sin(phi);
+            const z = spiralRadius * Math.cos(theta);
+
             const randomOffsetX = (Math.random() - 0.5) * randomSpread;
             const randomOffsetY = (Math.random() - 0.5) * randomSpread;
-            const randomOffsetZ = (Math.random() - 0.5) * randomSpread;
+            const randomOffsetZ = (Math.random() - 0.5) * 5 * randomSpread;
 
-            const x =
-                spiralRadius * Math.sin(theta) * Math.cos(phi) + randomOffsetX;
-            const y =
-                spiralRadius * Math.sin(theta) * Math.sin(phi) + randomOffsetY;
-            const z = spiralRadius * Math.cos(theta) + randomOffsetZ;
+            const initialVelocityX = (Math.random() - 0.5) * 0.1; // Initial random velocity
+            const initialVelocityY = (Math.random() - 0.5) * 0.1;
+            const initialVelocityZ = (Math.random() - 0.5) * 0.1;
 
-            positions.push(x, y, z);
-            originalPositions.push(x, y, z); // Store slightly randomized original position
-            velocities.push(Math.random(), Math.random(), Math.random()); // Start with no initial velocity
+            positions.push(
+                x + randomOffsetX,
+                y + randomOffsetY,
+                z + randomOffsetZ
+            );
+            velocities.push(
+                initialVelocityX,
+                initialVelocityY,
+                initialVelocityZ
+            );
+            originalPositions.push(x, y, z); // Store original center position
 
             const color = new THREE.Color().lerpColors(
-                new THREE.Color("#0096FF"),
+                new THREE.Color("#36013F"),
                 new THREE.Color("#b441fb"),
                 Math.random()
             );
-            const opacity = 0.3 + Math.random() * 0.5;
+            const opacity = 0.1 + Math.random() * 0.5;
             colors.push(color.r, color.g, color.b, opacity);
-            sizes.push(10 + Math.random() * 15);
+            sizes.push(10 + Math.random() * 35);
         }
 
         starsGeometry.setAttribute(
@@ -94,10 +103,10 @@ const ParticlePattern = () => {
             new THREE.Float32BufferAttribute(sizes, 1)
         );
 
-        const circleTexture = createCircleTexture();
+        const circleTexture = createCircleTextureParticle();
 
         const starsMaterial = new THREE.PointsMaterial({
-            size: 10,
+            size: 15,
             vertexColors: true,
             map: circleTexture,
             alphaTest: 0.1,
@@ -111,37 +120,32 @@ const ParticlePattern = () => {
         return stars;
     }, []);
 
-    const move = () => {
+    const moveParticles = () => {
         const positions = starsRef.current.geometry.attributes.position.array;
         const velocities = starsRef.current.geometry.attributes.velocity.array;
         const originalPositions =
             starsRef.current.geometry.attributes.originalPosition.array;
 
-        const restoringForce = 0.001 / 1000; // Gentle restoring force
-        const randomStrength = 1; // Lower random strength for smoother effect
-        const damping = 0.1; // Lower damping to sustain movement longer
-
-        // Update random velocity less frequently
-        if (Math.random() < 0.005) {
-            // 5% chance to update random velocities per frame
-            for (let i = 0; i < velocities.length; i += 3) {
-                velocities[i] += (Math.random() - 0.5) * randomStrength;
-                velocities[i + 1] += (Math.random() - 0.5) * randomStrength;
-                velocities[i + 2] += (Math.random() - 0.5) * randomStrength;
-            }
-        }
-
         for (let i = 0; i < positions.length; i += 3) {
-            const dx = originalPositions[i] - positions[i] / 1000;
-            const dy = originalPositions[i + 1] - positions[i + 1] / 1000;
-            const dz = originalPositions[i + 2] - positions[i + 2] / 1000;
+            const randomStrength = 0.00025;
 
-            velocities[i] += restoringForce * dx - damping * velocities[i];
-            velocities[i + 1] +=
-                restoringForce * dy - damping * velocities[i + 1];
-            velocities[i + 2] +=
-                restoringForce * dz - damping * velocities[i + 2];
+            const dx = originalPositions[i] - positions[i];
+            const dy = originalPositions[i + 1] - positions[i + 1];
+            const dz = originalPositions[i + 2] - positions[i + 2];
 
+            if (Math.random() < 0.00005) {
+                // 5% chance to update random velocities per frame
+                for (let i = 0; i < velocities.length; i += 3) {
+                    velocities[i] += (Math.random() - 0.5) * randomStrength;
+                    velocities[i + 1] += (Math.random() - 0.5) * randomStrength;
+                    velocities[i + 2] += (Math.random() - 0.5) * randomStrength;
+                }
+            }
+
+            // Apply a gentle restoring force only if the distance is too great
+            velocities[i] += dx * 0.00000025 * (Math.random() + 1);
+            velocities[i + 1] += dy * 0.00000025 * (Math.random() + 1);
+            velocities[i + 2] += dz * 0.00000025 * (Math.random() + 1);
             positions[i] += velocities[i];
             positions[i + 1] += velocities[i + 1];
             positions[i + 2] += velocities[i + 2];
@@ -150,7 +154,8 @@ const ParticlePattern = () => {
         starsRef.current.geometry.attributes.position.needsUpdate = true;
         starsRef.current.geometry.attributes.velocity.needsUpdate = true;
     };
-    const init = () => {
+
+    const initParticles = () => {
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(
             75,
@@ -166,6 +171,7 @@ const ParticlePattern = () => {
         const renderer = new THREE.WebGLRenderer({
             antialias: true,
             canvas: canvasRef.current,
+            alpha: true,
         });
         renderer.setSize(window.innerWidth, window.innerHeight);
 
@@ -196,7 +202,7 @@ const ParticlePattern = () => {
         bloomPass.radius = 0.55;
         composer.addPass(bloomPass);
 
-        scene.add(stars);
+        scene.add(particles);
 
         const handleMouseMove = (event) => {
             const { clientX, clientY } = event;
@@ -209,15 +215,13 @@ const ParticlePattern = () => {
                 y * Math.PI * aspectRatio,
                 camera.position.z
             );
-
-            gravityRef.current.set(x * 0.001, y * 0.001, 0);
         };
 
         const animate = () => {
             requestAnimationFrame(animate);
             // renderer.setSize(window.innerWidth, window.innerHeight);
 
-            move();
+            moveParticles();
 
             const camera = cameraRef.current;
             const target = targetRef.current;
@@ -235,13 +239,19 @@ const ParticlePattern = () => {
     };
 
     useEffect(() => {
-        init();
+        initParticles();
     }, []);
 
     return (
         <canvas
             ref={canvasRef}
-            style={{ position: "absolute", height: "100vh", maxWidth: "100%" }}
+            style={{
+                position: "absolute",
+                height: "100vh",
+                maxWidth: "100%",
+                zIndex: 6,
+                filter: "blur(4px)",
+            }}
         />
     );
 };
