@@ -1,11 +1,5 @@
 import React, { useRef, useMemo, useEffect } from "react";
 import * as THREE from "three";
-import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer.js";
-import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass.js";
-import { UnrealBloomPass } from "three/examples/jsm/postprocessing/UnrealBloomPass.js";
-import { ShaderPass } from "three/examples/jsm/postprocessing/ShaderPass.js";
-import { HorizontalBlurShader } from "three/examples/jsm/shaders/HorizontalBlurShader.js";
-import { VerticalBlurShader } from "three/examples/jsm/shaders/VerticalBlurShader.js";
 
 const ParticlePattern = () => {
     const canvasRef = useRef(null);
@@ -161,7 +155,7 @@ const ParticlePattern = () => {
             2000
         );
         cameraRef.current = camera;
-        camera.position.z = 50;
+        camera.position.z = 200;
 
         targetRef.current = new THREE.Vector3();
 
@@ -176,28 +170,6 @@ const ParticlePattern = () => {
             width: window.innerWidth,
             height: window.innerHeight,
         };
-        // Setup post-processing
-        const composer = new EffectComposer(renderer);
-        composer.addPass(new RenderPass(scene, cameraRef.current));
-
-        // Add horizontal blur pass
-        const horizontalBlurPass = new ShaderPass(HorizontalBlurShader);
-        composer.addPass(horizontalBlurPass);
-
-        // Add vertical blur pass
-        const verticalBlurPass = new ShaderPass(VerticalBlurShader);
-        composer.addPass(verticalBlurPass);
-
-        const bloomPass = new UnrealBloomPass(
-            new THREE.Vector2(window.innerWidth, window.innerHeight),
-            1.5,
-            0.4,
-            0.85
-        );
-        bloomPass.threshold = 0.21;
-        bloomPass.strength = 1.0; // Adjust the strength of the glow
-        bloomPass.radius = 0.55;
-        composer.addPass(bloomPass);
 
         scene.add(particles);
 
@@ -223,8 +195,8 @@ const ParticlePattern = () => {
             const camera = cameraRef.current;
             const target = targetRef.current;
 
-            camera.position.x += (target.x - camera.position.x) * 0.1;
-            camera.position.y += (target.y - camera.position.y) * 0.1;
+            camera.position.x += (target.x - camera.position.x) * 0.01;
+            camera.position.y += (target.y - camera.position.y) * 0.01;
             camera.lookAt(scene.position);
 
             renderer.render(scene, cameraRef.current);

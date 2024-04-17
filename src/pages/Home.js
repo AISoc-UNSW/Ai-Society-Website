@@ -40,8 +40,6 @@ function Home() {
             <Footer />
             {/* {(twoSeconds || isLoading) && <LoadingScreen />} */}
             <LoadingScreen twoSeconds={false} isLoading={isLoading} />
-            <ParticlePattern />
-            <Stars />
         </div>
     );
 }
