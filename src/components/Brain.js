@@ -175,6 +175,7 @@ const Brain = () => {
                         fontSize: isMobile ? "2rem" : "4rem", // Smaller text on mobile
                         fontWeight: "300",
                         opacity: "0.8",
+                        zIndex: 500,
                     }}
                 >
                     WE ARE THREE JS MAINS NOW

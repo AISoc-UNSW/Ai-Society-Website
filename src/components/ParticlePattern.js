@@ -39,10 +39,10 @@ const ParticlePattern = () => {
         const colors = [];
         const sizes = [];
 
-        const totalStars = 10000;
+        const totalStars = 20000;
         const spiralLoops = 5;
         const spiralRadius = 1000;
-        const randomSpread = 150; // Increased random spread for initial positions
+        const randomSpread = 100; // Increased random spread for initial positions
 
         for (let i = 0; i < totalStars; i++) {
             const theta = spiralLoops * Math.PI * Math.sqrt(i / totalStars);
@@ -54,11 +54,11 @@ const ParticlePattern = () => {
 
             const randomOffsetX = (Math.random() - 0.5) * randomSpread;
             const randomOffsetY = (Math.random() - 0.5) * randomSpread;
-            const randomOffsetZ = (Math.random() - 0.5) * 5 * randomSpread;
+            const randomOffsetZ = (Math.random() - 0.5) * 12 * randomSpread;
 
             const initialVelocityX = (Math.random() - 0.5) * 0.1; // Initial random velocity
             const initialVelocityY = (Math.random() - 0.5) * 0.1;
-            const initialVelocityZ = (Math.random() - 0.5) * 0.1;
+            const initialVelocityZ = 0;
 
             positions.push(
                 x + randomOffsetX,
@@ -73,11 +73,11 @@ const ParticlePattern = () => {
             originalPositions.push(x, y, z); // Store original center position
 
             const color = new THREE.Color().lerpColors(
-                new THREE.Color("#36013F"),
-                new THREE.Color("#b441fb"),
-                Math.random()
+                new THREE.Color("#03ffff"),
+                new THREE.Color("#5931b1"),
+                1
             );
-            const opacity = 0.1 + Math.random() * 0.5;
+            const opacity = 0.5 * Math.random();
             colors.push(color.r, color.g, color.b, opacity);
             sizes.push(10 + Math.random() * 35);
         }
@@ -106,7 +106,7 @@ const ParticlePattern = () => {
         const circleTexture = createCircleTextureParticle();
 
         const starsMaterial = new THREE.PointsMaterial({
-            size: 15,
+            size: 10,
             vertexColors: true,
             map: circleTexture,
             alphaTest: 0.1,
@@ -131,21 +131,18 @@ const ParticlePattern = () => {
 
             const dx = originalPositions[i] - positions[i];
             const dy = originalPositions[i + 1] - positions[i + 1];
-            const dz = originalPositions[i + 2] - positions[i + 2];
 
             if (Math.random() < 0.00005) {
                 // 5% chance to update random velocities per frame
                 for (let i = 0; i < velocities.length; i += 3) {
                     velocities[i] += (Math.random() - 0.5) * randomStrength;
                     velocities[i + 1] += (Math.random() - 0.5) * randomStrength;
-                    velocities[i + 2] += (Math.random() - 0.5) * randomStrength;
                 }
             }
 
             // Apply a gentle restoring force only if the distance is too great
             velocities[i] += dx * 0.00000025 * (Math.random() + 1);
             velocities[i + 1] += dy * 0.00000025 * (Math.random() + 1);
-            velocities[i + 2] += dz * 0.00000025 * (Math.random() + 1);
             positions[i] += velocities[i];
             positions[i + 1] += velocities[i + 1];
             positions[i + 2] += velocities[i + 2];

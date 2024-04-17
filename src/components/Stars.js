@@ -37,10 +37,12 @@ const Stars = () => {
         const colors = [];
         const sizes = [];
 
-        for (let i = 0; i < 200; i++) {
+        const numStars = 2000;
+
+        for (let i = 0; i < numStars; i++) {
             const x = (Math.random() * 2 - 1) * 2000;
             const y = (Math.random() * 2 - 1) * 2000;
-            const z = Math.random() * 50 + 350;
+            const z = -Math.random() * 300 + 450;
             positions.push(x, y, z);
             velocities.push(
                 (Math.random() * 2 - 1) * 0.1,
@@ -53,7 +55,7 @@ const Stars = () => {
                 new THREE.Color("#b441fb"),
                 Math.random()
             );
-            const transparency = 0.3;
+            const transparency = 0.1 * Math.random();
             console.log(transparency);
             colors.push(color.r, color.g, color.b, transparency);
             sizes.push(5); // Size of each star
@@ -82,7 +84,7 @@ const Stars = () => {
             size: 5,
             vertexColors: true,
             map: circleTexture,
-            alphaTest: 0.1,
+            alphaTest: 0,
             depthWrite: false,
             transparent: true,
         });
