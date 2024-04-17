@@ -3,8 +3,11 @@ import * as THREE from "three";
 import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer.js";
 import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass.js";
 import { UnrealBloomPass } from "three/examples/jsm/postprocessing/UnrealBloomPass.js";
+import { ShaderPass } from "three/examples/jsm/postprocessing/ShaderPass.js";
+import { HorizontalBlurShader } from "three/examples/jsm/shaders/HorizontalBlurShader.js";
+import { VerticalBlurShader } from "three/examples/jsm/shaders/VerticalBlurShader.js";
 
-const Stars = () => {
+const ParticlePattern = () => {
     const canvasRef = useRef(null);
     const cameraRef = useRef(null);
     const targetRef = useRef(null);
@@ -33,29 +36,41 @@ const Stars = () => {
         const starsGeometry = new THREE.BufferGeometry();
         const positions = [];
         const velocities = [];
+        const originalPositions = [];
         const colors = [];
         const sizes = [];
 
-        for (let i = 0; i < 5000; i++) {
-            const x = (Math.random() * 2 - 1) * 2000;
-            const y = (Math.random() * 2 - 1) * 2000;
-            const z = (Math.random() * 2 - 1) * 1000;
+        const totalStars = 10000;
+        const spiralLoops = 5;
+        const spiralRadius = 1000;
+        const randomSpread = 150; // Increased random spread for initial positions
+
+        for (let i = 0; i < totalStars; i++) {
+            const theta = spiralLoops * Math.PI * Math.sqrt(i / totalStars);
+            const phi = 4 * Math.PI * (i / totalStars);
+
+            const randomOffsetX = (Math.random() - 0.5) * randomSpread;
+            const randomOffsetY = (Math.random() - 0.5) * randomSpread;
+            const randomOffsetZ = (Math.random() - 0.5) * randomSpread;
+
+            const x =
+                spiralRadius * Math.sin(theta) * Math.cos(phi) + randomOffsetX;
+            const y =
+                spiralRadius * Math.sin(theta) * Math.sin(phi) + randomOffsetY;
+            const z = spiralRadius * Math.cos(theta) + randomOffsetZ;
+
             positions.push(x, y, z);
-            velocities.push(
-                (Math.random() * 2 - 1) * 0.1,
-                (Math.random() * 2 - 1) * 0.1,
-                (Math.random() * 2 - 1) * 0.1
-            );
+            originalPositions.push(x, y, z); // Store slightly randomized original position
+            velocities.push(Math.random(), Math.random(), Math.random()); // Start with no initial velocity
 
             const color = new THREE.Color().lerpColors(
                 new THREE.Color("#0096FF"),
                 new THREE.Color("#b441fb"),
                 Math.random()
             );
-            const transparency = 0.11;
-            console.log(transparency);
-            colors.push(color.r, color.g, color.b, transparency);
-            sizes.push(5); // Size of each star
+            const opacity = 0.3 + Math.random() * 0.5;
+            colors.push(color.r, color.g, color.b, opacity);
+            sizes.push(10 + Math.random() * 15);
         }
 
         starsGeometry.setAttribute(
@@ -65,6 +80,10 @@ const Stars = () => {
         starsGeometry.setAttribute(
             "velocity",
             new THREE.Float32BufferAttribute(velocities, 3)
+        );
+        starsGeometry.setAttribute(
+            "originalPosition",
+            new THREE.Float32BufferAttribute(originalPositions, 3)
         );
         starsGeometry.setAttribute(
             "color",
@@ -78,12 +97,13 @@ const Stars = () => {
         const circleTexture = createCircleTexture();
 
         const starsMaterial = new THREE.PointsMaterial({
-            size: 5,
+            size: 10,
             vertexColors: true,
             map: circleTexture,
             alphaTest: 0.1,
             depthWrite: false,
             transparent: true,
+            sizeAttenuation: true,
         });
 
         const stars = new THREE.Points(starsGeometry, starsMaterial);
@@ -92,41 +112,44 @@ const Stars = () => {
     }, []);
 
     const move = () => {
-        const gravity = gravityRef.current;
-        const { width, height } = canvasSizeRef.current;
         const positions = starsRef.current.geometry.attributes.position.array;
         const velocities = starsRef.current.geometry.attributes.velocity.array;
+        const originalPositions =
+            starsRef.current.geometry.attributes.originalPosition.array;
+
+        const restoringForce = 0.001 / 1000; // Gentle restoring force
+        const randomStrength = 1; // Lower random strength for smoother effect
+        const damping = 0.1; // Lower damping to sustain movement longer
+
+        // Update random velocity less frequently
+        if (Math.random() < 0.005) {
+            // 5% chance to update random velocities per frame
+            for (let i = 0; i < velocities.length; i += 3) {
+                velocities[i] += (Math.random() - 0.5) * randomStrength;
+                velocities[i + 1] += (Math.random() - 0.5) * randomStrength;
+                velocities[i + 2] += (Math.random() - 0.5) * randomStrength;
+            }
+        }
 
         for (let i = 0; i < positions.length; i += 3) {
+            const dx = originalPositions[i] - positions[i] / 1000;
+            const dy = originalPositions[i + 1] - positions[i + 1] / 1000;
+            const dz = originalPositions[i + 2] - positions[i + 2] / 1000;
+
+            velocities[i] += restoringForce * dx - damping * velocities[i];
+            velocities[i + 1] +=
+                restoringForce * dy - damping * velocities[i + 1];
+            velocities[i + 2] +=
+                restoringForce * dz - damping * velocities[i + 2];
+
             positions[i] += velocities[i];
             positions[i + 1] += velocities[i + 1];
             positions[i + 2] += velocities[i + 2];
-
-            velocities[i] += gravity.x;
-            velocities[i + 1] += gravity.y;
-            velocities[i + 2] += gravity.z;
-
-            velocities[i] = Math.max(-0.1, Math.min(0.1, velocities[i]));
-            velocities[i + 1] = Math.max(
-                -0.1,
-                Math.min(0.1, velocities[i + 1])
-            );
-            velocities[i + 2] = Math.max(
-                -0.1,
-                Math.min(0.1, velocities[i + 2])
-            );
-
-            if (positions[i] > width / 2) positions[i] -= width;
-            else if (positions[i] < -width / 2) positions[i] += width;
-
-            if (positions[i + 1] > height / 2) positions[i + 1] -= height;
-            else if (positions[i + 1] < -height / 2) positions[i + 1] += height;
         }
 
         starsRef.current.geometry.attributes.position.needsUpdate = true;
         starsRef.current.geometry.attributes.velocity.needsUpdate = true;
     };
-
     const init = () => {
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(
@@ -136,7 +159,7 @@ const Stars = () => {
             2000
         );
         cameraRef.current = camera;
-        camera.position.z = 500;
+        camera.position.z = 50;
 
         targetRef.current = new THREE.Vector3();
 
@@ -153,6 +176,14 @@ const Stars = () => {
         // Setup post-processing
         const composer = new EffectComposer(renderer);
         composer.addPass(new RenderPass(scene, cameraRef.current));
+
+        // Add horizontal blur pass
+        const horizontalBlurPass = new ShaderPass(HorizontalBlurShader);
+        composer.addPass(horizontalBlurPass);
+
+        // Add vertical blur pass
+        const verticalBlurPass = new ShaderPass(VerticalBlurShader);
+        composer.addPass(verticalBlurPass);
 
         const bloomPass = new UnrealBloomPass(
             new THREE.Vector2(window.innerWidth, window.innerHeight),
@@ -186,6 +217,8 @@ const Stars = () => {
             requestAnimationFrame(animate);
             // renderer.setSize(window.innerWidth, window.innerHeight);
 
+            move();
+
             const camera = cameraRef.current;
             const target = targetRef.current;
 
@@ -193,10 +226,8 @@ const Stars = () => {
             camera.position.y += (target.y - camera.position.y) * 0.1;
             camera.lookAt(scene.position);
 
-            move();
-
             renderer.render(scene, cameraRef.current);
-            composer.render();
+            // composer.render();
         };
 
         window.addEventListener("mousemove", handleMouseMove);
@@ -215,4 +246,4 @@ const Stars = () => {
     );
 };
 
-export default Stars;
+export default ParticlePattern;
