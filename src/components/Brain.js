@@ -176,13 +176,22 @@ const Brain = () => {
                         fontWeight: "300",
                         opacity: "0.8",
                         zIndex: 500,
+                        userSelect: "none",
                     }}
                 >
-                    WE ARE THREE JS MAINS NOW
+                    Artificial Intelligence Society
                 </Typography>
-                <Typography style={{ color: "white", zIndex: 500 }}>
-                    AI Society gives out free money to all UNSW students that
-                    join.
+                zIndex: 500,
+                <Typography
+                    style={{
+                        color: "white",
+                        zIndex: 500,
+                        userSelect: "none",
+                    }}
+                >
+                    We are the foremost advocate for AI enthusiasts, nurturing a
+                    dedicated community of passionate individuals eager to
+                    explore the frontiers of artificial intelligence.
                 </Typography>
             </Box>
 
@@ -200,7 +209,7 @@ const Brain = () => {
                 <pointLight position={[10, 10, 10]} />
                 <Tubes allTheCurve={brainCurves} />
                 <BrainParticles allTheCurves={brainCurves} />
-                <OrbitControls enableZoom={false} />
+                <OrbitControls enableZoom={false} enablePan={false} />
             </Canvas>
         </Box>
     );

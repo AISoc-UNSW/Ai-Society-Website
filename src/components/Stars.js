@@ -56,7 +56,6 @@ const Stars = () => {
                 Math.random()
             );
             const transparency = 0.1 * Math.random();
-            console.log(transparency);
             colors.push(color.r, color.g, color.b, transparency);
             sizes.push(5); // Size of each star
         }
@@ -188,7 +187,7 @@ const Stars = () => {
 
         const animate = () => {
             requestAnimationFrame(animate);
-            // renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setSize(window.innerWidth, window.innerHeight);
 
             const camera = cameraRef.current;
             const target = targetRef.current;
