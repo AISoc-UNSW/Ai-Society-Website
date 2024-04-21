@@ -37,7 +37,7 @@ const Stars = () => {
         const colors = [];
         const sizes = [];
 
-        const numStars = 2000;
+        const numStars = 1000;
 
         for (let i = 0; i < numStars; i++) {
             const x = (Math.random() * 2 - 1) * 2000;
@@ -199,7 +199,7 @@ const Stars = () => {
                 camera.position.z
             );
 
-            // gravityRef.current.set(x * 0.001, y * 0.001, 0);
+            gravityRef.current.set(x * 0.001, y * 0.001, 0);
         };
 
         const animate = () => {

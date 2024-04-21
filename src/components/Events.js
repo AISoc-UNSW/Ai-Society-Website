@@ -6,7 +6,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Box, Typography } from "@mui/material";
 import llm_workshop from "../assets/llm-workshop.png";
 import bbq from "../assets/bbq.png";
-import Reveal from "../util/Reveal";
 
 const useCarouselStyles = makeStyles({
     dotContainer: {
@@ -76,15 +75,15 @@ const Events = () => {
     };
 
     return (
-        <Box
-            id="events"
-            sx={{
-                margin: "10vh 0",
-                backgroundColor: "white",
-                padding: "40px 0",
-            }}
-        >
-            <Reveal>
+        <>
+            <Box
+                id="events"
+                sx={{
+                    margin: "10vh 0",
+                    backgroundColor: "white",
+                    padding: "40px 0",
+                }}
+            >
                 <Box sx={{ textAlign: "center" }}>
                     <Typography
                         variant="h3"
@@ -97,8 +96,7 @@ const Events = () => {
                         meetings related to artifical intelligence.
                     </Typography>
                 </Box>
-            </Reveal>
-            <Reveal>
+
                 <Box
                     sx={{
                         maxWidth: "70vw",
@@ -132,8 +130,8 @@ const Events = () => {
                         ))}
                     </Slider>
                 </Box>
-            </Reveal>
-        </Box>
+            </Box>
+        </>
     );
 };
 

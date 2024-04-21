@@ -227,7 +227,7 @@ const ParticlePattern = () => {
                 position: "absolute",
                 height: "100vh",
                 maxWidth: "100%",
-                zIndex: 6,
+                zIndex: 2,
                 filter: "blur(4px)",
             }}
         />

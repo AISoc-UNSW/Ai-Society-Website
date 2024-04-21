@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Typography, Button } from "@mui/material";
-import Reveal from "../util/Reveal";
 import Unova from "../assets/unova.png";
+import Footer from "./Footer";
 
 const handleClick = () => {
     window.location.href = "mailto:aisoc@unsw.edu.au";
@@ -9,7 +9,7 @@ const handleClick = () => {
 
 const Sponsor = () => {
     return (
-        <Reveal>
+        <>
             <Box
                 id="sponsor"
                 sx={{
@@ -52,7 +52,8 @@ const Sponsor = () => {
                     Sponsor Us
                 </Button>
             </Box>
-        </Reveal>
+            <Footer />
+        </>
     );
 };
 

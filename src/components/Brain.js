@@ -144,74 +144,77 @@ const Brain = () => {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
     return (
-        <Box
-            sx={{
-                display: "flex",
-                flexDirection: isMobile ? "column" : "row",
-                position: "relative",
-                height: "100vh",
-                backgroundColor: "black",
-                alignItems: "center",
-                justifyContent: "center",
-            }}
-        >
-            <Stars />
-            <ParticlePattern />
-
+        <>
             <Box
                 sx={{
                     display: "flex",
-                    flexDirection: "column",
-                    alignContent: "center",
-                    maxWidth: isMobile ? "100%" : "30%",
-                    padding: isMobile ? "20px" : "10%",
-                    textAlign: isMobile ? "center" : "left", // Center text on mobile
+                    flexDirection: isMobile ? "column" : "row",
+                    position: "relative",
+                    height: "100vh",
+                    backgroundColor: "black",
+                    alignItems: "center",
+                    justifyContent: "center",
                 }}
             >
-                <Typography
-                    sx={{
-                        color: "white",
-                        fontFamily: "sans-serif",
-                        fontSize: isMobile ? "2rem" : "4rem", // Smaller text on mobile
-                        fontWeight: "300",
-                        opacity: "0.8",
-                        zIndex: 500,
-                        userSelect: "none",
-                    }}
-                >
-                    Artificial Intelligence Society
-                </Typography>
-                zIndex: 500,
-                <Typography
-                    style={{
-                        color: "white",
-                        zIndex: 500,
-                        userSelect: "none",
-                    }}
-                >
-                    We are the foremost advocate for AI enthusiasts, nurturing a
-                    dedicated community of passionate individuals eager to
-                    explore the frontiers of artificial intelligence.
-                </Typography>
-            </Box>
+                <Stars />
+                <ParticlePattern />
 
-            <Canvas
-                style={{
-                    width: isMobile ? "100%" : "50%",
-                    height: isMobile ? "50%" : "100%", // Adjust height on mobile
-                    minWidth: isMobile ? "100%" : "50%",
+                <Box
+                    sx={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignContent: "center",
+                        maxWidth: isMobile ? "100%" : "30%",
+                        padding: isMobile ? "20px" : "10%",
+                        textAlign: isMobile ? "center" : "left", // Center text on mobile
+                    }}
+                >
+                    <Typography
+                        sx={{
+                            color: "white",
+                            fontFamily: "sans-serif",
+                            fontSize: isMobile ? "2rem" : "4rem", // Smaller text on mobile
+                            fontWeight: "300",
+                            opacity: "0.8",
+                            zIndex: 3,
+                            userSelect: "none",
+                        }}
+                    >
+                        Artificial Intelligence Society
+                    </Typography>
                     zIndex: 500,
-                }}
-                camera={{ position: [0, 0, 0.3], near: 0.001, far: 5 }}
-            >
-                {/* <Stars /> */}
-                <ambientLight />
-                <pointLight position={[10, 10, 10]} />
-                <Tubes allTheCurve={brainCurves} />
-                <BrainParticles allTheCurves={brainCurves} />
-                <OrbitControls enableZoom={false} enablePan={false} />
-            </Canvas>
-        </Box>
+                    <Typography
+                        style={{
+                            color: "white",
+                            zIndex: 3,
+                            userSelect: "none",
+                        }}
+                    >
+                        We are the foremost advocate for AI enthusiasts,
+                        nurturing a dedicated community of passionate
+                        individuals eager to explore the frontiers of artificial
+                        intelligence.
+                    </Typography>
+                </Box>
+
+                <Canvas
+                    style={{
+                        width: isMobile ? "100%" : "50%",
+                        height: isMobile ? "50%" : "100%", // Adjust height on mobile
+                        minWidth: isMobile ? "100%" : "50%",
+                        zIndex: 3,
+                    }}
+                    camera={{ position: [0, 0, 0.3], near: 0.001, far: 5 }}
+                >
+                    {/* <Stars /> */}
+                    <ambientLight />
+                    <pointLight position={[10, 10, 10]} />
+                    <Tubes allTheCurve={brainCurves} />
+                    <BrainParticles allTheCurves={brainCurves} />
+                    <OrbitControls enableZoom={false} enablePan={false} />
+                </Canvas>
+            </Box>
+        </>
     );
 };
 

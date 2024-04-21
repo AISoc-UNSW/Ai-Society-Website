@@ -1,64 +1,63 @@
-import * as React from 'react';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
-import gpt from '../assets/gptstore.png';
-import Reveal from '../util/Reveal';
+import * as React from "react";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+import gpt from "../assets/gptstore.png";
 
 const cardData = [
     {
-        title: 'The WatchTower: 12th Edition',
-        author: 'By Jonas Macken, Lucy, David Hung & Ziming Gong',
-        date: 'April 08, 2024',
+        title: "The WatchTower: 12th Edition",
+        author: "By Jonas Macken, Lucy, David Hung & Ziming Gong",
+        date: "April 08, 2024",
         img: gpt,
-        link: 'https://aisocthewatchtower.beehiiv.com/p/watchtower-12th-edition',
+        link: "https://aisocthewatchtower.beehiiv.com/p/watchtower-12th-edition",
     },
     {
-        title: 'The WatchTower: 12th Edition',
-        author: 'By Jonas Macken, Lucy, David Hung & Ziming Gong',
-        date: 'April 08, 2024',
+        title: "The WatchTower: 12th Edition",
+        author: "By Jonas Macken, Lucy, David Hung & Ziming Gong",
+        date: "April 08, 2024",
         img: gpt,
-        link: 'https://aisocthewatchtower.beehiiv.com/p/watchtower-12th-edition',
+        link: "https://aisocthewatchtower.beehiiv.com/p/watchtower-12th-edition",
     },
     {
-        title: 'The WatchTower: 12th Edition',
-        author: 'By Jonas Macken, Lucy, David Hung & Ziming Gong',
-        date: 'April 08, 2024',
+        title: "The WatchTower: 12th Edition",
+        author: "By Jonas Macken, Lucy, David Hung & Ziming Gong",
+        date: "April 08, 2024",
         img: gpt,
-        link: 'https://aisocthewatchtower.beehiiv.com/p/watchtower-12th-edition',
+        link: "https://aisocthewatchtower.beehiiv.com/p/watchtower-12th-edition",
     },
     // Add more card data here for additional cards
 ];
 
 const NewsLetter = () => {
     return (
-        <Reveal>
+        <>
             <Box
                 id="newsletter"
                 sx={{
-                    textAlign: 'center',
-                    marginTop: '30px',
-                    marginBottom: '10vh',
+                    textAlign: "center",
+                    marginTop: "30px",
+                    marginBottom: "10vh",
                 }}
             >
                 <Typography
                     variant="h4"
-                    sx={{ fontWeight: 'bold', margin: '0 10vw' }}
+                    sx={{ fontWeight: "bold", margin: "0 10vw" }}
                 >
                     The Watchtower Newsletter
                 </Typography>
-                <Typography gutterBottom sx={{ margin: '0 10vw' }}>
+                <Typography gutterBottom sx={{ margin: "0 10vw" }}>
                     Explore the recent and upcoming AI news
                 </Typography>
                 <Box
                     sx={{
-                        display: 'flex',
-                        flexWrap: 'wrap',
-                        justifyContent: 'space-evenly',
+                        display: "flex",
+                        flexWrap: "wrap",
+                        justifyContent: "space-evenly",
                     }}
                 >
                     {cardData.map((card, index) => (
@@ -66,7 +65,7 @@ const NewsLetter = () => {
                             key={index}
                             sx={{
                                 maxWidth: 400,
-                                width: { xs: '100%', sm: '60%', md: '30%' },
+                                width: { xs: "100%", sm: "60%", md: "30%" },
                             }}
                         >
                             <Card>
@@ -105,7 +104,7 @@ const NewsLetter = () => {
                     ))}
                 </Box>
             </Box>
-        </Reveal>
+        </>
     );
 };
 
