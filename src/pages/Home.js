@@ -27,20 +27,22 @@ function Home() {
     }, []);
 
     return (
-        <div>
+        <>
             <NavBar />
-            <Brain />
-            <About />
-            <Events />
-            <NewsLetter />
-            <MeetUs />
-            <Faq />
+            <div>
+                <Brain />
+                <About />
+                <Events />
+                <NewsLetter />
+                <MeetUs />
+                <Faq />
 
-            <Sponsor />
-            <Footer />
-            {/* {(twoSeconds || isLoading) && <LoadingScreen />} */}
-            <LoadingScreen twoSeconds={false} isLoading={isLoading} />
-        </div>
+                <Sponsor />
+                <Footer />
+                {/* {(twoSeconds || isLoading) && <LoadingScreen />} */}
+                <LoadingScreen twoSeconds={false} isLoading={isLoading} />
+            </div>
+        </>
     );
 }
 

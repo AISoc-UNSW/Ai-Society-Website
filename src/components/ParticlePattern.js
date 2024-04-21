@@ -209,6 +209,15 @@ const ParticlePattern = () => {
 
     useEffect(() => {
         initParticles();
+        const handleResize = () => {
+            initParticles(); // Reinitialize on resize
+        };
+
+        window.addEventListener("resize", handleResize);
+
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
     }, []);
 
     return (

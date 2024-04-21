@@ -163,8 +163,8 @@ const Brain = () => {
                     display: "flex",
                     flexDirection: "column",
                     alignContent: "center",
-                    maxWidth: isMobile ? "100vw" : "50vw",
-                    padding: isMobile ? "20px" : "10vw",
+                    maxWidth: isMobile ? "100%" : "30%",
+                    padding: isMobile ? "20px" : "10%",
                     textAlign: isMobile ? "center" : "left", // Center text on mobile
                 }}
             >
@@ -197,9 +197,9 @@ const Brain = () => {
 
             <Canvas
                 style={{
-                    width: isMobile ? "100vw" : "50vw",
-                    height: isMobile ? "50vh" : "100vh", // Adjust height on mobile
-                    minWidth: isMobile ? "100vw" : "50vw",
+                    width: isMobile ? "100%" : "50%",
+                    height: isMobile ? "50%" : "100%", // Adjust height on mobile
+                    minWidth: isMobile ? "100%" : "50%",
                     zIndex: 500,
                 }}
                 camera={{ position: [0, 0, 0.3], near: 0.001, far: 5 }}

@@ -47,7 +47,7 @@ const Stars = () => {
             velocities.push(
                 (Math.random() * 2 - 1) * 0.1,
                 (Math.random() * 2 - 1) * 0.1,
-                (Math.random() * 2 - 1) * 0.1
+                0
             );
 
             const color = new THREE.Color().lerpColors(
@@ -138,6 +138,8 @@ const Stars = () => {
             2000
         );
         cameraRef.current = camera;
+        cameraRef.current.aspect = window.innerWidth / window.innerHeight;
+        cameraRef.current.updateProjectionMatrix();
         camera.position.z = 500;
 
         targetRef.current = new THREE.Vector3();
@@ -170,6 +172,21 @@ const Stars = () => {
 
         scene.add(stars);
 
+        // Recalculate star positions to maintain density
+        const positions = starsRef.current.geometry.attributes.position.array;
+        const newWidth = window.innerWidth;
+        const newHeight = window.innerHeight;
+        const aspectRatio = newWidth / newHeight;
+
+        for (let i = 0; i < positions.length; i += 3) {
+            positions[i] = (Math.random() * 2 - 1) * newWidth;
+            positions[i + 1] =
+                (Math.random() * 2 - 1) * newHeight * aspectRatio;
+            // Adjust z position if needed, depending on your specific needs
+        }
+
+        starsRef.current.geometry.attributes.position.needsUpdate = true;
+
         const handleMouseMove = (event) => {
             const { clientX, clientY } = event;
             const aspectRatio = window.innerWidth / window.innerHeight;
@@ -182,7 +199,7 @@ const Stars = () => {
                 camera.position.z
             );
 
-            gravityRef.current.set(x * 0.001, y * 0.001, 0);
+            // gravityRef.current.set(x * 0.001, y * 0.001, 0);
         };
 
         const animate = () => {
@@ -208,6 +225,15 @@ const Stars = () => {
 
     useEffect(() => {
         init();
+        const handleResize = () => {
+            init(); // Reinitialize on resize
+        };
+
+        window.addEventListener("resize", handleResize);
+
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
     }, []);
 
     return (
