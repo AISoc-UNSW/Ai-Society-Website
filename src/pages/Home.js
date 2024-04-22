@@ -7,14 +7,12 @@ import About from "../components/About";
 import NewsLetter from "../components/Newsletter";
 import LoadingScreen from "../components/LoadingScreen";
 import Brain from "../components/Brain";
-import ParticlePattern from "../components/ParticlePattern";
 import { useState, useEffect } from "react";
 import { throttle } from "lodash";
-import Stars from "../components/Stars";
-import { transform } from "framer-motion";
+
 const Home = () => {
     const [isLoading, setLoading] = useState(true);
-    const [twoSeconds, setTwoSeconds] = useState(true);
+    // const [twoSeconds, setTwoSeconds] = useState(true);
     const [currentIndex, setCurrentIndex] = useState(0);
     const components = [
         <Brain />,
@@ -41,17 +39,17 @@ const Home = () => {
     useEffect(() => {
         window.addEventListener("wheel", handleScroll);
         return () => window.removeEventListener("wheel", handleScroll);
-    }, [currentIndex]);
+    }, [currentIndex, handleScroll]);
 
     window.onload = () => {
         setLoading(false);
     };
-    useEffect(() => {
-        // Simulate loading process
-        setTimeout(() => {
-            setTwoSeconds(false);
-        }, 2000);
-    }, []);
+    // useEffect(() => {
+    //     // Simulate loading process
+    //     setTimeout(() => {
+    //         setTwoSeconds(false);
+    //     }, 2000);
+    // }, []);
 
     const pageStyle = (index) => ({
         width: "100vw",

@@ -11,7 +11,6 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { makeStyles } from "@material-ui/core";
-import { Link } from "react-scroll";
 import Logo from "../assets/logo.png";
 
 const useStyles = makeStyles((theme) => ({
