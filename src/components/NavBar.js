@@ -47,6 +47,59 @@ const NavBar = ({ currentIndex, setCurrentIndex, total }) => {
     shuffleArray(textList);
     textList.unshift("AISOC");
 
+    // Spelling/typo mistake effect
+    const swapRandomLetters = (word) => {
+        if (Math.random() > 0.1) {
+            return word; // 95% chance to return the word unchanged.
+        }
+
+        let arr = word.split("");
+        if (word.length < 2) {
+            return word; // Not enough letters to swap.
+        }
+
+        // Select two different random indices for swapping letters.
+        let index1 = Math.floor(Math.random() * arr.length);
+        let index2;
+        do {
+            index2 = Math.floor(Math.random() * arr.length);
+        } while (index1 === index2);
+
+        // Swap the letters.
+        let temp = arr[index1];
+        arr[index1] = arr[index2];
+        arr[index2] = temp;
+
+        return arr.join("");
+    };
+
+    const processStrings = (strings) => {
+        let newStrings = [];
+        for (const originalString of strings) {
+            const words = originalString.split(" ");
+            let currentString = [];
+
+            for (let i = 0; i < words.length; i++) {
+                const originalWord = words[i];
+                const swappedWord = swapRandomLetters(originalWord);
+                currentString[i] = swappedWord; // Update the word in the array
+                if (originalWord !== swappedWord) {
+                    newStrings.push(currentString.join(" "));
+                    newStrings.push(250);
+                    currentString[i] = originalWord;
+                }
+            }
+
+            newStrings.push(words.join(" "));
+            newStrings.push(
+                2000 * Math.random() + 5000 // Add random delay from 3 - 7s
+            );
+        }
+
+        return newStrings;
+    };
+
+    const alteredList = processStrings(textList);
     return (
         <AppBar
             sx={{
@@ -80,10 +133,7 @@ const NavBar = ({ currentIndex, setCurrentIndex, total }) => {
                         />
                         <TypeAnimation
                             defaultText="AISOC"
-                            sequence={textList.flatMap((item) => [
-                                item,
-                                2000 * Math.random() + 5000,
-                            ])}
+                            sequence={alteredList}
                             style={{ fontWeight: 700, fontSize: "1rem" }}
                             speed={{ type: "keyStrokeDelayInMs", value: 50 }}
                             deletionSpeed={80}
@@ -187,7 +237,7 @@ const NavBar = ({ currentIndex, setCurrentIndex, total }) => {
                                     color:
                                         currentIndex === index
                                             ? "#FFFFFF"
-                                            : "inherit", // Optional: change text color if active
+                                            : "inherit",
                                     "&:hover": {
                                         backgroundColor: "#2D2D2D",
                                     },
