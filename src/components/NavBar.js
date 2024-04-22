@@ -11,7 +11,10 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { makeStyles } from "@material-ui/core";
+import { TypeAnimation } from "react-type-animation";
 import Logo from "../assets/logo.png";
+import { textList } from "../util/typingText";
+import { shuffleArray } from "../util/shuffle";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -41,6 +44,8 @@ const NavBar = ({ currentIndex, setCurrentIndex, total }) => {
         setCurrentIndex(index);
         if (isMenuOpen) toggleMenu();
     };
+    shuffleArray(textList);
+    textList.unshift("AISOC");
 
     return (
         <AppBar
@@ -73,27 +78,21 @@ const NavBar = ({ currentIndex, setCurrentIndex, total }) => {
                             style={{ width: 50, marginRight: 10 }}
                             alt="logo"
                         />
-
-                        <Typography
-                            variant="h6"
-                            noWrap
-                            component="span" // Change from "a" to "span" to prevent nested anchor elements
-                            sx={{
-                                mr: 4,
-                                display: { display: "flex" },
-                                fontFamily: "monospace",
-                                marginRight: "6px",
-                                fontWeight: 700,
-                                letterSpacing: ".3rem",
-                                color: "inherit",
-                                textDecoration: "none",
-                            }}
-                        >
-                            AISOC
-                        </Typography>
+                        <TypeAnimation
+                            defaultText="AISOC"
+                            sequence={textList.flatMap((item) => [
+                                item,
+                                2000 * Math.random() + 5000,
+                            ])}
+                            style={{ fontWeight: 700, fontSize: "1rem" }}
+                            speed={{ type: "keyStrokeDelayInMs", value: 50 }}
+                            deletionSpeed={80}
+                            repeat={Infinity}
+                            cursor={true}
+                        />
                     </Box>
                 </a>
-                <Hidden mdUp>
+                <Hidden lgUp>
                     {/* Mobile Menu Button */}
                     <IconButton
                         size="large"
@@ -134,7 +133,7 @@ const NavBar = ({ currentIndex, setCurrentIndex, total }) => {
                         </Box>
                     </Drawer>
                 </Hidden>
-                <Hidden mdDown>
+                <Hidden lgDown>
                     <Box
                         sx={{
                             display: "flex",

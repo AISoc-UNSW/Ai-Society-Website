@@ -142,7 +142,7 @@ function BrainParticles({ allTheCurves }) {
 
 const Brain = () => {
     const theme = useTheme();
-    const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+    const isMobile = useMediaQuery(theme.breakpoints.down("md"));
     return (
         <>
             <Box
@@ -164,8 +164,11 @@ const Brain = () => {
                         display: "flex",
                         flexDirection: "column",
                         alignContent: "center",
-                        maxWidth: isMobile ? "100%" : "30%",
-                        padding: isMobile ? "20px" : "10%",
+                        maxWidth: isMobile ? "100%" : "40%",
+                        maxHeight: "100%",
+                        padding: isMobile ? "20px" : "5%",
+                        paddingLeft: isMobile ? "5%" : "10%",
+                        marginTop: isMobile ? "15%" : 0,
                         textAlign: isMobile ? "center" : "left", // Center text on mobile
                     }}
                 >
@@ -173,9 +176,8 @@ const Brain = () => {
                         sx={{
                             color: "white",
                             fontFamily: "sans-serif",
-                            fontSize: isMobile ? "2rem" : "4rem", // Smaller text on mobile
+                            fontSize: isMobile ? "2rem" : "6vh", // Smaller text on mobile
                             fontWeight: "300",
-                            opacity: "0.8",
                             zIndex: 3,
                             userSelect: "none",
                         }}
@@ -187,6 +189,7 @@ const Brain = () => {
                         style={{
                             color: "white",
                             zIndex: 3,
+                            opacity: "0.8",
                             userSelect: "none",
                         }}
                     >
@@ -199,9 +202,9 @@ const Brain = () => {
 
                 <Canvas
                     style={{
-                        width: isMobile ? "100%" : "50%",
+                        width: isMobile ? "100%" : "auto",
                         height: isMobile ? "50%" : "100%", // Adjust height on mobile
-                        minWidth: isMobile ? "100%" : "50%",
+                        minWidth: isMobile ? "100%" : "40%",
                         zIndex: 3,
                     }}
                     camera={{ position: [0, 0, 0.3], near: 0.001, far: 5 }}
