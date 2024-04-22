@@ -7,6 +7,8 @@ import { UnrealBloomPass } from "three/examples/jsm/postprocessing/UnrealBloomPa
 const Stars = () => {
     const canvasRef = useRef(null);
     const cameraRef = useRef(null);
+    const rendererRef = useRef(null);
+    const composerRef = useRef(null);
     const targetRef = useRef(null);
     const starsRef = useRef(null);
     const gravityRef = useRef(new THREE.Vector3());
@@ -137,8 +139,8 @@ const Stars = () => {
             2000
         );
         cameraRef.current = camera;
-        cameraRef.current.aspect = window.innerWidth / window.innerHeight;
-        cameraRef.current.updateProjectionMatrix();
+        // cameraRef.current.aspect = window.innerWidth / window.innerHeight;
+        // cameraRef.current.updateProjectionMatrix();
         camera.position.z = 500;
 
         targetRef.current = new THREE.Vector3();
@@ -170,19 +172,6 @@ const Stars = () => {
         composer.addPass(bloomPass);
 
         scene.add(stars);
-
-        // Recalculate star positions to maintain density
-        const positions = starsRef.current.geometry.attributes.position.array;
-        const newWidth = window.innerWidth;
-        const newHeight = window.innerHeight;
-        const aspectRatio = newWidth / newHeight;
-
-        for (let i = 0; i < positions.length; i += 3) {
-            positions[i] = (Math.random() * 2 - 1) * newWidth;
-            positions[i + 1] =
-                (Math.random() * 2 - 1) * newHeight * aspectRatio;
-            // Adjust z position if needed, depending on your specific needs
-        }
 
         starsRef.current.geometry.attributes.position.needsUpdate = true;
 
@@ -220,12 +209,37 @@ const Stars = () => {
 
         window.addEventListener("mousemove", handleMouseMove);
         animate();
+        rendererRef.current = renderer;
+        composerRef.current = composer;
+    };
+    const resize = () => {
+        const camera = cameraRef.current;
+        const renderer = rendererRef.current;
+        const composer = composerRef.current;
+
+        // Update camera aspect ratio and renderer size
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        composer.setSize(window.innerWidth, window.innerHeight);
+
+        // Recalculate star positions to maintain density
+        const positions = starsRef.current.geometry.attributes.position.array;
+        const newWidth = window.innerWidth;
+        const newHeight = window.innerHeight;
+        const aspectRatio = newWidth / newHeight;
+
+        for (let i = 0; i < positions.length; i += 3) {
+            positions[i] = (Math.random() * 2 - 1) * newWidth;
+            positions[i + 1] =
+                (Math.random() * 2 - 1) * newHeight * aspectRatio;
+        }
     };
 
     useEffect(() => {
         init();
         const handleResize = () => {
-            init(); // Reinitialize on resize
+            resize();
         };
 
         window.addEventListener("resize", handleResize);

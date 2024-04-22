@@ -4,6 +4,7 @@ import * as THREE from "three";
 const ParticlePattern = () => {
     const canvasRef = useRef(null);
     const cameraRef = useRef(null);
+    const rendererRef = useRef(null);
     const targetRef = useRef(null);
     const starsRef = useRef(null);
     const canvasSizeRef = useRef({ width: 0, height: 0 });
@@ -205,12 +206,23 @@ const ParticlePattern = () => {
 
         window.addEventListener("mousemove", handleMouseMove);
         animate();
+        rendererRef.current = renderer;
+    };
+
+    const resize = () => {
+        const camera = cameraRef.current;
+        const renderer = rendererRef.current;
+
+        // Update camera aspect ratio and renderer size
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
     };
 
     useEffect(() => {
         initParticles();
         const handleResize = () => {
-            initParticles(); // Reinitialize on resize
+            resize();
         };
 
         window.addEventListener("resize", handleResize);
