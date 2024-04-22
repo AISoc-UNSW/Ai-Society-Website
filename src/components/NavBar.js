@@ -15,6 +15,7 @@ import { TypeAnimation } from "react-type-animation";
 import Logo from "../assets/logo.png";
 import { textList } from "../util/typingText";
 import { shuffleArray } from "../util/shuffle";
+import { swapRandomLetters } from "../util/typoEffect";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -48,32 +49,7 @@ const NavBar = ({ currentIndex, setCurrentIndex, total }) => {
     textList.unshift("AISOC");
 
     // Spelling/typo mistake effect
-    const swapRandomLetters = (word) => {
-        if (Math.random() > 0.1) {
-            return word; // 95% chance to return the word unchanged.
-        }
-
-        let arr = word.split("");
-        if (word.length < 2) {
-            return word; // Not enough letters to swap.
-        }
-
-        // Select two different random indices for swapping letters.
-        let index1 = Math.floor(Math.random() * arr.length);
-        let index2;
-        do {
-            index2 = Math.floor(Math.random() * arr.length);
-        } while (index1 === index2);
-
-        // Swap the letters.
-        let temp = arr[index1];
-        arr[index1] = arr[index2];
-        arr[index2] = temp;
-
-        return arr.join("");
-    };
-
-    const processStrings = (strings) => {
+    const processTypoStrings = (strings, mistakeChance) => {
         let newStrings = [];
         for (const originalString of strings) {
             const words = originalString.split(" ");
@@ -81,7 +57,10 @@ const NavBar = ({ currentIndex, setCurrentIndex, total }) => {
 
             for (let i = 0; i < words.length; i++) {
                 const originalWord = words[i];
-                const swappedWord = swapRandomLetters(originalWord);
+                const swappedWord = swapRandomLetters(
+                    originalWord,
+                    mistakeChance
+                );
                 currentString[i] = swappedWord; // Update the word in the array
                 if (originalWord !== swappedWord) {
                     newStrings.push(currentString.join(" "));
@@ -91,15 +70,24 @@ const NavBar = ({ currentIndex, setCurrentIndex, total }) => {
             }
 
             newStrings.push(words.join(" "));
+            newStrings.push((el) => el.classList.remove("type"));
             newStrings.push(
                 2000 * Math.random() + 5000 // Add random delay from 3 - 7s
             );
+            newStrings.push((el) => el.classList.add("delete"));
+            newStrings.push("");
+            newStrings.push((el) => el.classList.remove("delete"));
+            newStrings.push((el) => el.classList.add("think"));
+            newStrings.push(
+                2000 * Math.random() + 1500 // Add random delay from 1.5 - 3.5s
+            );
+            newStrings.push((el) => el.classList.remove("think"));
+            newStrings.push((el) => el.classList.add("type"));
         }
 
         return newStrings;
     };
-
-    const alteredList = processStrings(textList);
+    const alteredList = processTypoStrings(textList, 0.1);
     return (
         <AppBar
             sx={{
@@ -132,14 +120,47 @@ const NavBar = ({ currentIndex, setCurrentIndex, total }) => {
                             alt="logo"
                         />
                         <TypeAnimation
-                            defaultText="AISOC"
+                            aria-label="AISOC"
                             sequence={alteredList}
                             style={{ fontWeight: 700, fontSize: "1rem" }}
                             speed={{ type: "keyStrokeDelayInMs", value: 50 }}
                             deletionSpeed={80}
                             repeat={Infinity}
-                            cursor={true}
+                            cursor={false}
                         />
+                        <style global jsx>{`
+                            .type::after {
+                                content: "•";
+                                font-size: 3rem;
+                                margin-left: 0.25rem;
+                                vertical-align: middle;
+                                transform-origin: center;
+                            }
+                            .think::after {
+                                content: "•";
+                                font-size: 3rem;
+                                margin-left: 0.25rem;
+                                animation: pulse 1.25s infinite;
+                                vertical-align: middle;
+                                transform-origin: center;
+                            }
+                            .delete::after {
+                                content: "|";
+                                font-size: 1.5rem;
+                                vertical-align: baseline;
+                                animation: cursor 1.1s infinite step-start;
+                            }
+                            @keyframes pulse {
+                                50% {
+                                    opacity: 0.5;
+                                }
+                            }
+                            @keyframes cursor {
+                                50% {
+                                    opacity: 0;
+                                }
+                            }
+                        `}</style>
                     </Box>
                 </a>
                 <Hidden lgUp>

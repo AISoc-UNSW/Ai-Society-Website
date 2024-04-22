@@ -52,4 +52,5 @@ export let textList = [
     "These are not generated in real time. We're not rich. API costs are expensive.",
     "According to all known laws of aviation, there is no way a bee should be able to fly.",
     "Our president Andrew, once saved 51 children from a burning building.",
+    "Even artificial intelligence can make typos too.",
 ];
