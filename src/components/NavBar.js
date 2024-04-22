@@ -135,6 +135,7 @@ const NavBar = ({ currentIndex, setCurrentIndex, total }) => {
                                 margin-left: 0.25rem;
                                 vertical-align: middle;
                                 transform-origin: center;
+                                line-height: 0.33;
                             }
                             .think::after {
                                 content: "•";
@@ -149,6 +150,7 @@ const NavBar = ({ currentIndex, setCurrentIndex, total }) => {
                                 font-size: 1.5rem;
                                 vertical-align: baseline;
                                 animation: cursor 1.1s infinite step-start;
+                                line-height: 0.66;
                             }
                             @keyframes pulse {
                                 50% {
