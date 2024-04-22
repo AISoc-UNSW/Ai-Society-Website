@@ -122,10 +122,7 @@ const NavBar = ({ currentIndex, setCurrentIndex, total }) => {
                         <TypeAnimation
                             aria-label="AISOC"
                             sequence={alteredList}
-                            style={{
-                                fontWeight: 700,
-                                fontSize: "1rem",
-                            }}
+                            style={{ fontWeight: 700, fontSize: "1rem" }}
                             speed={{ type: "keyStrokeDelayInMs", value: 50 }}
                             deletionSpeed={80}
                             repeat={Infinity}
@@ -137,8 +134,7 @@ const NavBar = ({ currentIndex, setCurrentIndex, total }) => {
                                 font-size: 3rem;
                                 margin-left: 0.25rem;
                                 vertical-align: middle;
-                                position: absolute;
-                                top: 3px;
+                                transform-origin: center;
                             }
                             .think::after {
                                 content: "•";
@@ -146,13 +142,13 @@ const NavBar = ({ currentIndex, setCurrentIndex, total }) => {
                                 margin-left: 0.25rem;
                                 animation: pulse 1.25s infinite;
                                 vertical-align: middle;
+                                transform-origin: center;
                             }
                             .delete::after {
                                 content: "|";
                                 font-size: 1.5rem;
+                                vertical-align: baseline;
                                 animation: cursor 1.1s infinite step-start;
-                                position: absolute;
-                                top: 14px;
                             }
                             @keyframes pulse {
                                 50% {
