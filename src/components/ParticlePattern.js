@@ -222,7 +222,7 @@ const ParticlePattern = () => {
     useEffect(() => {
         initParticles();
         const handleResize = () => {
-            resize();
+            resize(); // Reinitialize on resize
         };
 
         window.addEventListener("resize", handleResize);

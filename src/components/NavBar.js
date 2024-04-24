@@ -45,8 +45,17 @@ const NavBar = ({ currentIndex, setCurrentIndex, total }) => {
         setCurrentIndex(index);
         if (isMenuOpen) toggleMenu();
     };
-    shuffleArray(textList);
-    textList.unshift("AISOC");
+    const displayList = textList
+        .filter((text) => {
+            if (Math.random() <= text.chanceMultiplier) return true;
+            return false;
+        })
+        .map((text) => {
+            return text.text;
+        });
+
+    shuffleArray(displayList);
+    displayList.unshift("AISOC");
 
     // Spelling/typo mistake effect
     const processTypoStrings = (strings, mistakeChance) => {
@@ -87,7 +96,7 @@ const NavBar = ({ currentIndex, setCurrentIndex, total }) => {
 
         return newStrings;
     };
-    const alteredList = processTypoStrings(textList, 0.1);
+    const alteredList = processTypoStrings(displayList, 0.1);
     return (
         <AppBar
             sx={{
@@ -150,7 +159,7 @@ const NavBar = ({ currentIndex, setCurrentIndex, total }) => {
                                 font-size: 1.5rem;
                                 vertical-align: baseline;
                                 animation: cursor 1.1s infinite step-start;
-                                line-height: 0.66;
+                                line-height: 0.6;
                             }
                             @keyframes pulse {
                                 50% {
