@@ -3,11 +3,12 @@ import * as THREE from "three";
 import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer.js";
 import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass.js";
 import { UnrealBloomPass } from "three/examples/jsm/postprocessing/UnrealBloomPass.js";
-import ParticlePattern from "./ParticlePattern";
 
 const Stars = () => {
     const canvasRef = useRef(null);
     const cameraRef = useRef(null);
+    const rendererRef = useRef(null);
+    const composerRef = useRef(null);
     const targetRef = useRef(null);
     const starsRef = useRef(null);
     const gravityRef = useRef(new THREE.Vector3());
@@ -37,7 +38,7 @@ const Stars = () => {
         const colors = [];
         const sizes = [];
 
-        const numStars = 2000;
+        const numStars = 1000;
 
         for (let i = 0; i < numStars; i++) {
             const x = (Math.random() * 2 - 1) * 2000;
@@ -47,7 +48,7 @@ const Stars = () => {
             velocities.push(
                 (Math.random() * 2 - 1) * 0.1,
                 (Math.random() * 2 - 1) * 0.1,
-                (Math.random() * 2 - 1) * 0.1
+                0
             );
 
             const color = new THREE.Color().lerpColors(
@@ -56,7 +57,6 @@ const Stars = () => {
                 Math.random()
             );
             const transparency = 0.1 * Math.random();
-            console.log(transparency);
             colors.push(color.r, color.g, color.b, transparency);
             sizes.push(5); // Size of each star
         }
@@ -139,6 +139,8 @@ const Stars = () => {
             2000
         );
         cameraRef.current = camera;
+        // cameraRef.current.aspect = window.innerWidth / window.innerHeight;
+        // cameraRef.current.updateProjectionMatrix();
         camera.position.z = 500;
 
         targetRef.current = new THREE.Vector3();
@@ -171,6 +173,8 @@ const Stars = () => {
 
         scene.add(stars);
 
+        starsRef.current.geometry.attributes.position.needsUpdate = true;
+
         const handleMouseMove = (event) => {
             const { clientX, clientY } = event;
             const aspectRatio = window.innerWidth / window.innerHeight;
@@ -188,7 +192,7 @@ const Stars = () => {
 
         const animate = () => {
             requestAnimationFrame(animate);
-            // renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setSize(window.innerWidth, window.innerHeight);
 
             const camera = cameraRef.current;
             const target = targetRef.current;
@@ -205,10 +209,44 @@ const Stars = () => {
 
         window.addEventListener("mousemove", handleMouseMove);
         animate();
+        rendererRef.current = renderer;
+        composerRef.current = composer;
+    };
+    const resize = () => {
+        const camera = cameraRef.current;
+        const renderer = rendererRef.current;
+        const composer = composerRef.current;
+
+        // Update camera aspect ratio and renderer size
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        composer.setSize(window.innerWidth, window.innerHeight);
+
+        // Recalculate star positions to maintain density
+        const positions = starsRef.current.geometry.attributes.position.array;
+        const newWidth = window.innerWidth;
+        const newHeight = window.innerHeight;
+        const aspectRatio = newWidth / newHeight;
+
+        for (let i = 0; i < positions.length; i += 3) {
+            positions[i] = (Math.random() * 2 - 1) * newWidth;
+            positions[i + 1] =
+                (Math.random() * 2 - 1) * newHeight * aspectRatio;
+        }
     };
 
     useEffect(() => {
         init();
+        const handleResize = () => {
+            resize();
+        };
+
+        window.addEventListener("resize", handleResize);
+
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
     }, []);
 
     return (

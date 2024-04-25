@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Typography, Button } from "@mui/material";
 import { makeStyles } from "@material-ui/core/styles";
-import Reveal from "../util/Reveal";
+
 const MeetUs = () => {
     const team = [
         {
@@ -37,8 +37,8 @@ const MeetUs = () => {
     ];
 
     return (
-        <Box id="section1" sx={{ margin: "10vh 0", textAlign: "center" }}>
-            <Reveal>
+        <>
+            <Box id="section1" sx={{ margin: "10vh 0", textAlign: "center" }}>
                 <Typography
                     sx={{ fontWeight: "bold", margin: "15px 0" }}
                     variant="h4"
@@ -48,8 +48,7 @@ const MeetUs = () => {
                 <Typography sx={{ marginBottom: "40px" }}>
                     Get to know the leading members of our society.
                 </Typography>
-            </Reveal>
-            <Reveal>
+
                 <Box
                     sx={{
                         display: "flex",
@@ -77,8 +76,7 @@ const MeetUs = () => {
                         </Box>
                     ))}
                 </Box>
-            </Reveal>
-            <Reveal>
+
                 <Typography variant="h5" sx={{ fontWeight: "bold" }}>
                     We are currently looking for students to join our team
                 </Typography>
@@ -97,8 +95,8 @@ const MeetUs = () => {
                 >
                     Join Here
                 </Button>
-            </Reveal>
-        </Box>
+            </Box>
+        </>
     );
 };
 

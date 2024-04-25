@@ -142,67 +142,82 @@ function BrainParticles({ allTheCurves }) {
 
 const Brain = () => {
     const theme = useTheme();
-    const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+    const isMobile = useMediaQuery(theme.breakpoints.down("md"));
     return (
-        <Box
-            sx={{
-                display: "flex",
-                flexDirection: isMobile ? "column" : "row",
-                position: "relative",
-                height: "100vh",
-                backgroundColor: "black",
-                alignItems: "center",
-                justifyContent: "center",
-            }}
-        >
-            <Stars />
-            <ParticlePattern />
-
+        <>
             <Box
                 sx={{
                     display: "flex",
-                    flexDirection: "column",
-                    alignContent: "center",
-                    maxWidth: isMobile ? "100vw" : "50vw",
-                    padding: isMobile ? "20px" : "10vw",
-                    textAlign: isMobile ? "center" : "left", // Center text on mobile
+                    flexDirection: isMobile ? "column" : "row",
+                    position: "relative",
+                    height: "100vh",
+                    backgroundColor: "black",
+                    alignItems: "center",
+                    justifyContent: "center",
                 }}
             >
-                <Typography
+                <Stars />
+                <ParticlePattern />
+
+                <Box
                     sx={{
-                        color: "white",
-                        fontFamily: "sans-serif",
-                        fontSize: isMobile ? "2rem" : "4rem", // Smaller text on mobile
-                        fontWeight: "300",
-                        opacity: "0.8",
-                        zIndex: 500,
+                        display: "flex",
+                        flexDirection: "column",
+                        alignContent: "center",
+                        maxWidth: isMobile ? "100%" : "40%",
+                        maxHeight: "100%",
+                        padding: isMobile ? "20px" : "5%",
+                        paddingLeft: isMobile ? "5%" : "10%",
+                        marginTop: isMobile ? "15%" : 0,
+                        textAlign: isMobile ? "center" : "left", // Center text on mobile
                     }}
                 >
-                    WE ARE THREE JS MAINS NOW
-                </Typography>
-                <Typography style={{ color: "white", zIndex: 500 }}>
-                    AI Society gives out free money to all UNSW students that
-                    join.
-                </Typography>
-            </Box>
-
-            <Canvas
-                style={{
-                    width: isMobile ? "100vw" : "50vw",
-                    height: isMobile ? "50vh" : "100vh", // Adjust height on mobile
-                    minWidth: isMobile ? "100vw" : "50vw",
+                    <Typography
+                        sx={{
+                            color: "white",
+                            fontFamily: "sans-serif",
+                            fontSize: isMobile ? "2rem" : "6vh", // Smaller text on mobile
+                            fontWeight: "300",
+                            zIndex: 3,
+                            userSelect: "none",
+                        }}
+                    >
+                        Artificial Intelligence Society
+                    </Typography>
                     zIndex: 500,
-                }}
-                camera={{ position: [0, 0, 0.3], near: 0.001, far: 5 }}
-            >
-                {/* <Stars /> */}
-                <ambientLight />
-                <pointLight position={[10, 10, 10]} />
-                <Tubes allTheCurve={brainCurves} />
-                <BrainParticles allTheCurves={brainCurves} />
-                <OrbitControls enableZoom={false} />
-            </Canvas>
-        </Box>
+                    <Typography
+                        style={{
+                            color: "white",
+                            zIndex: 3,
+                            opacity: "0.8",
+                            userSelect: "none",
+                        }}
+                    >
+                        We are the foremost advocate for AI enthusiasts,
+                        nurturing a dedicated community of passionate
+                        individuals eager to explore the frontiers of artificial
+                        intelligence.
+                    </Typography>
+                </Box>
+
+                <Canvas
+                    style={{
+                        width: isMobile ? "100%" : "auto",
+                        height: isMobile ? "50%" : "100%", // Adjust height on mobile
+                        minWidth: isMobile ? "100%" : "40%",
+                        zIndex: 3,
+                    }}
+                    camera={{ position: [0, 0, 0.3], near: 0.001, far: 5 }}
+                >
+                    {/* <Stars /> */}
+                    <ambientLight />
+                    <pointLight position={[10, 10, 10]} />
+                    <Tubes allTheCurve={brainCurves} />
+                    <BrainParticles allTheCurves={brainCurves} />
+                    <OrbitControls enableZoom={false} enablePan={false} />
+                </Canvas>
+            </Box>
+        </>
     );
 };
 
