@@ -142,7 +142,7 @@ function BrainParticles({ allTheCurves }) {
 
 const Brain = () => {
     const theme = useTheme();
-    const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+    const isMobile = useMediaQuery(theme.breakpoints.down("lg"));
     return (
         <>
             <Box
@@ -184,7 +184,6 @@ const Brain = () => {
                     >
                         Artificial Intelligence Society
                     </Typography>
-                    zIndex: 500,
                     <Typography
                         style={{
                             color: "white",
@@ -204,12 +203,11 @@ const Brain = () => {
                     style={{
                         width: isMobile ? "100%" : "auto",
                         height: isMobile ? "50%" : "100%", // Adjust height on mobile
-                        minWidth: isMobile ? "100%" : "40%",
+                        minWidth: isMobile ? "100%" : "60%",
                         zIndex: 3,
                     }}
                     camera={{ position: [0, 0, 0.3], near: 0.001, far: 5 }}
                 >
-                    {/* <Stars /> */}
                     <ambientLight />
                     <pointLight position={[10, 10, 10]} />
                     <Tubes allTheCurve={brainCurves} />

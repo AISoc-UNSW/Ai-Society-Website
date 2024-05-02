@@ -44,18 +44,19 @@ const imageData = [
         src: llm_workshop,
         alt: "Image 2",
     },
-    {
-        src: "https://cdn.discordapp.com/emojis/876294478640594974.gif?size=512",
-        alt: "Image 3",
-    },
-    {
-        src: "https://cdn.discordapp.com/emojis/1142664037910454283.gif?size=96&quality=lossless",
-        alt: "Image 3",
-    },
-    {
-        src: "https://cdn.discordapp.com/emojis/1210125145101041685.gif?size=96&quality=lossless",
-        alt: "Image 3",
-    },
+
+    // {
+    //     src: "https://cdn.discordapp.com/emojis/876294478640594974.gif?size=512",
+    //     alt: "Image 3",
+    // },
+    // {
+    //     src: "https://cdn.discordapp.com/emojis/1142664037910454283.gif?size=96&quality=lossless",
+    //     alt: "Image 3",
+    // },
+    // {
+    //     src: "https://cdn.discordapp.com/emojis/1210125145101041685.gif?size=96&quality=lossless",
+    //     alt: "Image 3",
+    // },
 ];
 
 const Events = () => {
@@ -70,7 +71,6 @@ const Events = () => {
         autoplay: true,
         autoplaySpeed: 3000,
         pauseOnHover: true,
-        arrow: true,
         className: classes.dotContainer,
     };
 
@@ -99,10 +99,7 @@ const Events = () => {
 
                 <Box
                     sx={{
-                        maxWidth: "70vw",
-                        margin: "auto",
-                        border: "2px solid silver",
-                        borderRadius: "50px",
+                        margin: "0 5vw",
                     }}
                 >
                     <Slider {...settings}>
@@ -113,6 +110,8 @@ const Events = () => {
                                     display: "flex",
                                     justifyContent: "center",
                                     alignItems: "center",
+                                    margin: 0,
+                                    // height: "auto",
                                 }}
                             >
                                 <img
@@ -120,10 +119,10 @@ const Events = () => {
                                     alt={image.alt}
                                     style={{
                                         margin: "0 auto",
-                                        maxWidth: "100%", // Make sure images don't overflow their containers
-                                        height: "50vh", // Maintain aspect ratio
-                                        // width: "90vw",
-                                        // objectFit: "contain", // Ensure image fits without distortion
+                                        maxWidth: "100%",
+                                        height: "auto",
+                                        maxHeight: "40vh",
+                                        objectFit: "contain", // Preserve aspect ratio
                                     }}
                                 />
                             </Box>

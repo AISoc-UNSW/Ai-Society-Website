@@ -58,7 +58,7 @@ const Home = () => {
         top: 0,
         left: 0,
         transition:
-            "opacity 0.5s ease-in-out 0.75s, transform 0.75s ease-in-out, visibility 0.5s ease-in-out 0.75s, filter 0.75s ease-in-out",
+            "opacity 0.5s ease-in-out 0.5s, transform 0.5s ease-in-out, visibility 0.5s ease-in-out 0.5s, filter 0.75s ease-in-out",
         visibility: index === currentIndex ? "visible" : "hidden",
         opacity: index === currentIndex ? 1 : 0,
         transform: index === currentIndex ? "scale(1)" : "scale(1.02)",
@@ -79,6 +79,13 @@ const Home = () => {
             ))}
 
             <LoadingScreen twoSeconds={false} isLoading={isLoading} />
+            {/* <Brain />,
+            <About />,
+            <Events />,
+            <NewsLetter />,
+            <MeetUs />,
+            <Faq />,
+            <Sponsor />, */}
         </>
     );
 };

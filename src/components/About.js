@@ -16,8 +16,7 @@ const About = () => {
                     flexDirection: "row",
                     padding: "3rem",
                     flexWrap: "wrap",
-                    // marginTop: "8vh",
-                    // marginBottom: "10vh",
+                    // backgroundColor: "#110c29",
                     margin: "10vh 10vw",
                 }}
             >

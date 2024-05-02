@@ -103,7 +103,6 @@ const NavBar = ({ currentIndex, setCurrentIndex, total }) => {
                 transition:
                     "height 1s ease, background-color 1s ease, padding-top 1s ease",
                 backgroundColor: isScrolled ? "#1F1F23" : "transparent",
-                opacity: isScrolled ? 0.95 : 1,
                 paddingTop: isScrolled ? "" : "3vh",
                 boxShadow: "none",
                 zIndex: 500,
