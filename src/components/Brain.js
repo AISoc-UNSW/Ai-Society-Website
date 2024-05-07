@@ -154,6 +154,7 @@ const Brain = () => {
                     backgroundColor: "black",
                     alignItems: "center",
                     justifyContent: "center",
+                    scrollSnapAlign: "start",
                 }}
             >
                 <Stars />

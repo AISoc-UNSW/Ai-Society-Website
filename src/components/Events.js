@@ -21,13 +21,13 @@ const useCarouselStyles = makeStyles({
                         width: "60px",
                         height: "5px",
                         borderRadius: 0,
-                        backgroundColor: "#ccc",
+                        backgroundColor: "rgba(255, 255, 255, .4)",
                     },
                 },
                 "&.slick-active": {
                     "& button": {
                         "&:before": {
-                            backgroundColor: "#000",
+                            backgroundColor: "#fff",
                         },
                     },
                 },
@@ -64,6 +64,7 @@ const Events = () => {
 
     const settings = {
         dots: true,
+        arrows: false,
         infinite: true,
         speed: 500,
         slidesToShow: 1,
@@ -79,19 +80,31 @@ const Events = () => {
             <Box
                 id="events"
                 sx={{
-                    margin: "10vh 0",
+                    padding: "10vh 5vw",
                     backgroundColor: "white",
-                    padding: "40px 0",
+                    scrollSnapAlign: "center",
+                    backgroundColor: "#110c29",
+                    color: "white",
                 }}
             >
                 <Box sx={{ textAlign: "center" }}>
                     <Typography
                         variant="h3"
-                        sx={{ fontWeight: "bold", marginBottom: "15px" }}
+                        sx={{
+                            fontWeight: "bold",
+                            marginBottom: "15px",
+                            fontFamily: "Ubuntu Sans",
+                        }}
                     >
                         Discover
                     </Typography>
-                    <Typography gutterBottom sx={{ marginBottom: "15px" }}>
+                    <Typography
+                        gutterBottom
+                        sx={{
+                            marginBottom: "15px",
+                            fontFamily: "Ubuntu Sans",
+                        }}
+                    >
                         Stay updated with the latest events, lectures, and
                         meetings related to artifical intelligence.
                     </Typography>

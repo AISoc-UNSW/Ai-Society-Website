@@ -38,14 +38,28 @@ const MeetUs = () => {
 
     return (
         <>
-            <Box id="section1" sx={{ margin: "10vh 0", textAlign: "center" }}>
+            <Box
+                id="section1"
+                sx={{
+                    margin: "10vh 0",
+                    textAlign: "center",
+
+                    scrollSnapAlign: "center",
+                }}
+            >
                 <Typography
-                    sx={{ fontWeight: "bold", margin: "15px 0" }}
-                    variant="h4"
+                    sx={{
+                        fontWeight: "bold",
+                        margin: "15px 0",
+                        fontFamily: "Ubuntu Sans",
+                    }}
+                    variant="h3"
                 >
                     Meet Our Exec Team
                 </Typography>
-                <Typography sx={{ marginBottom: "40px" }}>
+                <Typography
+                    sx={{ marginBottom: "40px", fontFamily: "Ubuntu Sans" }}
+                >
                     Get to know the leading members of our society.
                 </Typography>
 
@@ -77,7 +91,10 @@ const MeetUs = () => {
                     ))}
                 </Box>
 
-                <Typography variant="h5" sx={{ fontWeight: "bold" }}>
+                <Typography
+                    variant="h5"
+                    sx={{ fontWeight: "bold", fontFamily: "Ubuntu Sans" }}
+                >
                     We are currently looking for students to join our team
                 </Typography>
                 <Button
@@ -127,10 +144,18 @@ const TeamMember = ({ name, image, role }) => {
     return (
         <Box className={classes.root}>
             <img src={image} alt={name} className={classes.image} />
-            <Typography variant="h6" className={classes.name}>
+            <Typography
+                variant="h6"
+                className={classes.name}
+                sx={{ fontFamily: "Ubuntu Sans" }}
+            >
                 {name}
             </Typography>
-            <Typography variant="body2" className={classes.role}>
+            <Typography
+                variant="body2"
+                className={classes.role}
+                sx={{ fontFamily: "Ubuntu Sans" }}
+            >
                 {role}
             </Typography>
         </Box>

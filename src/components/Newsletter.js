@@ -52,6 +52,7 @@ const cardData = [
 const NewsLetter = () => {
     var settings = {
         dots: true,
+        arrows: false,
         infinite: false,
         speed: 500,
         slidesToShow: 4,
@@ -91,25 +92,44 @@ const NewsLetter = () => {
                 id="newsletter"
                 sx={{
                     textAlign: "center",
-                    marginTop: "5vh",
-                    marginBottom: "10vh",
+                    paddingTop: "5vh",
+                    paddingBottom: "10vh",
+                    scrollSnapAlign: "center",
+                    backgroundColor: "#110c29",
+                    color: "white",
                 }}
             >
                 <Typography
-                    variant="h4"
-                    sx={{ fontWeight: "bold", margin: "0 10vw" }}
+                    variant="h3"
+                    sx={{
+                        fontWeight: "bold",
+                        margin: "0 10vw",
+                        fontFamily: "Ubuntu Sans",
+                        marginBottom: "15px",
+                    }}
                 >
                     The Watchtower Newsletter
                 </Typography>
-                <Typography gutterBottom sx={{ margin: "0 10vw" }}>
+                <Typography
+                    gutterBottom
+                    sx={{
+                        margin: "0 10vw",
+                        fontFamily: "Ubuntu Sans",
+                        marginBottom: "15px",
+                    }}
+                >
                     Explore the recent and upcoming AI news
                 </Typography>
-                <Box sx={{ marginLeft: "30px", marginRight: "20px" }}>
+                <Box sx={{ marginLeft: "3vw", marginRight: "2vw" }}>
                     <Slider {...settings}>
-                        {cardData.map((card) => (
-                            <Box>
+                        {cardData.map((card, index) => (
+                            <Box key={index}>
                                 {/* This box is needed so that marginRight will work on the card (don't know why tho, something to do with the slider). */}
-                                <Card sx={{ marginRight: "10px" }}>
+                                <Card
+                                    sx={{
+                                        marginRight: "1vw",
+                                    }}
+                                >
                                     <CardMedia
                                         component="img"
                                         alt={card.title}
@@ -136,7 +156,11 @@ const NewsLetter = () => {
                                         </Typography>
                                     </CardContent>
                                     <CardActions>
-                                        <Button size="small" href={card.link}>
+                                        <Button
+                                            size="small"
+                                            href={card.link}
+                                            sx={{ color: "blue" }}
+                                        >
                                             Read More
                                         </Button>
                                     </CardActions>

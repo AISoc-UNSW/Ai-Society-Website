@@ -64,15 +64,20 @@ const Footer = () => {
             sx={{
                 padding: "10px 30px",
                 borderTop: "1px solid silver",
-                backgroundColor: "black",
+
+                backgroundColor: "#100b28",
             }}
         >
             <Box sx={{ textAlign: "left", color: "white" }}>
                 <img src={Logo} style={{ width: "200px" }} alt="logo" />
                 <Box sx={{ padding: "0 38px" }}>
-                    <Typography>The AI Society of UNSW</Typography>
+                    <Typography sx={{ fontFamily: "Ubuntu Sans" }}>
+                        The AI Society of UNSW
+                    </Typography>
                     <SocialMediaIcons />
-                    <Typography>© 2024 — AISoc UNSW</Typography>
+                    <Typography sx={{ fontFamily: "Ubuntu Sans" }}>
+                        © 2024 — AISoc UNSW
+                    </Typography>
                 </Box>
             </Box>
         </Box>

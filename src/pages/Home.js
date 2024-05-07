@@ -24,22 +24,22 @@ const Home = () => {
         <Sponsor />,
     ];
 
-    const handleScroll = throttle(
-        (e) => {
-            if (e.deltaY < 0 && currentIndex > 0) {
-                setCurrentIndex(currentIndex - 1);
-            } else if (e.deltaY > 0 && currentIndex < components.length - 1) {
-                setCurrentIndex(currentIndex + 1);
-            }
-        },
-        300,
-        { trailing: false }
-    );
+    // const handleScroll = throttle(
+    //     (e) => {
+    //         if (e.deltaY < 0 && currentIndex > 0) {
+    //             setCurrentIndex(currentIndex - 1);
+    //         } else if (e.deltaY > 0 && currentIndex < components.length - 1) {
+    //             setCurrentIndex(currentIndex + 1);
+    //         }
+    //     },
+    //     300,
+    //     { trailing: false }
+    // );
 
-    useEffect(() => {
-        window.addEventListener("wheel", handleScroll);
-        return () => window.removeEventListener("wheel", handleScroll);
-    }, [currentIndex, handleScroll]);
+    // useEffect(() => {
+    //     window.addEventListener("wheel", handleScroll);
+    //     return () => window.removeEventListener("wheel", handleScroll);
+    // }, [currentIndex, handleScroll]);
 
     window.onload = () => {
         setLoading(false);
@@ -67,27 +67,29 @@ const Home = () => {
 
     return (
         <>
-            <NavBar
-                currentIndex={currentIndex}
-                setCurrentIndex={setCurrentIndex}
-                total={components.length}
-            />
-            {components.map((Component, index) => (
-                <div key={index} style={pageStyle(index)}>
-                    {Component}
-                </div>
-            ))}
-
-            <LoadingScreen twoSeconds={false} isLoading={isLoading} />
-            {/* <Brain />,
-            <About />,
-            <Events />,
-            <NewsLetter />,
-            <MeetUs />,
-            <Faq />,
-            <Sponsor />, */}
+            <div>
+                <NavBar
+                    currentIndex={currentIndex}
+                    setCurrentIndex={setCurrentIndex}
+                    total={components.length}
+                />
+                <LoadingScreen twoSeconds={false} isLoading={isLoading} />
+                <Brain />
+                <About />
+                <Events />
+                <NewsLetter />
+                <MeetUs />
+                <Faq />
+                <Sponsor />
+            </div>
         </>
     );
 };
-
+{
+    /* {components.map((Component, index) => (
+                <div key={index} style={pageStyle(index)}>
+                    {Component}
+                </div>
+            ))} */
+}
 export default Home;

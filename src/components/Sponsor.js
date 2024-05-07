@@ -18,11 +18,16 @@ const Sponsor = () => {
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
+                    scrollSnapAlign: "start",
                 }}
             >
                 <Typography
                     variant="h5"
-                    sx={{ fontWeight: "bold", marginBottom: "15px" }}
+                    sx={{
+                        fontWeight: "bold",
+                        marginBottom: "15px",
+                        fontFamily: "Ubuntu Sans",
+                    }}
                 >
                     Proudly Sponsored by
                 </Typography>

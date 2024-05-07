@@ -16,6 +16,7 @@ const Faq = () => {
                     padding: "3rem",
                     // border: "2px solid black",
                     flexWrap: "wrap",
+                    scrollSnapAlign: "center",
                 }}
             >
                 <Box
@@ -31,11 +32,13 @@ const Faq = () => {
                         variant="h3"
                         align="left"
                         gutterBottom={true}
-                        sx={{ fontWeight: "bold" }}
+                        sx={{ fontWeight: "bold", fontFamily: "Ubuntu Sans" }}
                     >
                         Frequently Asked Questions
                     </Typography>
-                    <Typography sx={{ marginBottom: "20px" }}>
+                    <Typography
+                        sx={{ marginBottom: "20px", fontFamily: "Ubuntu Sans" }}
+                    >
                         Find answers to common questions about our society,
                         membership and events.
                     </Typography>
@@ -63,11 +66,17 @@ const Faq = () => {
                 >
                     <Typography
                         variant="h6"
-                        sx={{ fontWeight: "bold", marginBottom: "15px" }}
+                        sx={{
+                            fontWeight: "bold",
+                            marginBottom: "15px",
+                            fontFamily: "Ubuntu Sans",
+                        }}
                     >
                         What is this society about?
                     </Typography>
-                    <Typography sx={{ marginBottom: "30px" }}>
+                    <Typography
+                        sx={{ marginBottom: "30px", fontFamily: "Ubuntu Sans" }}
+                    >
                         Our society focuses on artifical intelligence and its
                         applications in various fields. We aim to create a
                         community of AI ethusiasts and provide opportunities for
@@ -75,44 +84,68 @@ const Faq = () => {
                     </Typography>
                     <Typography
                         variant="h6"
-                        sx={{ fontWeight: "bold", marginBottom: "15px" }}
+                        sx={{
+                            fontWeight: "bold",
+                            marginBottom: "15px",
+                            fontFamily: "Ubuntu Sans",
+                        }}
                     >
                         How can I join?
                     </Typography>
-                    <Typography sx={{ marginBottom: "30px" }}>
+                    <Typography
+                        sx={{ marginBottom: "30px", fontFamily: "Ubuntu Sans" }}
+                    >
                         To join our society, you can sign up through our website
                         or attend one of our events and register on the sport.
                         Membership is open to all university students.
                     </Typography>
                     <Typography
                         variant="h6"
-                        sx={{ fontWeight: "bold", marginBottom: "15px" }}
+                        sx={{
+                            fontWeight: "bold",
+                            marginBottom: "15px",
+                            fontFamily: "Ubuntu Sans",
+                        }}
                     >
                         Are there any membership fees?
                     </Typography>
-                    <Typography sx={{ marginBottom: "30px" }}>
+                    <Typography
+                        sx={{ marginBottom: "30px", fontFamily: "Ubuntu Sans" }}
+                    >
                         No, membership to our society is completely free. We
                         believe in providing equal opportunities for all
                         students to engage with AI.
                     </Typography>
                     <Typography
                         variant="h6"
-                        sx={{ fontWeight: "bold", marginBottom: "15px" }}
+                        sx={{
+                            fontWeight: "bold",
+                            marginBottom: "15px",
+                            fontFamily: "Ubuntu Sans",
+                        }}
                     >
                         What events do you organise?
                     </Typography>
-                    <Typography sx={{ marginBottom: "30px" }}>
+                    <Typography
+                        sx={{ marginBottom: "30px", fontFamily: "Ubuntu Sans" }}
+                    >
                         We organise a variety of events, including workshops,
                         guest lectures, hackathons, and networking sessions.
                         Check our events page for upcoming activities.
                     </Typography>
                     <Typography
                         variant="h6"
-                        sx={{ fontWeight: "bold", marginBottom: "15px" }}
+                        sx={{
+                            fontWeight: "bold",
+                            marginBottom: "15px",
+                            fontFamily: "Ubuntu Sans",
+                        }}
                     >
                         Can I participate in events?
                     </Typography>
-                    <Typography sx={{ marginBottom: "30px" }}>
+                    <Typography
+                        sx={{ marginBottom: "30px", fontFamily: "Ubuntu Sans" }}
+                    >
                         Yes, all our events are open to society members. Simply
                         register for the events you are interested in and join
                         us for an enriching experience
