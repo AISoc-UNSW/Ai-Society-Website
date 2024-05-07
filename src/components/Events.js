@@ -6,6 +6,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Box, Typography } from "@mui/material";
 import llm_workshop from "../assets/llm-workshop.png";
 import bbq from "../assets/bbq.png";
+import Reveal from "../util/Reveal";
 
 const useCarouselStyles = makeStyles({
     dotContainer: {
@@ -82,66 +83,69 @@ const Events = () => {
                 sx={{
                     padding: "10vh 5vw",
                     backgroundColor: "white",
-                    scrollSnapAlign: "center",
                     backgroundColor: "#110c29",
                     color: "white",
                 }}
             >
-                <Box sx={{ textAlign: "center" }}>
-                    <Typography
-                        variant="h3"
-                        sx={{
-                            fontWeight: "bold",
-                            marginBottom: "15px",
-                            fontFamily: "Ubuntu Sans",
-                        }}
-                    >
-                        Discover
-                    </Typography>
-                    <Typography
-                        gutterBottom
-                        sx={{
-                            marginBottom: "15px",
-                            fontFamily: "Ubuntu Sans",
-                        }}
-                    >
-                        Stay updated with the latest events, lectures, and
-                        meetings related to artifical intelligence.
-                    </Typography>
-                </Box>
+                <Reveal>
+                    <Box sx={{ textAlign: "center" }}>
+                        <Typography
+                            variant="h3"
+                            sx={{
+                                fontWeight: "bold",
+                                marginBottom: "15px",
+                                fontFamily: "Ubuntu Sans",
+                            }}
+                        >
+                            Discover
+                        </Typography>
+                        <Typography
+                            gutterBottom
+                            sx={{
+                                marginBottom: "15px",
+                                fontFamily: "Ubuntu Sans",
+                                fontSize: "20px",
+                                color: "rgba(255, 255, 255, 0.8)",
+                            }}
+                        >
+                            Stay updated with the latest events, lectures, and
+                            meetings related to artifical intelligence.
+                        </Typography>
+                    </Box>
 
-                <Box
-                    sx={{
-                        margin: "0 5vw",
-                    }}
-                >
-                    <Slider {...settings}>
-                        {imageData.map((image, index) => (
-                            <Box
-                                key={index}
-                                sx={{
-                                    display: "flex",
-                                    justifyContent: "center",
-                                    alignItems: "center",
-                                    margin: 0,
-                                    // height: "auto",
-                                }}
-                            >
-                                <img
-                                    src={image.src}
-                                    alt={image.alt}
-                                    style={{
-                                        margin: "0 auto",
-                                        maxWidth: "100%",
-                                        height: "auto",
-                                        maxHeight: "40vh",
-                                        objectFit: "contain", // Preserve aspect ratio
+                    <Box
+                        sx={{
+                            margin: "0 5vw",
+                        }}
+                    >
+                        <Slider {...settings}>
+                            {imageData.map((image, index) => (
+                                <Box
+                                    key={index}
+                                    sx={{
+                                        display: "flex",
+                                        justifyContent: "center",
+                                        alignItems: "center",
+                                        margin: 0,
+                                        // height: "auto",
                                     }}
-                                />
-                            </Box>
-                        ))}
-                    </Slider>
-                </Box>
+                                >
+                                    <img
+                                        src={image.src}
+                                        alt={image.alt}
+                                        style={{
+                                            margin: "0 auto",
+                                            maxWidth: "100%",
+                                            height: "auto",
+                                            maxHeight: "40vh",
+                                            objectFit: "contain", // Preserve aspect ratio
+                                        }}
+                                    />
+                                </Box>
+                            ))}
+                        </Slider>
+                    </Box>
+                </Reveal>
             </Box>
         </>
     );

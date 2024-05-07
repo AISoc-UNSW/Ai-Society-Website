@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const NavBar = ({ currentIndex, setCurrentIndex, total }) => {
+const NavBar = () => {
     const classes = useStyles();
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -47,26 +47,6 @@ const NavBar = ({ currentIndex, setCurrentIndex, total }) => {
             window.removeEventListener("scroll", listener);
         };
     }, []);
-
-    // useEffect(() => {
-    //     const parentElement = document.querySelector(
-    //         "div[style*='scroll-snap-type']"
-    //     );
-
-    //     const listener = () => {
-    //         setIsScrolled(parentElement.scrollTop > 0);
-    //     };
-
-    //     if (parentElement) {
-    //         parentElement.addEventListener("scroll", listener);
-    //     }
-
-    //     return () => {
-    //         if (parentElement) {
-    //             parentElement.removeEventListener("scroll", listener);
-    //         }
-    //     };
-    // }, []);
 
     const displayList = textList
         .filter((text) => {
@@ -352,13 +332,25 @@ const NavBar = ({ currentIndex, setCurrentIndex, total }) => {
                         <Button color="inherit">
                             <Link
                                 activeClass="active"
-                                to="sponsor"
+                                to="team"
                                 spy={true}
                                 smooth={true}
                                 offset={-70}
                                 duration={500}
                             >
                                 TEAM
+                            </Link>
+                        </Button>
+                        <Button color="inherit">
+                            <Link
+                                activeClass="active"
+                                to="faq"
+                                spy={true}
+                                smooth={true}
+                                offset={-70}
+                                duration={500}
+                            >
+                                FAQ
                             </Link>
                         </Button>
                         <Button color="inherit">

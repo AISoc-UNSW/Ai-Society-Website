@@ -3,6 +3,7 @@ import { Box, Typography } from "@mui/material";
 import Logo from "../assets/aisoc-logo.png";
 import { Facebook, Instagram, GitHub, LinkedIn } from "@mui/icons-material";
 import { ReactComponent as DiscordIcon } from "../assets/discord-icon.svg";
+
 const Footer = () => {
     const SocialMediaIcons = () => {
         return (
@@ -16,19 +17,19 @@ const Footer = () => {
             >
                 <IconWithHover
                     icon={<Instagram sx={{ fontSize: 35 }} />}
-                    link="https://www.instagram.com"
+                    link="https://www.instagram.com/unswai.soc/"
                 />
                 <IconWithHover
                     icon={<Facebook sx={{ fontSize: 35 }} />}
-                    link="https://www.facebook.com"
+                    link="https://www.facebook.com/profile.php?id=100092595608038"
                 />
                 <IconWithHover
                     icon={<GitHub sx={{ fontSize: 35 }} />}
-                    link="https://github.com"
+                    link="https://github.com/AISoc-UNSW"
                 />
                 <IconWithHover
                     icon={<LinkedIn sx={{ fontSize: 35 }} />}
-                    link="https://www.linkedin.com"
+                    link="https://www.linkedin.com/company/unsw-artificial-intelligence-society/"
                 />
                 <IconWithHover
                     icon={
@@ -36,7 +37,7 @@ const Footer = () => {
                             style={{ width: "35px", height: "35px" }}
                         />
                     }
-                    link="https://discord.com"
+                    link="https://discord.gg/gpahrBHB"
                 />
             </Box>
         );
@@ -63,8 +64,6 @@ const Footer = () => {
         <Box
             sx={{
                 padding: "10px 30px",
-                borderTop: "1px solid silver",
-
                 backgroundColor: "#100b28",
             }}
         >

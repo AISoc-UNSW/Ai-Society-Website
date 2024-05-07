@@ -181,6 +181,7 @@ const Brain = () => {
                             fontWeight: "300",
                             zIndex: 3,
                             userSelect: "none",
+                            fontFamily: "Ubuntu Sans",
                         }}
                     >
                         Artificial Intelligence Society
@@ -191,6 +192,7 @@ const Brain = () => {
                             zIndex: 3,
                             opacity: "0.8",
                             userSelect: "none",
+                            fontFamily: "Ubuntu Sans",
                         }}
                     >
                         We are the foremost advocate for AI enthusiasts,
