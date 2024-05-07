@@ -14,7 +14,6 @@ const Faq = () => {
                 sx={{
                     backgroundColor: "#1a1134",
                     color: "white",
-                    padding: "3rem",
                 }}
             >
                 <Reveal>
