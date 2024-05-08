@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Typography } from "@mui/material";
-import Logo from "../assets/aisoc-logo.png";
+import Logo from "../assets/aisoc-logo.webp";
 import { Facebook, Instagram, GitHub, LinkedIn } from "@mui/icons-material";
 import { ReactComponent as DiscordIcon } from "../assets/discord-icon.svg";
 

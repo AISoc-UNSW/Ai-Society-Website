@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Typography, Button } from "@mui/material";
-import build from "../assets/build.png";
+import build from "../assets/build.webp";
 import Reveal from "../util/Reveal";
 
 const handleClick = () => {

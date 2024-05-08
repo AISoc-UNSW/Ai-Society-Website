@@ -4,8 +4,8 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, Typography } from "@mui/material";
-import llm_workshop from "../assets/llm-workshop.png";
-import bbq from "../assets/bbq.png";
+import llm_workshop from "../assets/llm-workshop.webp";
+import bbq from "../assets/bbq.webp";
 import Reveal from "../util/Reveal";
 
 const useCarouselStyles = makeStyles({
@@ -82,8 +82,7 @@ const Events = () => {
                 id="events"
                 sx={{
                     padding: "10vh 5vw",
-                    backgroundColor: "white",
-                    backgroundColor: "#110c29",
+                    backgroundColor: "#000033",
                     color: "white",
                 }}
             >

@@ -1,6 +1,6 @@
 import { React } from "react";
 import { AppBar, Toolbar, Typography, Box } from "@mui/material";
-import Logo from "../assets/logo.png";
+import Logo from "../assets/logo.webp";
 
 const NavBar2 = () => {
     return (

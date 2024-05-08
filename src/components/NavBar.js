@@ -2,7 +2,6 @@ import { React, useState, useEffect } from "react";
 import {
     AppBar,
     Toolbar,
-    Typography,
     Button,
     Box,
     Hidden,
@@ -12,7 +11,7 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import { makeStyles } from "@material-ui/core";
 import { TypeAnimation } from "react-type-animation";
-import Logo from "../assets/logo.png";
+import Logo from "../assets/logo.webp";
 import { textList } from "../util/typingText";
 import { shuffleArray } from "../util/shuffle";
 import { swapRandomLetters } from "../util/typoEffect";

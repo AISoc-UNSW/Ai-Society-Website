@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Typography, Button } from "@mui/material";
-import Unova from "../assets/unova.png";
-import bg from "../assets/purple-bg.png";
+import Unova from "../assets/unova.webp";
+import bg from "../assets/purple-bg.webp";
 import Footer from "./Footer";
 import Reveal from "../util/Reveal";
 

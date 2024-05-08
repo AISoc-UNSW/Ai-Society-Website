@@ -6,7 +6,7 @@ import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import gpt from "../assets/gptstore.png";
+import gpt from "../assets/gptstore.webp";
 import Slider from "react-slick";
 import { makeStyles } from "@material-ui/core/styles";
 import Reveal from "../util/Reveal";
