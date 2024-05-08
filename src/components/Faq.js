@@ -126,7 +126,7 @@ const Faq = () => {
                             >
                                 To join our society, you can sign up through our
                                 website or attend one of our events and register
-                                on the sport. Membership is open to all
+                                on the spot. Membership is open to all
                                 university students.
                             </Typography>
                             <Typography

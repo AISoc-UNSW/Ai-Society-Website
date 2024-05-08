@@ -2,6 +2,7 @@ import React from "react";
 import { Box, Typography, Button } from "@mui/material";
 import build from "../assets/build.webp";
 import Reveal from "../util/Reveal";
+import SocialMediaIcons from "../util/Icons";
 
 const handleClick = () => {
     window.location.href = "mailto:aisoc@unsw.edu.au";
@@ -62,6 +63,7 @@ const About = () => {
                                 community of AI enthusiasts and drive innovation
                                 in this rapidly evolving field.
                             </Typography>
+                            <SocialMediaIcons />
                             <Button
                                 variant="outlined"
                                 onClick={handleClick}
@@ -77,7 +79,7 @@ const About = () => {
                                     },
                                 }}
                             >
-                                Contact
+                                GET IN TOUCH
                             </Button>
                         </Box>
                         <Box

@@ -1,65 +1,9 @@
 import React from "react";
 import { Box, Typography } from "@mui/material";
 import Logo from "../assets/aisoc-logo.webp";
-import { Facebook, Instagram, GitHub, LinkedIn } from "@mui/icons-material";
-import { ReactComponent as DiscordIcon } from "../assets/discord-icon.svg";
+import SocialMediaIcons from "../util/Icons";
 
 const Footer = () => {
-    const SocialMediaIcons = () => {
-        return (
-            <Box
-                sx={{
-                    display: "flex",
-                    marginBottom: "10px",
-                    borderBottom: "2px solid silver",
-                    paddingBottom: "10px",
-                }}
-            >
-                <IconWithHover
-                    icon={<Instagram sx={{ fontSize: 35 }} />}
-                    link="https://www.instagram.com/unswai.soc/"
-                />
-                <IconWithHover
-                    icon={<Facebook sx={{ fontSize: 35 }} />}
-                    link="https://www.facebook.com/profile.php?id=100092595608038"
-                />
-                <IconWithHover
-                    icon={<GitHub sx={{ fontSize: 35 }} />}
-                    link="https://github.com/AISoc-UNSW"
-                />
-                <IconWithHover
-                    icon={<LinkedIn sx={{ fontSize: 35 }} />}
-                    link="https://www.linkedin.com/company/unsw-artificial-intelligence-society/"
-                />
-                <IconWithHover
-                    icon={
-                        <DiscordIcon
-                            style={{ width: "35px", height: "35px" }}
-                        />
-                    }
-                    link="https://discord.gg/gpahrBHB"
-                />
-            </Box>
-        );
-    };
-
-    const IconWithHover = ({ icon, link }) => {
-        return (
-            <Box
-                sx={{
-                    marginRight: "5px", // Add some margin between icons
-                    transition: "transform 0.2s", // Add transition for smooth hover effect
-                    "&:hover": {
-                        transform: "scale(1.2)", // Enlarge the icon by 20% on hover
-                        cursor: "pointer",
-                    },
-                }}
-                onClick={() => window.open(link, "_blank")}
-            >
-                {icon}
-            </Box>
-        );
-    };
     return (
         <Box
             sx={{
@@ -74,7 +18,13 @@ const Footer = () => {
                         The AI Society of UNSW
                     </Typography>
                     <SocialMediaIcons />
-                    <Typography sx={{ fontFamily: "Ubuntu Sans" }}>
+                    <Typography
+                        sx={{
+                            fontFamily: "Ubuntu Sans",
+                            paddingTop: "10px",
+                            borderTop: "2px solid silver",
+                        }}
+                    >
                         © 2024 — AISoc UNSW
                     </Typography>
                 </Box>
