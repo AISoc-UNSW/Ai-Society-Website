@@ -9,7 +9,7 @@ import { Box, Typography, useTheme, useMediaQuery } from "@mui/material";
 import Stars from "./Stars";
 import ParticlePattern from "./ParticlePattern";
 
-const PATHS = data.economics[0].paths;
+const PATHS = data.paths;
 
 const randomRange = (min, max) => Math.random() * (max - min) + min;
 
@@ -176,7 +176,6 @@ const Brain = () => {
                     <Typography
                         sx={{
                             color: "white",
-                            fontFamily: "sans-serif",
                             fontSize: isMobile ? "2rem" : "6vh", // Smaller text on mobile
                             fontWeight: "300",
                             zIndex: 3,
