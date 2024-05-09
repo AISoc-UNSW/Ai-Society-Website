@@ -28,6 +28,26 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+const buttonStyles = {
+    position: "relative",
+    fontWeight: "bold",
+    "&::after": {
+        content: '""',
+        position: "absolute",
+        bottom: 0,
+        left: 0,
+        width: "100%",
+        height: "2px",
+        backgroundColor: "currentColor",
+        transform: "scaleX(0)",
+        transition: "transform 0.3s ease-in-out",
+    },
+    "&:hover::after": {
+        transform: "scaleX(1)",
+        transformOrigin: "bottom left",
+    },
+};
+
 const NavBar = () => {
     const classes = useStyles();
     const [isScrolled, setIsScrolled] = useState(false);
@@ -234,7 +254,32 @@ const NavBar = () => {
                                     NEWSLETTER
                                 </Button>
                             </Link>
-
+                            <Link
+                                activeClass="active"
+                                to="team"
+                                spy={true}
+                                smooth={true}
+                                offset={-70}
+                                duration={500}
+                                onClick={toggleMenu}
+                            >
+                                <Button color="inherit" sx={{ width: "100vw" }}>
+                                    TEAM
+                                </Button>
+                            </Link>
+                            <Link
+                                activeClass="active"
+                                to="faq"
+                                spy={true}
+                                smooth={true}
+                                offset={-70}
+                                duration={500}
+                                onClick={toggleMenu}
+                            >
+                                <Button color="inherit" sx={{ width: "100vw" }}>
+                                    FAQ
+                                </Button>
+                            </Link>
                             <Link
                                 activeClass="active"
                                 to="sponsor"
@@ -257,113 +302,80 @@ const NavBar = () => {
                             display: "flex",
                             marginLeft: "auto",
                             marginRight: "1.5vw",
-                            // justifyContent: "space-evenly",
-                            "& > button": {
-                                fontWeight: 700,
-                                position: "relative",
-                                paddingBottom: "0.2rem", // Add some padding at the bottom of the button
-                                "&:hover": {
-                                    "&::after": {
-                                        content: '""',
-                                        position: "absolute",
-                                        left: 0,
-                                        bottom: 0, // Position the underline at the bottom of the text
-                                        width: "100%",
-                                        height: 2,
-                                        backgroundColor: "white",
-                                        transform: "scaleX(1)",
-                                        transformOrigin: "left", // Set the transform origin to the left
-                                        transition:
-                                            "transform 0.3s ease-in-out",
-                                    },
-                                },
-                                "&::after": {
-                                    content: '""',
-                                    position: "absolute",
-                                    left: 0,
-                                    bottom: 0, // Position the underline at the bottom of the text
-                                    width: "100%",
-                                    height: 2,
-                                    backgroundColor: "white",
-                                    transform: "scaleX(0)",
-                                    transformOrigin: "left", // Set the transform origin to the left
-                                    transition: "transform 0.3s ease-in-out",
-                                },
-                            },
                         }}
                     >
-                        <Button color="inherit">
-                            <Link
-                                activeClass="active"
-                                to="about"
-                                spy={true}
-                                smooth={true}
-                                offset={-70}
-                                duration={500}
-                            >
+                        <Link
+                            activeClass="active"
+                            to="about"
+                            spy={true}
+                            smooth={true}
+                            offset={-70}
+                            duration={500}
+                        >
+                            <Button color="inherit" sx={buttonStyles}>
                                 ABOUT
-                            </Link>
-                        </Button>
-                        <Button color="inherit">
-                            <Link
-                                activeClass="active"
-                                to="events"
-                                spy={true}
-                                smooth={true}
-                                offset={-70}
-                                duration={500}
-                            >
+                            </Button>
+                        </Link>
+                        <Link
+                            activeClass="active"
+                            to="events"
+                            spy={true}
+                            smooth={true}
+                            offset={-70}
+                            duration={500}
+                        >
+                            <Button color="inherit" sx={buttonStyles}>
                                 EVENTS
-                            </Link>
-                        </Button>
-                        <Button color="inherit">
-                            <Link
-                                activeClass="active"
-                                to="newsletter"
-                                spy={true}
-                                smooth={true}
-                                offset={-70}
-                                duration={500}
-                            >
+                            </Button>
+                        </Link>
+                        <Link
+                            activeClass="active"
+                            to="newsletter"
+                            spy={true}
+                            smooth={true}
+                            offset={-70}
+                            duration={500}
+                        >
+                            <Button color="inherit" sx={buttonStyles}>
                                 NEWSLETTER
-                            </Link>
-                        </Button>
-                        <Button color="inherit">
-                            <Link
-                                activeClass="active"
-                                to="team"
-                                spy={true}
-                                smooth={true}
-                                offset={-70}
-                                duration={500}
-                            >
+                            </Button>
+                        </Link>
+                        <Link
+                            activeClass="active"
+                            to="team"
+                            spy={true}
+                            smooth={true}
+                            offset={-70}
+                            duration={500}
+                        >
+                            <Button color="inherit" sx={buttonStyles}>
                                 TEAM
-                            </Link>
-                        </Button>
-                        <Button color="inherit">
-                            <Link
-                                activeClass="active"
-                                to="faq"
-                                spy={true}
-                                smooth={true}
-                                offset={-70}
-                                duration={500}
-                            >
+                            </Button>
+                        </Link>
+                        <Link
+                            activeClass="active"
+                            to="faq"
+                            spy={true}
+                            smooth={true}
+                            offset={-70}
+                            duration={500}
+                        >
+                            <Button color="inherit" sx={buttonStyles}>
                                 FAQ
-                            </Link>
-                        </Button>
-                        <Button color="inherit">
-                            <Link
-                                activeClass="active"
-                                to="sponsor"
-                                spy={true}
-                                smooth={true}
-                                offset={-70}
-                                duration={500}
-                            >
+                            </Button>
+                        </Link>
+                        <Link
+                            activeClass="active"
+                            to="sponsor"
+                            spy={true}
+                            smooth={true}
+                            offset={-70}
+                            duration={500}
+                        >
+                            <Button color="inherit" sx={buttonStyles}>
                                 SPONSOR
-                            </Link>
-                        </Button>
+                            </Button>
+                        </Link>
                     </Box>
                 </Hidden>
             </Toolbar>
