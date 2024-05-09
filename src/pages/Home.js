@@ -7,7 +7,7 @@ import About from "../components/About";
 import NewsLetter from "../components/Newsletter";
 import LoadingScreen from "../components/LoadingScreen";
 import Brain from "../components/Brain";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 const Home = () => {
     const [isLoading, setLoading] = useState(true);
@@ -32,11 +32,9 @@ const Home = () => {
         </>
     );
 };
-{
-    /* {components.map((Component, index) => (
+/* {components.map((Component, index) => (
                 <div key={index} style={pageStyle(index)}>
                     {Component}
                 </div>
             ))} */
-}
 export default Home;
