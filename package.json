@@ -20,6 +20,7 @@
         "react-dom": "^18.2.0",
         "react-router-dom": "^6.22.3",
         "react-scripts": "5.0.1",
+        "react-scroll": "^1.9.0",
         "react-slick": "^0.30.2",
         "react-swipeable-views": "^0.14.0",
         "react-three": "^0.9.7",

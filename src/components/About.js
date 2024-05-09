@@ -1,6 +1,8 @@
 import React from "react";
 import { Box, Typography, Button } from "@mui/material";
-import build from "../assets/build.png";
+import build from "../assets/build.webp";
+import Reveal from "../util/Reveal";
+import SocialMediaIcons from "../util/Icons";
 
 const handleClick = () => {
     window.location.href = "mailto:aisoc@unsw.edu.au";
@@ -12,72 +14,90 @@ const About = () => {
             <Box
                 id="about"
                 sx={{
-                    display: "flex",
-                    flexDirection: "row",
-                    padding: "3rem",
-                    flexWrap: "wrap",
-                    // marginTop: "8vh",
-                    // marginBottom: "10vh",
-                    margin: "10vh 10vw",
+                    backgroundColor: "#110c29",
+                    padding: "5vh 5vw",
+                    color: "white",
                 }}
             >
-                <Box
-                    sx={{
-                        flex: 7,
-                        textAlign: "left",
-                        marginRight: "30px",
-                        marginBottom: "30px",
-                        minWidth: "300px",
-                    }}
-                >
-                    <Typography
-                        variant="h3"
-                        align="left"
-                        gutterBottom={true}
-                        sx={{ fontWeight: "bold" }}
-                    >
-                        Empowering Minds, Advancing AI: Exploring the Frontiers
-                        of Artificial Intelligence
-                    </Typography>
-
-                    <Typography sx={{ marginBottom: "20px" }}>
-                        Welcome to our university society dedicated to the study
-                        and application of artificial intelligence. Through
-                        engaging events, workshops, and projects, we aim to
-                        foster a community of AI enthusiasts and drive
-                        innovation in this rapidly evolving field.
-                    </Typography>
-
-                    <Button
-                        variant="outlined"
-                        onClick={handleClick}
+                <Reveal>
+                    <Box
                         sx={{
-                            color: "black",
-                            borderColor: "black",
-                            "&:hover": {
-                                backgroundColor: "#B9B7BD",
-                                borderColor: "black",
-                            },
+                            display: "flex",
+                            flexDirection: { xs: "column", md: "row" },
+                            flexWrap: "wrap",
+                            alignItems: "center",
                         }}
                     >
-                        Contact
-                    </Button>
-                </Box>
-                <Box
-                    sx={{
-                        flex: 3,
-                        textAlign: "left",
-                    }}
-                >
-                    <img
-                        src={build}
-                        style={{
-                            width: "25vw",
-                            maxWidth: "80vw",
-                        }}
-                        alt="build"
-                    />
-                </Box>
+                        <Box
+                            sx={{
+                                width: { xs: "100%", md: "55%" },
+                                textAlign: "left",
+                                paddingRight: { md: "30px" },
+                                paddingBottom: { xs: "30px", md: 0 },
+                            }}
+                        >
+                            <Typography
+                                variant="h3"
+                                align="left"
+                                gutterBottom={true}
+                                sx={{
+                                    fontWeight: "bold",
+                                    fontFamily: "Ubuntu Sans",
+                                }}
+                            >
+                                Empowering Minds, Advancing AI: Exploring the
+                                Frontiers of Artificial Intelligence
+                            </Typography>
+                            <Typography
+                                sx={{
+                                    paddingBottom: "20px",
+                                    color: "rgba(255, 255, 255, 0.8)",
+                                    fontSize: "20px",
+                                    fontFamily: "Ubuntu Sans",
+                                }}
+                            >
+                                Welcome to our university society dedicated to
+                                the study and application of artificial
+                                intelligence. Through engaging events,
+                                workshops, and projects, we aim to foster a
+                                community of AI enthusiasts and drive innovation
+                                in this rapidly evolving field.
+                            </Typography>
+                            <SocialMediaIcons />
+                            <Button
+                                variant="outlined"
+                                onClick={handleClick}
+                                sx={{
+                                    color: "white",
+                                    fontWeight: "bold",
+                                    borderColor: "white",
+                                    fontFamily: "Ubuntu Sans",
+                                    fontSize: "18px",
+                                    "&:hover": {
+                                        backgroundColor: "#1d1740",
+                                        borderColor: "white",
+                                    },
+                                }}
+                            >
+                                GET IN TOUCH
+                            </Button>
+                        </Box>
+                        <Box
+                            sx={{
+                                width: { xs: "100%", md: "40%" },
+                                textAlign: { xs: "left", md: "right" },
+                            }}
+                        >
+                            <img
+                                src={build}
+                                style={{
+                                    width: "100%",
+                                }}
+                                alt="build"
+                            />
+                        </Box>
+                    </Box>
+                </Reveal>
             </Box>
         </>
     );

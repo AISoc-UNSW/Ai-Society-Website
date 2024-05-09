@@ -2,7 +2,6 @@ import { React, useState, useEffect } from "react";
 import {
     AppBar,
     Toolbar,
-    Typography,
     Button,
     Box,
     Hidden,
@@ -12,22 +11,24 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import { makeStyles } from "@material-ui/core";
 import { TypeAnimation } from "react-type-animation";
-import Logo from "../assets/logo.png";
+import Logo from "../assets/logo.webp";
 import { textList } from "../util/typingText";
 import { shuffleArray } from "../util/shuffle";
 import { swapRandomLetters } from "../util/typoEffect";
+import { Link } from "react-scroll";
 
 const useStyles = makeStyles((theme) => ({
     root: {
         background: "transparent",
         height: 120, // Initial height
+        marginTop: "-120px",
     },
     shrink: {
         height: 64, // Shrunk height
     },
 }));
 
-const NavBar = ({ currentIndex, setCurrentIndex, total }) => {
+const NavBar = () => {
     const classes = useStyles();
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -37,14 +38,15 @@ const NavBar = ({ currentIndex, setCurrentIndex, total }) => {
     };
 
     useEffect(() => {
-        // Update the isScrolled based on currentIndex
-        setIsScrolled(currentIndex !== 0);
-    }, [currentIndex]);
+        const listener = () => {
+            setIsScrolled(window.scrollY > 0);
+        };
+        window.addEventListener("scroll", listener);
+        return () => {
+            window.removeEventListener("scroll", listener);
+        };
+    }, []);
 
-    const handleNavigation = (index) => {
-        setCurrentIndex(index);
-        if (isMenuOpen) toggleMenu();
-    };
     const displayList = textList
         .filter((text) => {
             if (Math.random() <= text.chanceMultiplier) return true;
@@ -103,7 +105,6 @@ const NavBar = ({ currentIndex, setCurrentIndex, total }) => {
                 transition:
                     "height 1s ease, background-color 1s ease, padding-top 1s ease",
                 backgroundColor: isScrolled ? "#1F1F23" : "transparent",
-                opacity: isScrolled ? 0.95 : 1,
                 paddingTop: isScrolled ? "" : "3vh",
                 boxShadow: "none",
                 zIndex: 500,
@@ -137,7 +138,7 @@ const NavBar = ({ currentIndex, setCurrentIndex, total }) => {
                             repeat={Infinity}
                             cursor={false}
                         />
-                        <style global jsx>{`
+                        <style global="true">{`
                             .type::after {
                                 content: "•";
                                 font-size: 3rem;
@@ -194,24 +195,59 @@ const NavBar = ({ currentIndex, setCurrentIndex, total }) => {
                                 flexDirection: "column",
                             }}
                         >
-                            {[
-                                "Home",
-                                "About",
-                                "Events",
-                                "Newsletter",
-                                "MeetUs",
-                                "FAQ",
-                                "Sponsors",
-                            ].map((text, index) => (
-                                <Button
-                                    key={text}
-                                    color="inherit"
-                                    sx={{ width: "100vw" }}
-                                    onClick={() => handleNavigation(index)}
-                                >
-                                    {text.toUpperCase()}
+                            <Link
+                                activeClass="active"
+                                to="about"
+                                spy={true}
+                                smooth={true}
+                                offset={-70}
+                                duration={500}
+                                onClick={toggleMenu}
+                            >
+                                <Button color="inherit" sx={{ width: "100vw" }}>
+                                    ABOUT
                                 </Button>
-                            ))}
+                            </Link>
+                            <Link
+                                activeClass="active"
+                                to="events"
+                                spy={true}
+                                smooth={true}
+                                offset={-70}
+                                duration={500}
+                                onClick={toggleMenu}
+                            >
+                                <Button color="inherit" sx={{ width: "100vw" }}>
+                                    EVENTS
+                                </Button>
+                            </Link>
+                            <Link
+                                activeClass="active"
+                                to="newsletter"
+                                spy={true}
+                                smooth={true}
+                                offset={-70}
+                                duration={500}
+                                onClick={toggleMenu}
+                            >
+                                <Button color="inherit" sx={{ width: "100vw" }}>
+                                    NEWSLETTER
+                                </Button>
+                            </Link>
+
+                            <Link
+                                activeClass="active"
+                                to="sponsor"
+                                spy={true}
+                                smooth={true}
+                                offset={-70}
+                                duration={500}
+                                onClick={toggleMenu}
+                            >
+                                <Button color="inherit" sx={{ width: "100vw" }}>
+                                    SPONSOR
+                                </Button>
+                            </Link>
                         </Box>
                     </Drawer>
                 </Hidden>
@@ -221,63 +257,113 @@ const NavBar = ({ currentIndex, setCurrentIndex, total }) => {
                             display: "flex",
                             marginLeft: "auto",
                             marginRight: "1.5vw",
+                            // justifyContent: "space-evenly",
                             "& > button": {
                                 fontWeight: 700,
-                                fontSize: "1rem",
-                                padding: "5px 16px",
                                 position: "relative",
-                                paddingBottom: "0.2rem",
+                                paddingBottom: "0.2rem", // Add some padding at the bottom of the button
                                 "&:hover": {
-                                    "&::after": {
-                                        transform: "scaleX(1)",
-                                    },
-                                },
-                            },
-                        }}
-                    >
-                        {[
-                            "Home",
-                            "About",
-                            "Events",
-                            "Newsletter",
-                            "MeetUs",
-                            "FAQ",
-                            "Sponsors",
-                        ].map((text, index) => (
-                            <Button
-                                key={text}
-                                color="inherit"
-                                onClick={() => handleNavigation(index)}
-                                sx={{
                                     "&::after": {
                                         content: '""',
                                         position: "absolute",
                                         left: 0,
-                                        bottom: 0,
+                                        bottom: 0, // Position the underline at the bottom of the text
                                         width: "100%",
                                         height: 2,
                                         backgroundColor: "white",
-                                        transform:
-                                            currentIndex === index
-                                                ? "scaleX(1)"
-                                                : "scaleX(0)",
-                                        transformOrigin: "left",
+                                        transform: "scaleX(1)",
+                                        transformOrigin: "left", // Set the transform origin to the left
                                         transition:
                                             "transform 0.3s ease-in-out",
                                     },
-
-                                    color:
-                                        currentIndex === index
-                                            ? "#FFFFFF"
-                                            : "inherit",
-                                    "&:hover": {
-                                        backgroundColor: "#2D2D2D",
-                                    },
-                                }}
+                                },
+                                "&::after": {
+                                    content: '""',
+                                    position: "absolute",
+                                    left: 0,
+                                    bottom: 0, // Position the underline at the bottom of the text
+                                    width: "100%",
+                                    height: 2,
+                                    backgroundColor: "white",
+                                    transform: "scaleX(0)",
+                                    transformOrigin: "left", // Set the transform origin to the left
+                                    transition: "transform 0.3s ease-in-out",
+                                },
+                            },
+                        }}
+                    >
+                        <Button color="inherit">
+                            <Link
+                                activeClass="active"
+                                to="about"
+                                spy={true}
+                                smooth={true}
+                                offset={-70}
+                                duration={500}
                             >
-                                {text.toUpperCase()}
-                            </Button>
-                        ))}
+                                ABOUT
+                            </Link>
+                        </Button>
+                        <Button color="inherit">
+                            <Link
+                                activeClass="active"
+                                to="events"
+                                spy={true}
+                                smooth={true}
+                                offset={-70}
+                                duration={500}
+                            >
+                                EVENTS
+                            </Link>
+                        </Button>
+                        <Button color="inherit">
+                            <Link
+                                activeClass="active"
+                                to="newsletter"
+                                spy={true}
+                                smooth={true}
+                                offset={-70}
+                                duration={500}
+                            >
+                                NEWSLETTER
+                            </Link>
+                        </Button>
+                        <Button color="inherit">
+                            <Link
+                                activeClass="active"
+                                to="team"
+                                spy={true}
+                                smooth={true}
+                                offset={-70}
+                                duration={500}
+                            >
+                                TEAM
+                            </Link>
+                        </Button>
+                        <Button color="inherit">
+                            <Link
+                                activeClass="active"
+                                to="faq"
+                                spy={true}
+                                smooth={true}
+                                offset={-70}
+                                duration={500}
+                            >
+                                FAQ
+                            </Link>
+                        </Button>
+                        <Button color="inherit">
+                            <Link
+                                activeClass="active"
+                                to="sponsor"
+                                spy={true}
+                                smooth={true}
+                                offset={-70}
+                                duration={500}
+                            >
+                                SPONSOR
+                            </Link>
+                        </Button>
                     </Box>
                 </Hidden>
             </Toolbar>

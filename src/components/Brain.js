@@ -9,7 +9,7 @@ import { Box, Typography, useTheme, useMediaQuery } from "@mui/material";
 import Stars from "./Stars";
 import ParticlePattern from "./ParticlePattern";
 
-const PATHS = data.economics[0].paths;
+const PATHS = data.paths;
 
 const randomRange = (min, max) => Math.random() * (max - min) + min;
 
@@ -142,7 +142,7 @@ function BrainParticles({ allTheCurves }) {
 
 const Brain = () => {
     const theme = useTheme();
-    const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+    const isMobile = useMediaQuery(theme.breakpoints.down("lg"));
     return (
         <>
             <Box
@@ -154,6 +154,7 @@ const Brain = () => {
                     backgroundColor: "black",
                     alignItems: "center",
                     justifyContent: "center",
+                    scrollSnapAlign: "start",
                 }}
             >
                 <Stars />
@@ -175,22 +176,22 @@ const Brain = () => {
                     <Typography
                         sx={{
                             color: "white",
-                            fontFamily: "sans-serif",
                             fontSize: isMobile ? "2rem" : "6vh", // Smaller text on mobile
                             fontWeight: "300",
                             zIndex: 3,
                             userSelect: "none",
+                            fontFamily: "Ubuntu Sans",
                         }}
                     >
                         Artificial Intelligence Society
                     </Typography>
-                    zIndex: 500,
                     <Typography
                         style={{
                             color: "white",
                             zIndex: 3,
                             opacity: "0.8",
                             userSelect: "none",
+                            fontFamily: "Ubuntu Sans",
                         }}
                     >
                         We are the foremost advocate for AI enthusiasts,
@@ -204,12 +205,11 @@ const Brain = () => {
                     style={{
                         width: isMobile ? "100%" : "auto",
                         height: isMobile ? "50%" : "100%", // Adjust height on mobile
-                        minWidth: isMobile ? "100%" : "40%",
+                        minWidth: isMobile ? "100%" : "60%",
                         zIndex: 3,
                     }}
                     camera={{ position: [0, 0, 0.3], near: 0.001, far: 5 }}
                 >
-                    {/* <Stars /> */}
                     <ambientLight />
                     <pointLight position={[10, 10, 10]} />
                     <Tubes allTheCurve={brainCurves} />

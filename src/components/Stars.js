@@ -96,34 +96,29 @@ const Stars = () => {
 
     const move = () => {
         const gravity = gravityRef.current;
-        const { width, height } = canvasSizeRef.current;
         const positions = starsRef.current.geometry.attributes.position.array;
         const velocities = starsRef.current.geometry.attributes.velocity.array;
 
         for (let i = 0; i < positions.length; i += 3) {
-            positions[i] += velocities[i];
-            positions[i + 1] += velocities[i + 1];
-            positions[i + 2] += velocities[i + 2];
+            let vx = velocities[i];
+            let vy = velocities[i + 1];
+            let vz = velocities[i + 2];
 
-            velocities[i] += gravity.x;
-            velocities[i + 1] += gravity.y;
-            velocities[i + 2] += gravity.z;
+            positions[i] += vx;
+            positions[i + 1] += vy;
+            positions[i + 2] += vz;
 
-            velocities[i] = Math.max(-0.01, Math.min(0.01, velocities[i]));
-            velocities[i + 1] = Math.max(
-                -0.01,
-                Math.min(0.01, velocities[i + 1])
-            );
-            velocities[i + 2] = Math.max(
-                -0.01,
-                Math.min(0.01, velocities[i + 2])
-            );
+            vx += gravity.x;
+            vy += gravity.y;
+            vz += gravity.z;
 
-            if (positions[i] > width / 2) positions[i] -= width;
-            else if (positions[i] < -width / 2) positions[i] += width;
+            vx = Math.max(-0.01, Math.min(0.01, vx));
+            vy = Math.max(-0.01, Math.min(0.01, vy));
+            vz = Math.max(-0.01, Math.min(0.01, vz));
 
-            if (positions[i + 1] > height / 2) positions[i + 1] -= height;
-            else if (positions[i + 1] < -height / 2) positions[i + 1] += height;
+            velocities[i] = vx;
+            velocities[i + 1] = vy;
+            velocities[i + 2] = vz;
         }
 
         starsRef.current.geometry.attributes.position.needsUpdate = true;
@@ -149,6 +144,8 @@ const Stars = () => {
             antialias: true,
             canvas: canvasRef.current,
             alpha: true,
+            powerPreference: "low-power",
+            precision: "lowp",
         });
         renderer.setSize(window.innerWidth, window.innerHeight);
 
@@ -223,17 +220,10 @@ const Stars = () => {
         renderer.setSize(window.innerWidth, window.innerHeight);
         composer.setSize(window.innerWidth, window.innerHeight);
 
-        // Recalculate star positions to maintain density
-        const positions = starsRef.current.geometry.attributes.position.array;
-        const newWidth = window.innerWidth;
-        const newHeight = window.innerHeight;
-        const aspectRatio = newWidth / newHeight;
-
-        for (let i = 0; i < positions.length; i += 3) {
-            positions[i] = (Math.random() * 2 - 1) * newWidth;
-            positions[i + 1] =
-                (Math.random() * 2 - 1) * newHeight * aspectRatio;
-        }
+        // canvasSizeRef.current = {
+        //     width: window.innerWidth,
+        //     height: window.innerHeight,
+        // };
     };
 
     useEffect(() => {

@@ -4,8 +4,9 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, Typography } from "@mui/material";
-import llm_workshop from "../assets/llm-workshop.png";
-import bbq from "../assets/bbq.png";
+import llm_workshop from "../assets/llm-workshop.webp";
+import bbq from "../assets/bbq.webp";
+import Reveal from "../util/Reveal";
 
 const useCarouselStyles = makeStyles({
     dotContainer: {
@@ -21,13 +22,13 @@ const useCarouselStyles = makeStyles({
                         width: "60px",
                         height: "5px",
                         borderRadius: 0,
-                        backgroundColor: "#ccc",
+                        backgroundColor: "rgba(255, 255, 255, .4)",
                     },
                 },
                 "&.slick-active": {
                     "& button": {
                         "&:before": {
-                            backgroundColor: "#000",
+                            backgroundColor: "#fff",
                         },
                     },
                 },
@@ -44,18 +45,19 @@ const imageData = [
         src: llm_workshop,
         alt: "Image 2",
     },
-    {
-        src: "https://cdn.discordapp.com/emojis/876294478640594974.gif?size=512",
-        alt: "Image 3",
-    },
-    {
-        src: "https://cdn.discordapp.com/emojis/1142664037910454283.gif?size=96&quality=lossless",
-        alt: "Image 3",
-    },
-    {
-        src: "https://cdn.discordapp.com/emojis/1210125145101041685.gif?size=96&quality=lossless",
-        alt: "Image 3",
-    },
+
+    // {
+    //     src: "https://cdn.discordapp.com/emojis/876294478640594974.gif?size=512",
+    //     alt: "Image 3",
+    // },
+    // {
+    //     src: "https://cdn.discordapp.com/emojis/1142664037910454283.gif?size=96&quality=lossless",
+    //     alt: "Image 3",
+    // },
+    // {
+    //     src: "https://cdn.discordapp.com/emojis/1210125145101041685.gif?size=96&quality=lossless",
+    //     alt: "Image 3",
+    // },
 ];
 
 const Events = () => {
@@ -63,6 +65,7 @@ const Events = () => {
 
     const settings = {
         dots: true,
+        arrows: false,
         infinite: true,
         speed: 500,
         slidesToShow: 1,
@@ -70,7 +73,6 @@ const Events = () => {
         autoplay: true,
         autoplaySpeed: 3000,
         pauseOnHover: true,
-        arrow: true,
         className: classes.dotContainer,
     };
 
@@ -79,57 +81,70 @@ const Events = () => {
             <Box
                 id="events"
                 sx={{
-                    margin: "10vh 0",
-                    backgroundColor: "white",
-                    padding: "40px 0",
+                    padding: "10vh 5vw",
+                    backgroundColor: "#000033",
+                    color: "white",
                 }}
             >
-                <Box sx={{ textAlign: "center" }}>
-                    <Typography
-                        variant="h3"
-                        sx={{ fontWeight: "bold", marginBottom: "15px" }}
-                    >
-                        Discover
-                    </Typography>
-                    <Typography gutterBottom sx={{ marginBottom: "15px" }}>
-                        Stay updated with the latest events, lectures, and
-                        meetings related to artifical intelligence.
-                    </Typography>
-                </Box>
+                <Reveal>
+                    <Box sx={{ textAlign: "center" }}>
+                        <Typography
+                            variant="h3"
+                            sx={{
+                                fontWeight: "bold",
+                                marginBottom: "15px",
+                                fontFamily: "Ubuntu Sans",
+                            }}
+                        >
+                            Discover
+                        </Typography>
+                        <Typography
+                            gutterBottom
+                            sx={{
+                                marginBottom: "15px",
+                                fontFamily: "Ubuntu Sans",
+                                fontSize: "20px",
+                                color: "rgba(255, 255, 255, 0.8)",
+                            }}
+                        >
+                            Stay updated with the latest events, lectures, and
+                            meetings related to artifical intelligence.
+                        </Typography>
+                    </Box>
 
-                <Box
-                    sx={{
-                        maxWidth: "70vw",
-                        margin: "auto",
-                        border: "2px solid silver",
-                        borderRadius: "50px",
-                    }}
-                >
-                    <Slider {...settings}>
-                        {imageData.map((image, index) => (
-                            <Box
-                                key={index}
-                                sx={{
-                                    display: "flex",
-                                    justifyContent: "center",
-                                    alignItems: "center",
-                                }}
-                            >
-                                <img
-                                    src={image.src}
-                                    alt={image.alt}
-                                    style={{
-                                        margin: "0 auto",
-                                        maxWidth: "100%", // Make sure images don't overflow their containers
-                                        height: "50vh", // Maintain aspect ratio
-                                        // width: "90vw",
-                                        // objectFit: "contain", // Ensure image fits without distortion
+                    <Box
+                        sx={{
+                            margin: "0 5vw",
+                        }}
+                    >
+                        <Slider {...settings}>
+                            {imageData.map((image, index) => (
+                                <Box
+                                    key={index}
+                                    sx={{
+                                        display: "flex",
+                                        justifyContent: "center",
+                                        alignItems: "center",
+                                        margin: 0,
+                                        // height: "auto",
                                     }}
-                                />
-                            </Box>
-                        ))}
-                    </Slider>
-                </Box>
+                                >
+                                    <img
+                                        src={image.src}
+                                        alt={image.alt}
+                                        style={{
+                                            margin: "0 auto",
+                                            maxWidth: "100%",
+                                            height: "auto",
+                                            maxHeight: "40vh",
+                                            objectFit: "contain", // Preserve aspect ratio
+                                        }}
+                                    />
+                                </Box>
+                            ))}
+                        </Slider>
+                    </Box>
+                </Reveal>
             </Box>
         </>
     );

@@ -1,6 +1,8 @@
 import React from "react";
-import { Box, Typography, Button } from "@mui/material";
+import { Box, Typography, Button, Grid } from "@mui/material";
 import { makeStyles } from "@material-ui/core/styles";
+import Reveal from "../util/Reveal";
+import michael from "../assets/michael.webp";
 
 const MeetUs = () => {
     const team = [
@@ -21,7 +23,7 @@ const MeetUs = () => {
         },
         {
             name: "Michael",
-            image: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973461_640.png",
+            image: michael,
             role: "Arc Delegate",
         },
         {
@@ -38,63 +40,87 @@ const MeetUs = () => {
 
     return (
         <>
-            <Box id="section1" sx={{ margin: "10vh 0", textAlign: "center" }}>
-                <Typography
-                    sx={{ fontWeight: "bold", margin: "15px 0" }}
-                    variant="h4"
-                >
-                    Meet Our Exec Team
-                </Typography>
-                <Typography sx={{ marginBottom: "40px" }}>
-                    Get to know the leading members of our society.
-                </Typography>
+            <Box
+                id="team"
+                sx={{
+                    padding: "10vh 0",
+                    textAlign: "center",
+                    backgroundColor: "#110c29",
+                    color: "white",
+                }}
+            >
+                <Reveal>
+                    <Typography
+                        sx={{
+                            fontWeight: "bold",
+                            margin: "15px 0",
+                            fontFamily: "Ubuntu Sans",
+                        }}
+                        variant="h3"
+                    >
+                        Meet Our Exec Team
+                    </Typography>
+                    <Typography
+                        sx={{
+                            marginBottom: "40px",
+                            fontFamily: "Ubuntu Sans",
+                            color: "rgba(255, 255, 255, 0.8)",
+                        }}
+                    >
+                        Get to know the leading members of our society.
+                    </Typography>
 
-                <Box
-                    sx={{
-                        display: "flex",
-                        flexWrap: "wrap",
-                        margin: "20px 60px",
-                        justifyContent: "space-evenly",
-                    }}
-                >
-                    {team.map((person, index) => (
-                        <Box
-                            key={index}
-                            sx={{
-                                display: "flex",
-                                flexBasis: "32%",
-                                minWidth: "300px",
-                                justifyContent: "space-evenly",
-                                marginBottom: "30px",
-                            }}
-                        >
-                            <TeamMember
-                                name={person.name}
-                                image={person.image}
-                                role={person.role}
-                            />
-                        </Box>
-                    ))}
-                </Box>
+                    <Grid container spacing={2}>
+                        {team.map((person, index) => (
+                            <Grid item xs={12} sm={6} md={4} key={index}>
+                                <Box
+                                    sx={{
+                                        display: "flex",
+                                        justifyContent: "center",
+                                        alignItems: "center",
+                                        flexDirection: "column",
+                                        marginBottom: "30px",
+                                    }}
+                                >
+                                    <TeamMember
+                                        name={person.name}
+                                        image={person.image}
+                                        role={person.role}
+                                    />
+                                </Box>
+                            </Grid>
+                        ))}
+                    </Grid>
 
-                <Typography variant="h5" sx={{ fontWeight: "bold" }}>
-                    We are currently looking for students to join our team
-                </Typography>
-                <Button
-                    variant="outlined"
-                    href="/join"
-                    sx={{
-                        margin: "15px 0px",
-                        color: "black",
-                        borderColor: "black",
-                        "&:hover": {
-                            backgroundColor: "#B9B7BD",
-                            borderColor: "black",
-                        },
-                    }}
-                >
-                    Join Here
-                </Button>
+                    <Typography
+                        variant="h5"
+                        sx={{
+                            fontWeight: "bold",
+                            fontFamily: "Ubuntu Sans",
+                            marginBottom: "15px",
+                        }}
+                    >
+                        We are currently looking for students to join our team
+                    </Typography>
+                    <Button
+                        variant="outlined"
+                        component="a"
+                        href="https://docs.google.com/forms/d/e/1FAIpQLSej9Lb9_XwBtBbQEtk4shBCgPfaTSugmm8PZOq6zI3MCy7mXQ/viewform?usp=sf_link"
+                        sx={{
+                            color: "white",
+                            fontWeight: "bold",
+                            borderColor: "white",
+                            fontFamily: "Ubuntu Sans",
+                            fontSize: "18px",
+                            "&:hover": {
+                                backgroundColor: "#1d1740",
+                                borderColor: "white",
+                            },
+                        }}
+                    >
+                        JOIN HERE
+                    </Button>
+                </Reveal>
             </Box>
         </>
     );
@@ -108,8 +134,8 @@ const useStyles = makeStyles((theme) => ({
         textAlign: "center",
     },
     image: {
-        width: "120px",
-        height: "120px",
+        width: "180px",
+        height: "180px",
         borderRadius: "50%",
         objectFit: "cover",
     },
@@ -117,7 +143,7 @@ const useStyles = makeStyles((theme) => ({
         marginTop: theme.spacing(1),
     },
     role: {
-        color: theme.palette.text.secondary,
+        color: "rgba(256,256,256, 0.6)",
     },
 }));
 
@@ -127,10 +153,18 @@ const TeamMember = ({ name, image, role }) => {
     return (
         <Box className={classes.root}>
             <img src={image} alt={name} className={classes.image} />
-            <Typography variant="h6" className={classes.name}>
+            <Typography
+                variant="h6"
+                className={classes.name}
+                sx={{ fontFamily: "Ubuntu Sans" }}
+            >
                 {name}
             </Typography>
-            <Typography variant="body2" className={classes.role}>
+            <Typography
+                variant="body2"
+                className={classes.role}
+                sx={{ fontFamily: "Ubuntu Sans" }}
+            >
                 {role}
             </Typography>
         </Box>
