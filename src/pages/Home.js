@@ -7,14 +7,14 @@ import About from "../components/About";
 import NewsLetter from "../components/Newsletter";
 import LoadingScreen from "../components/LoadingScreen";
 import Brain from "../components/Brain";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const Home = () => {
     const [isLoading, setLoading] = useState(true);
 
-    window.onload = () => {
+    useEffect(() => {
         setLoading(false);
-    };
+    }, []);
 
     return (
         <>
