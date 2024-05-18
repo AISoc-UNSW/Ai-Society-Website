@@ -1,5 +1,6 @@
 import React from "react";
 import { Typography } from "@mui/material";
+import Reveal from "../util/Reveal";
 
 const Chatbot = () => {
     const chatbotURL = "https://ai-soc.openonion.ai"; // Your chatbot's URL
@@ -32,28 +33,34 @@ const Chatbot = () => {
             }}
             id="chatbot"
         >
-            <Typography
-                sx={{
-                    fontWeight: "bold",
-                    margin: "15px 0",
-                    fontFamily: "Ubuntu Sans",
-                }}
-                variant="h3"
-            >
-                ChatBot
-            </Typography>
-            <Typography
-                sx={{
-                    marginBottom: "40px",
-                    fontFamily: "Ubuntu Sans",
-                    color: "rgba(255, 255, 255, 0.8)",
-                }}
-            >
-                Ask it anything about UNSW
-            </Typography>
-            <div style={containerStyle}>
-                <iframe src={chatbotURL} title="Chatbot" style={iframeStyle} />
-            </div>
+            <Reveal>
+                <Typography
+                    sx={{
+                        fontWeight: "bold",
+                        margin: "15px 0",
+                        fontFamily: "Ubuntu Sans",
+                    }}
+                    variant="h3"
+                >
+                    ChatBot
+                </Typography>
+                <Typography
+                    sx={{
+                        marginBottom: "40px",
+                        fontFamily: "Ubuntu Sans",
+                        color: "rgba(255, 255, 255, 0.8)",
+                    }}
+                >
+                    Ask it anything about UNSW
+                </Typography>
+                <div style={containerStyle}>
+                    <iframe
+                        src={chatbotURL}
+                        title="Chatbot"
+                        style={iframeStyle}
+                    />
+                </div>
+            </Reveal>
         </div>
     );
 };
