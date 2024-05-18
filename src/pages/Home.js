@@ -29,7 +29,6 @@ const Home = () => {
                 <NewsLetter />
                 <Chatbot />
                 <MeetUs />
-                <ChatBot />
                 <Faq />
                 <Sponsor />
             </div>
