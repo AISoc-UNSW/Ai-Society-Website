@@ -7,6 +7,7 @@ import About from "../components/About";
 import NewsLetter from "../components/Newsletter";
 import LoadingScreen from "../components/LoadingScreen";
 import Brain from "../components/Brain";
+import Chatbot from "../components/ChatBot";
 import { useState, useEffect } from "react";
 
 const Home = () => {
@@ -25,6 +26,7 @@ const Home = () => {
                 <About />
                 <Events />
                 <NewsLetter />
+                <Chatbot />
                 <MeetUs />
                 <Faq />
                 <Sponsor />

@@ -256,6 +256,19 @@ const NavBar = () => {
                             </Link>
                             <Link
                                 activeClass="active"
+                                to="chatbot"
+                                spy={true}
+                                smooth={true}
+                                offset={-70}
+                                duration={500}
+                                onClick={toggleMenu}
+                            >
+                                <Button color="inherit" sx={{ width: "100vw" }}>
+                                    CHATBOT
+                                </Button>
+                            </Link>
+                            <Link
+                                activeClass="active"
                                 to="team"
                                 spy={true}
                                 smooth={true}
@@ -338,6 +351,18 @@ const NavBar = () => {
                         >
                             <Button color="inherit" sx={buttonStyles}>
                                 NEWSLETTER
+                            </Button>
+                        </Link>
+                        <Link
+                            activeClass="active"
+                            to="chatbot"
+                            spy={true}
+                            smooth={true}
+                            offset={-70}
+                            duration={500}
+                        >
+                            <Button color="inherit" sx={buttonStyles}>
+                                CHATBOT
                             </Button>
                         </Link>
                         <Link
