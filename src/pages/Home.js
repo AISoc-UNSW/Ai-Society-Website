@@ -8,6 +8,7 @@ import NewsLetter from "../components/Newsletter";
 import LoadingScreen from "../components/LoadingScreen";
 import Brain from "../components/Brain";
 import { useState, useEffect } from "react";
+import ChatBot from "../components/ChatBot";
 
 const Home = () => {
     const [isLoading, setLoading] = useState(true);
@@ -26,6 +27,7 @@ const Home = () => {
                 <Events />
                 <NewsLetter />
                 <MeetUs />
+                <ChatBot />
                 <Faq />
                 <Sponsor />
             </div>
