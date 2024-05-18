@@ -24,7 +24,8 @@ const useStyles = makeStyles((theme) => ({
         marginTop: "-120px",
     },
     shrink: {
-        height: 64, // Shrunk height
+        minHeight: 64, // Shrunk height
+        height: "auto",
     },
 }));
 
