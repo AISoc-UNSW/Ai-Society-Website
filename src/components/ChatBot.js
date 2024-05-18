@@ -3,12 +3,11 @@ import React from 'react';
 const Chatbot = () => {
     const chatbotURL = "https://ai-soc.openonion.ai"; // Your chatbot's URL
 
-    // Styles for the card-like container
     const containerStyle = {
         width: '90vw',           // 80% of the viewport width
         height: '100vh',          // 80% of the viewport height
         border: '1px solid #ccc', // Light grey border
-        borderRadius: '10px',    // Rounded corners
+        borderRadius: '15px',    // Rounded corners
         boxShadow: '0 4px 8px rgba(0,0,0,0.1)', // Subtle shadow for depth
         margin: '10vh auto',     // Vertically center and auto horizontal margin
         padding: 0,              // No padding inside the container
