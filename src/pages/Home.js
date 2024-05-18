@@ -9,7 +9,6 @@ import LoadingScreen from "../components/LoadingScreen";
 import Brain from "../components/Brain";
 import Chatbot from "../components/ChatBot";
 import { useState, useEffect } from "react";
-import ChatBot from "../components/ChatBot";
 
 const Home = () => {
     const [isLoading, setLoading] = useState(true);
@@ -35,9 +34,5 @@ const Home = () => {
         </>
     );
 };
-/* {components.map((Component, index) => (
-                <div key={index} style={pageStyle(index)}>
-                    {Component}
-                </div>
-            ))} */
+
 export default Home;
