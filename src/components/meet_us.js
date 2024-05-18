@@ -3,6 +3,7 @@ import { Box, Typography, Button, Grid } from "@mui/material";
 import { makeStyles } from "@material-ui/core/styles";
 import Reveal from "../util/Reveal";
 import michael from "../assets/michael.webp";
+import Aaron from "../assets/Aaron.jpg";
 
 const MeetUs = () => {
     const team = [
@@ -33,7 +34,7 @@ const MeetUs = () => {
         },
         {
             name: "Aaron",
-            image: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973461_640.png",
+            image: Aaron,
             role: "VP of Education",
         },
     ];
