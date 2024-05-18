@@ -7,15 +7,16 @@ import About from "../components/About";
 import NewsLetter from "../components/Newsletter";
 import LoadingScreen from "../components/LoadingScreen";
 import Brain from "../components/Brain";
+import Chatbot from "../components/ChatBot";
 import { useState, useEffect } from "react";
 import ChatBot from "../components/ChatBot";
 
 const Home = () => {
     const [isLoading, setLoading] = useState(true);
 
-    window.onload = () => {
+    useEffect(() => {
         setLoading(false);
-    };
+    }, []);
 
     return (
         <>
@@ -26,6 +27,7 @@ const Home = () => {
                 <About />
                 <Events />
                 <NewsLetter />
+                <Chatbot />
                 <MeetUs />
                 <ChatBot />
                 <Faq />
@@ -34,11 +36,9 @@ const Home = () => {
         </>
     );
 };
-{
-    /* {components.map((Component, index) => (
+/* {components.map((Component, index) => (
                 <div key={index} style={pageStyle(index)}>
                     {Component}
                 </div>
             ))} */
-}
 export default Home;

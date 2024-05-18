@@ -81,7 +81,7 @@ const Events = () => {
             <Box
                 id="events"
                 sx={{
-                    padding: "10vh 5vw",
+                    padding: "5vh 5vw",
                     backgroundColor: "#000033",
                     color: "white",
                 }}

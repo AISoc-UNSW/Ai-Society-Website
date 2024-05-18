@@ -2,8 +2,9 @@ import React from "react";
 import { Box, Typography, Button, Grid } from "@mui/material";
 import { makeStyles } from "@material-ui/core/styles";
 import Reveal from "../util/Reveal";
-import michael from "../assets/michael.webp";
-import Aaron from "../assets/Aaron.jpg";
+import michael from "../assets/execs/michael.webp";
+import samin from "../assets/execs/samin.webp";
+import aaron from "../assets/execs/Aaron.webp";
 
 const MeetUs = () => {
     const team = [
@@ -14,7 +15,7 @@ const MeetUs = () => {
         },
         {
             name: "Samin",
-            image: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973461_640.png",
+            image: samin,
             role: "Secretary",
         },
         {
@@ -34,7 +35,7 @@ const MeetUs = () => {
         },
         {
             name: "Aaron",
-            image: Aaron,
+            image: aaron,
             role: "VP of Education",
         },
     ];
@@ -44,7 +45,7 @@ const MeetUs = () => {
             <Box
                 id="team"
                 sx={{
-                    padding: "10vh 0",
+                    padding: "5vh 0",
                     textAlign: "center",
                     backgroundColor: "#110c29",
                     color: "white",
