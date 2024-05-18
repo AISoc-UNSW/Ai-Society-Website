@@ -99,14 +99,14 @@ const Chatbot = () => {
         position: "fixed",
         bottom: "20px",
         right: "20px",
-        zIndex: 1002, // Ensure button is above the chatbot window
-        backgroundColor: "#6a0dad", // Rich purple color
-        color: "white", // Adjust button text color
-        borderRadius: "20px", // Round button corners
-        padding: "10px 20px", // Adjust button padding
-        textTransform: "none", // Keep button text case
-        opacity: visible ? 1 : 0, // Ensure button is fully visible
-        transition: "opacity 0.5s ease-in-out", // Fade-in effect
+        zIndex: 1002,
+        backgroundColor: "#6a0dad",
+        color: "white",
+        borderRadius: "20px",
+        padding: "10px 20px",
+        textTransform: "none",
+        opacity: visible ? 1 : 0,
+        transition: "opacity 0.5s ease-in-out",
     };
 
     const overlayStyle = {

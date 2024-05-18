@@ -39,9 +39,9 @@ const LoadingScreen = ({ twoSeconds, isLoading }) => {
                     position: "fixed", // Fixed or absolute positioning
                     top: 0,
                     left: 0,
-                    width: "100vw", // Covers the full viewport width
-                    height: "100vh", // Covers the full viewport height
-                    zIndex: show ? 10000 : -10000, // High z-index to ensure it covers other content
+                    width: "100vw",
+                    height: "100vh",
+                    zIndex: show ? 10000 : -10000,
                     backgroundColor: "rgba(0, 0, 0, 0.5)", // Optional: adds a semi-transparent black background
                     opacity: show ? 1 : 0, // Set opacity based on the show state
                     transition: "opacity 0.5s ease, z-index 0.5s ease", // Transition effect for opacity change
@@ -86,7 +86,7 @@ const LoadingScreen = ({ twoSeconds, isLoading }) => {
                     <Typography
                         variant="h6"
                         noWrap
-                        component="span" // Change from "a" to "span" to prevent nested anchor elements
+                        component="span"
                         sx={{
                             mr: 4,
                             display: { display: "flex" },
