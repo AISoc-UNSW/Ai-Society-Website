@@ -194,7 +194,7 @@ const Brain = () => {
                             fontFamily: "Ubuntu Sans",
                         }}
                     >
-                        We are the foremost advocate for AI enthusiasts,
+                        We are the foremost advocate for AI enthusiasts at UNSW,
                         nurturing a dedicated community of passionate
                         individuals eager to explore the frontiers of artificial
                         intelligence.

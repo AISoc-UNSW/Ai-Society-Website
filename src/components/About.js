@@ -56,8 +56,8 @@ const About = () => {
                                     fontFamily: "Ubuntu Sans",
                                 }}
                             >
-                                Welcome to our university society dedicated to
-                                the study and application of artificial
+                                Welcome to our society at UNSW, dedicated to the
+                                study and application of artificial
                                 intelligence. Through engaging events,
                                 workshops, and projects, we aim to foster a
                                 community of AI enthusiasts and drive innovation
