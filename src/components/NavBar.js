@@ -103,16 +103,12 @@ const NavBar = () => {
 
             newStrings.push(words.join(" "));
             newStrings.push((el) => el.classList.remove("type"));
-            newStrings.push(
-                2000 * Math.random() + 5000 // Add random delay from 3 - 7s
-            );
+            newStrings.push(2000 * Math.random() + 10000);
             newStrings.push((el) => el.classList.add("delete"));
             newStrings.push("");
             newStrings.push((el) => el.classList.remove("delete"));
             newStrings.push((el) => el.classList.add("think"));
-            newStrings.push(
-                2000 * Math.random() + 1500 // Add random delay from 1.5 - 3.5s
-            );
+            newStrings.push(2000 * Math.random() + 3000);
             newStrings.push((el) => el.classList.remove("think"));
             newStrings.push((el) => el.classList.add("type"));
         }

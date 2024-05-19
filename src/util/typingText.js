@@ -180,11 +180,11 @@ export const textList = [
         text: "Even artificial intilligence can make typos too.",
         chanceMultiplier: 1,
     },
+    { text: "One day AI will save me from my cat.", chanceMultiplier: 1 },
     {
         text: "The person that coded this site has made extreme care to not allow major UX errors to happen. Such as if a long goes on for too long and making it go off the screen or something like the text covering up the entire navbar. That would be terrible and extremely heartbreaking to the designer. I would never want to see something like that to happen to the website, especially if we are going to be showing this to external companies. Imagine an executive in a company seeing the lines just go off the screen of this website. They would never want to sponsor us. Like imagine just walking into a board meeting, seeing a promising university website, looking at the ultilisation of threejs and then just seeing text on the navbar just go flying off the screen. I would immediately lose my mind, seeing something like that happen. Such a beginner rookie mistake. The author of the website would be so embarrassed. They should never make a website again. Especially one that uses a navbar to display text that may potentially go off the screen. They should never go anywhere next frontend development again. ",
-        chanceMultiplier: 0.1,
+        chanceMultiplier: 0.01,
     },
-    { text: "One day AI will save me from my cat.", chanceMultiplier: 1 },
     {
         text: "90% of the society funds are going into Raymond's gacha addiction.",
         chanceMultiplier: 0.01,

@@ -7,6 +7,7 @@ const Chatbot = () => {
     const [show, setShow] = useState(false);
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 600);
     const [visible, setVisible] = useState(false);
+    const [animateOut, setAnimateOut] = useState(false);
     const chatbotRef = useRef(null);
     const chatbotURL = "https://ai-soc.openonion.ai"; // Your chatbot's URL
 
@@ -39,45 +40,95 @@ const Chatbot = () => {
     useEffect(() => {
         const styleSheet = document.createElement("style");
         styleSheet.innerText = `
-            @keyframes slideIn {
+            @keyframes riseIn {
                 from {
-                    transform: scale(0.9);
+                    transform: translateY(100%);
                     opacity: 0;
                 }
                 to {
-                    transform: scale(1);
+                    transform: translateY(0);
                     opacity: 1;
                 }
             }
 
-            @keyframes slideOut {
+            @keyframes fallOut {
                 from {
-                    transform: scale(1);
+                    transform: translateY(0);
                     opacity: 1;
                 }
                 to {
-                    transform: scale(0.9);
+                    transform: translateY(100%);
                     opacity: 0;
                 }
             }
 
             .chatbot-container.show {
-                animation: slideIn 0.3s ease-in-out forwards;
+                animation: riseIn 0.3s ease-in-out forwards;
             }
 
             .chatbot-container.hide {
-                animation: slideOut 0.3s ease-in-out forwards;
+                animation: fallOut 0.3s ease-in-out forwards;
+            }
+
+            @keyframes riseButton {
+                from {
+                    transform: translateY(100%);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateY(0);
+                    opacity: 1;
+                }
+            }
+
+            @keyframes fallButton {
+                from {
+                    transform: translateY(0);
+                    opacity: 1;
+                }
+                to {
+                    transform: translateY(100%);
+                    opacity: 0;
+                }
+            }
+
+            .chatbot-button.show {
+                animation: riseButton 0.5s ease-in-out forwards;
+            }
+
+            .chatbot-button.hide {
+                animation: fallButton 0.5s ease-in-out forwards;
             }
         `;
         document.head.appendChild(styleSheet);
     }, []);
 
+    useEffect(() => {
+        if (!show && animateOut) {
+            const timer = setTimeout(() => {
+                setAnimateOut(false);
+            }, 300);
+            return () => clearTimeout(timer);
+        }
+    }, [show, animateOut]);
+
+    const handleClick = () => {
+        if (show) {
+            setAnimateOut(true);
+            setTimeout(() => {
+                setShow(false);
+            }, 300);
+        } else {
+            setShow(true);
+        }
+    };
+
     const containerStyle = {
-        display: show ? "block" : "none",
+        display: show || animateOut ? "block" : "none",
         position: "fixed",
         bottom: isMobile ? "70px" : "80px",
-        right: isMobile ? "10px" : "20px",
-        width: isMobile ? "92vw" : "75vw",
+        right: "20px",
+        width: isMobile ? "88vw" : "75vw",
         height: isMobile ? "80vh" : "75vh",
         border: "1px solid #ccc",
         borderRadius: isMobile ? "10px" : "15px",
@@ -85,8 +136,7 @@ const Chatbot = () => {
         overflow: "hidden",
         zIndex: 1001,
         backgroundColor: "white",
-        transition: "all 0.3s ease-in-out",
-        opacity: show ? 1 : 0,
+        opacity: show || animateOut ? 1 : 0,
     };
 
     const iframeStyle = {
@@ -105,12 +155,10 @@ const Chatbot = () => {
         borderRadius: "20px",
         padding: "10px 20px",
         textTransform: "none",
-        opacity: visible ? 1 : 0,
-        transition: "opacity 0.5s ease-in-out",
     };
 
     const overlayStyle = {
-        display: show ? "block" : "none",
+        display: show || animateOut ? "block" : "none",
         position: "fixed",
         top: 0,
         left: 0,
@@ -123,15 +171,15 @@ const Chatbot = () => {
     return (
         <div>
             <Button
+                className={`chatbot-button ${visible ? "show" : "hide"}`}
                 style={buttonStyle}
                 variant="contained"
-                disabled={!visible}
-                onClick={() => setShow((prevShow) => !prevShow)}
+                onClick={handleClick}
                 startIcon={show ? <CloseIcon /> : <ChatIcon />}
             >
                 {show ? "Close Chatbot" : "Chatbot"}
             </Button>
-            <div style={overlayStyle} onClick={() => setShow(false)} />
+            <div style={overlayStyle} onClick={handleClick} />
             <div
                 style={containerStyle}
                 className={`chatbot-container ${show ? "show" : "hide"}`}
