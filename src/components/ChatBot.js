@@ -72,22 +72,22 @@ const Chatbot = () => {
 
             @keyframes riseButton {
                 from {
-                    transform: translateY(100%) translateX(-50%);
+                    transform: translateY(100%);
                     opacity: 0;
                 }
                 to {
-                    transform: translateY(0) translateX(-50%);
+                    transform: translateY(0);
                     opacity: 1;
                 }
             }
 
             @keyframes fallButton {
                 from {
-                    transform: translateY(0) translateX(-50%);
+                    transform: translateY(0);
                     opacity: 1;
                 }
                 to {
-                    transform: translateY(100%) translateX(-50%);
+                    transform: translateY(100%);
                     opacity: 0;
                 }
             }
@@ -127,9 +127,8 @@ const Chatbot = () => {
         display: show || animateOut ? "block" : "none",
         position: "fixed",
         bottom: isMobile ? "70px" : "80px",
-        left: "50%",
-        marginLeft: isMobile ? "-46vw" : "-37.5vw",
-        width: isMobile ? "92vw" : "75vw",
+        right: "20px",
+        width: isMobile ? "88vw" : "75vw",
         height: isMobile ? "80vh" : "75vh",
         border: "1px solid #ccc",
         borderRadius: isMobile ? "10px" : "15px",
@@ -149,7 +148,7 @@ const Chatbot = () => {
     const buttonStyle = {
         position: "fixed",
         bottom: "20px",
-        left: "50%",
+        right: "20px",
         zIndex: 1002,
         backgroundColor: "#6a0dad",
         color: "white",
