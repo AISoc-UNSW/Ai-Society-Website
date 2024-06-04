@@ -237,7 +237,7 @@ const Stars = () => {
         return () => {
             window.removeEventListener("resize", handleResize);
         };
-    }, []);
+    }, [init]);
 
     return (
         <canvas
