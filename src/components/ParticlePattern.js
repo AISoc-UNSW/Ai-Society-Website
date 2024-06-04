@@ -230,7 +230,7 @@ const ParticlePattern = () => {
         return () => {
             window.removeEventListener("resize", handleResize);
         };
-    }, []);
+    }, [initParticles]);
 
     return (
         <canvas
