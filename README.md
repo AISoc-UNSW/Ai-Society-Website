@@ -1,71 +1,97 @@
-# Getting Started with Create React App
+# UNSW AISoc Website <img src="src/assets/aisoc-logo.webp" width="150" height="150" align="right">
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Welcome to the official GitHub repository for the UNSW Artificial Intelligence Society's website. This repository contains the source code for the website, which provides information about our activities, events, and newsletters.
 
-## Available Scripts
+## Table of Contents
 
-In the project directory, you can run:
+- [Introduction](#introduction)
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [Installation & Contributing](#installation-and-contributing)
+- [Contact](#contact)
 
-### `npm start`
+## ✨Introduction 
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+The UNSW AI Society is a dedicated community of passionate individuals eager to explore the frontiers of artificial intelligence. Our website serves as a central hub for current and prospective members to stay informed about club news, events, and resources.
+ 
+## 🚀Features 
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- **📰 Home Page:** Displays the latest news and announcements. 
+- **📅 Events Page:** View the calendar of upcoming events and activities. 
+- **📖 About Us Page:** Learn more about the club's mission, history, and executives.
+- **🙋 Join Us Page:** Find out how to join the club as an executive or subcommittee. 
+- **📩 Contact Page:** Fill out the form to get in touch with the club. 
 
-### `npm test`
+## 🛠Technologies Used 
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- CSS 
+- JavaScript 
+- React
 
-### `npm run build`
+## 💻Installation And Contributing 
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+To get a local copy up and running, follow these steps:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. **Clone the repository:**
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+    ```bash
+    git clone https://github.com/AISoc-UNSW/Ai-Society-Website.git
+    ```
 
-### `npm run eject`
+2. **Navigate to the project directory:**
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+    ```bash
+    cd Ai-Society-Website
+    ```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+3. **Install dependencies:**
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+    ```bash
+    npm install
+    ```
+    
+4. **Start the development server:**
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+    ```bash
+    npm start
+    ```
+    
+5. **Open your browser and go to:**
 
-## Learn More
+    ```
+    http://localhost:3000
+    ```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+We also welcome contributions to the project! To contribute, please follow these steps:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+1. **Fork the repository.**
+2. **Create a new branch:**
 
-### Code Splitting
+    ```bash
+    git checkout -b feature/YourFeatureName
+    ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+3. **Make your changes and commit them:**
 
-### Analyzing the Bundle Size
+    ```bash
+    git commit -m 'Add some feature'
+    ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+4. **Push to the branch:**
 
-### Making a Progressive Web App
+    ```bash
+    git push origin feature/YourFeatureName
+    ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+5. **Open a pull request.**
 
-### Advanced Configuration
+## 📬Contact 
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+For any questions or inquiries, please [contact us](mailto:aisoc@unsw.edu.au) via email address or visit our [official website](https://unswaisoc.com/).
 
-### Deployment
+You can also join us on:
+- [Discord](https://discord.com/invite/gpahrBHB)
+- [Facebook](https://www.facebook.com/profile.php?id=100092595608038)
+- [Instagram](https://www.instagram.com/unswai.soc/)
+- [LinkedIn](https://www.linkedin.com/company/unsw-artificial-intelligence-society/mycompany/)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-# Ai-Society-Website
