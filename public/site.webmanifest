@@ -1,7 +1,22 @@
 {
-    "name": "",
-    "short_name": "",
+    "short_name": "AISocUNSW",
+    "name": "Artificial Intelligence Society - UNSW",
     "icons": [
+        {
+            "src": "/favicon-16x16.png",
+            "sizes": "16x16",
+            "type": "image/png"
+        },
+        {
+            "src": "/favicon-32x32.png",
+            "sizes": "32x32",
+            "type": "image/png"
+        },
+        {
+            "src": "/apple-touch-icon.png",
+            "sizes": "180x180",
+            "type": "image/png"
+        },
         {
             "src": "/android-chrome-192x192.png",
             "sizes": "192x192",
@@ -13,7 +28,9 @@
             "type": "image/png"
         }
     ],
-    "theme_color": "#ffffff",
+    "start_url": ".",
+    "display": "standalone",
+    "theme_color": "#000000",
     "background_color": "#ffffff",
-    "display": "standalone"
+    "description": "Welcome to the Artificial Intelligence Society at UNSW. Join us to explore, learn, and innovate in the field of AI through events, workshops, and projects."
 }
