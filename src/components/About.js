@@ -5,7 +5,7 @@ import Reveal from "../util/Reveal";
 import SocialMediaIcons from "../util/Icons";
 
 const handleClick = () => {
-    window.location.href = "mailto:aisoc@unsw.edu.au";
+    window.location.href = "mailto:unsw.ai.soc@gmail.com";
 };
 
 const About = () => {
