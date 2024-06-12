@@ -1,16 +1,19 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Box, Typography, Button, Grid } from "@mui/material";
 import { makeStyles } from "@material-ui/core/styles";
 import Reveal from "../util/Reveal";
 import michael from "../assets/execs/michael.webp";
 import samin from "../assets/execs/samin.webp";
 import aaron from "../assets/execs/Aaron.webp";
+import darren from "../assets/execs/darren.webp";
+import aee from "../assets/execs/easter-egg.webp";
+import andrew from "../assets/execs/andrew.webp";
 
 const MeetUs = () => {
     const team = [
         {
             name: "Andrew",
-            image: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973461_640.png",
+            image: andrew,
             role: "President",
         },
         {
@@ -30,7 +33,7 @@ const MeetUs = () => {
         },
         {
             name: "Darren",
-            image: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973461_640.png",
+            image: darren,
             role: "Grievance Officer",
         },
         {
@@ -84,11 +87,19 @@ const MeetUs = () => {
                                         marginBottom: "30px",
                                     }}
                                 >
-                                    <TeamMember
-                                        name={person.name}
-                                        image={person.image}
-                                        role={person.role}
-                                    />
+                                    {person.name === "Andrew" ? (
+                                        <Andrew
+                                            name={person.name}
+                                            image={person.image}
+                                            role={person.role}
+                                        />
+                                    ) : (
+                                        <TeamMember
+                                            name={person.name}
+                                            image={person.image}
+                                            role={person.role}
+                                        />
+                                    )}
                                 </Box>
                             </Grid>
                         ))}
@@ -155,6 +166,54 @@ const TeamMember = ({ name, image, role }) => {
     return (
         <Box className={classes.root}>
             <img src={image} alt={name} className={classes.image} />
+            <Typography
+                variant="h6"
+                className={classes.name}
+                sx={{ fontFamily: "Ubuntu Sans" }}
+            >
+                {name}
+            </Typography>
+            <Typography
+                variant="body2"
+                className={classes.role}
+                sx={{ fontFamily: "Ubuntu Sans" }}
+            >
+                {role}
+            </Typography>
+        </Box>
+    );
+};
+
+const Andrew = ({ name, image, role }) => {
+    const classes = useStyles();
+    const [clickCount, setClickCount] = useState(0);
+    const [lastClickTime, setLastClickTime] = useState(null);
+    const [currentImage, setCurrentImage] = useState(image);
+
+    useEffect(() => {
+        if (clickCount === 10) {
+            setCurrentImage(aee);
+        }
+    }, [clickCount]);
+
+    const handleImageClick = () => {
+        const currentTime = new Date().getTime();
+        if (lastClickTime && currentTime - lastClickTime > 3000) {
+            setClickCount(1);
+        } else {
+            setClickCount((prevCount) => prevCount + 1);
+        }
+        setLastClickTime(currentTime);
+    };
+
+    return (
+        <Box className={classes.root}>
+            <img
+                src={currentImage}
+                alt={name}
+                className={classes.image}
+                onClick={handleImageClick}
+            />
             <Typography
                 variant="h6"
                 className={classes.name}
