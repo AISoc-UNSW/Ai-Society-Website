@@ -5,7 +5,7 @@ import bg from "../assets/purple-bg.webp";
 import Reveal from "../util/Reveal";
 
 const handleClick = () => {
-    window.location.href = "mailto:aisoc@unsw.edu.au";
+    window.location.href = "mailto:unswai.soc.industry@gmail.com";
 };
 
 const Sponsor = () => {

@@ -3,7 +3,7 @@ import { Box, Typography, Button } from "@mui/material";
 import Reveal from "../util/Reveal";
 
 const handleClick = () => {
-    window.location.href = "mailto:aisoc@unsw.edu.au";
+    window.location.href = "mailto:unsw.ai.soc@gmail.com";
 };
 
 const Faq = () => {

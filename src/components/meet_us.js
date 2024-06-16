@@ -8,6 +8,7 @@ import aaron from "../assets/execs/Aaron.webp";
 import darren from "../assets/execs/darren.webp";
 import aee from "../assets/execs/easter-egg.webp";
 import andrew from "../assets/execs/andrew.webp";
+import ray from "../assets/execs/ray.webp";
 
 const MeetUs = () => {
     const team = [
@@ -23,7 +24,7 @@ const MeetUs = () => {
         },
         {
             name: "Ray",
-            image: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973461_640.png",
+            image: ray,
             role: "Treasurer",
         },
         {
