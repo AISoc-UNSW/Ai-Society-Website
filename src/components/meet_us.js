@@ -7,6 +7,7 @@ import samin from "../assets/execs/samin.webp";
 import aaron from "../assets/execs/Aaron.webp";
 import darren from "../assets/execs/darren.webp";
 import aee from "../assets/execs/easter-egg.webp";
+import ree from "../assets/execs/easter-egg2.webp";
 import andrew from "../assets/execs/andrew.webp";
 import ray from "../assets/execs/ray.webp";
 
@@ -88,8 +89,8 @@ const MeetUs = () => {
                                         marginBottom: "30px",
                                     }}
                                 >
-                                    {person.name === "Andrew" ? (
-                                        <Andrew
+                                    {person.name === "Andrew" || "Ray" ? (
+                                        <Egg
                                             name={person.name}
                                             image={person.image}
                                             role={person.role}
@@ -185,7 +186,7 @@ const TeamMember = ({ name, image, role }) => {
     );
 };
 
-const Andrew = ({ name, image, role }) => {
+const Egg = ({ name, image, role }) => {
     const classes = useStyles();
     const [clickCount, setClickCount] = useState(0);
     const [lastClickTime, setLastClickTime] = useState(null);
@@ -193,9 +194,9 @@ const Andrew = ({ name, image, role }) => {
 
     useEffect(() => {
         if (clickCount === 10) {
-            setCurrentImage(aee);
+            setCurrentImage(name === "Andrew" ? aee : ree);
         }
-    }, [clickCount]);
+    }, [clickCount, name]);
 
     const handleImageClick = () => {
         const currentTime = new Date().getTime();
