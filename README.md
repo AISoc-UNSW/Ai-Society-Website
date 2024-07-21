@@ -10,88 +10,88 @@ Welcome to the official GitHub repository for the UNSW Artificial Intelligence S
 - [Installation & Contributing](#installation-and-contributing)
 - [Contact](#contact)
 
-## ✨Introduction 
+## ✨Introduction
 
 The UNSW AI Society is a dedicated community of passionate individuals eager to explore the frontiers of artificial intelligence. Our website serves as a central hub for current and prospective members to stay informed about club news, events, and resources.
- 
-## 🚀Features 
 
-- **📰 Home Page:** Displays the latest news and announcements. 
-- **📅 Events Page:** View the calendar of upcoming events and activities. 
+## 🚀Features
+
+- **📰 Home Page:** Displays the latest news and announcements.
+- **📅 Events Page:** View the calendar of upcoming events and activities.
 - **📖 About Us Page:** Learn more about the club's mission, history, and executives.
-- **🙋 Join Us Page:** Find out how to join the club as an executive or subcommittee. 
-- **📩 Contact Page:** Fill out the form to get in touch with the club. 
+- **🙋 Join Us Page:** Find out how to join the club as an executive or subcommittee.
+- **📩 Contact Page:** Fill out the form to get in touch with the club.
 
-## 🛠Technologies Used 
+## 🛠Technologies Used
 
-- CSS 
-- JavaScript 
+- CSS
+- JavaScript
 - React
 
-## 💻Installation And Contributing 
+## 💻Installation And Contributing
 
 To get a local copy up and running, follow these steps:
 
 1. **Clone the repository:**
 
-    ```bash
-    git clone https://github.com/AISoc-UNSW/Ai-Society-Website.git
-    ```
+   ```bash
+   git clone https://github.com/AISoc-UNSW/Ai-Society-Website.git
+   ```
 
 2. **Navigate to the project directory:**
 
-    ```bash
-    cd Ai-Society-Website
-    ```
+   ```bash
+   cd Ai-Society-Website
+   ```
 
 3. **Install dependencies:**
 
-    ```bash
-    npm install
-    ```
-    
+   ```bash
+   npm install
+   ```
+
 4. **Start the development server:**
 
-    ```bash
-    npm start
-    ```
-    
+   ```bash
+   npm start
+   ```
+
 5. **Open your browser and go to:**
 
-    ```
-    http://localhost:3000
-    ```
+   ```
+   http://localhost:3000
+   ```
 
 We also welcome contributions to the project! To contribute, please follow these steps:
 
 1. **Fork the repository.**
 2. **Create a new branch:**
 
-    ```bash
-    git checkout -b feature/YourFeatureName
-    ```
+   ```bash
+   git checkout -b feature/YourFeatureName
+   ```
 
 3. **Make your changes and commit them:**
 
-    ```bash
-    git commit -m 'Add some feature'
-    ```
+   ```bash
+   git commit -m 'Add some feature'
+   ```
 
 4. **Push to the branch:**
 
-    ```bash
-    git push origin feature/YourFeatureName
-    ```
+   ```bash
+   git push origin feature/YourFeatureName
+   ```
 
 5. **Open a pull request.**
 
-## 📬Contact 
+## 📬Contact
 
 For any questions or inquiries, please [contact us](mailto:aisoc@unsw.edu.au) via email address or visit our [official website](https://unswaisoc.com/).
 
 You can also join us on:
-- [Discord](https://discord.com/invite/gpahrBHB)
+
+- [Discord](https://discord.gg/856FnEQePJ)
 - [Facebook](https://www.facebook.com/profile.php?id=100092595608038)
 - [Instagram](https://www.instagram.com/unswai.soc/)
 - [LinkedIn](https://www.linkedin.com/company/unsw-artificial-intelligence-society/mycompany/)
-
