@@ -25,7 +25,7 @@ const Faq = () => {
               flexWrap: "wrap",
               //   backgroundColor: "#1a1134",
               color: "white",
-              padding: "3rem",
+              padding: "5% 10% 5% 10%",
             }}
           >
             <Box

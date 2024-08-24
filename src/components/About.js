@@ -15,7 +15,7 @@ const About = () => {
         id="about"
         sx={{
           // backgroundColor: "#110c29",
-          padding: "5vh 5vw",
+          padding: "5% 10% 5% 10%",
           color: "white",
         }}
       >

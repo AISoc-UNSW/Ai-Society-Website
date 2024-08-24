@@ -127,8 +127,7 @@ const NewsLetter = () => {
         id="newsletter"
         sx={{
           textAlign: "center",
-          paddingTop: "5vh",
-          paddingBottom: "10vh",
+          padding: "5% 10% 5% 10%",
           // backgroundColor: "#19123e",
           color: "white",
         }}

@@ -125,79 +125,6 @@ const Stars = () => {
     starsRef.current.geometry.attributes.velocity.needsUpdate = true;
   };
 
-  const init = () => {
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(
-      75,
-      window.innerWidth / window.innerHeight,
-      0.01,
-      2000
-    );
-    cameraRef.current = camera;
-    // cameraRef.current.aspect = window.innerWidth / window.innerHeight;
-    // cameraRef.current.updateProjectionMatrix();
-    camera.position.z = 500;
-
-    targetRef.current = new THREE.Vector3();
-
-    const renderer = new THREE.WebGLRenderer({
-      antialias: true,
-      canvas: canvasRef.current,
-      alpha: true,
-      powerPreference: "low-power",
-      precision: "lowp",
-    });
-    renderer.setSize(window.innerWidth, window.innerHeight);
-
-    canvasSizeRef.current = {
-      width: window.innerWidth,
-      height: window.innerHeight,
-    };
-    // Setup post-processing
-    const composer = new EffectComposer(renderer);
-    composer.addPass(new RenderPass(scene, cameraRef.current));
-
-    scene.add(stars);
-
-    starsRef.current.geometry.attributes.position.needsUpdate = true;
-
-    const handleMouseMove = (event) => {
-      const { clientX, clientY } = event;
-      const aspectRatio = window.innerWidth / window.innerHeight;
-      const x = (clientX / window.innerWidth) * 2 - 1;
-      const y = -(clientY / window.innerHeight) * 2 + 1;
-
-      targetRef.current.set(
-        x * Math.PI,
-        y * Math.PI * aspectRatio,
-        camera.position.z
-      );
-
-      gravityRef.current.set(x * 0.001, y * 0.001, 0);
-    };
-
-    const animate = () => {
-      requestAnimationFrame(animate);
-      renderer.setSize(window.innerWidth, window.innerHeight);
-
-      const camera = cameraRef.current;
-      const target = targetRef.current;
-
-      camera.position.x += (target.x - camera.position.x) * 0.1;
-      camera.position.y += (target.y - camera.position.y) * 0.1;
-      camera.lookAt(scene.position);
-
-      move();
-
-      renderer.render(scene, cameraRef.current);
-      composer.render();
-    };
-
-    window.addEventListener("mousemove", handleMouseMove);
-    animate();
-    rendererRef.current = renderer;
-    composerRef.current = composer;
-  };
   const resize = () => {
     const camera = cameraRef.current;
     const renderer = rendererRef.current;
@@ -216,6 +143,79 @@ const Stars = () => {
   };
 
   useEffect(() => {
+    const init = () => {
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(
+        75,
+        window.innerWidth / window.innerHeight,
+        0.01,
+        2000
+      );
+      cameraRef.current = camera;
+      // cameraRef.current.aspect = window.innerWidth / window.innerHeight;
+      // cameraRef.current.updateProjectionMatrix();
+      camera.position.z = 500;
+
+      targetRef.current = new THREE.Vector3();
+
+      const renderer = new THREE.WebGLRenderer({
+        antialias: true,
+        canvas: canvasRef.current,
+        alpha: true,
+        powerPreference: "low-power",
+        precision: "lowp",
+      });
+      renderer.setSize(window.innerWidth, window.innerHeight);
+
+      canvasSizeRef.current = {
+        width: window.innerWidth,
+        height: window.innerHeight,
+      };
+      // Setup post-processing
+      const composer = new EffectComposer(renderer);
+      composer.addPass(new RenderPass(scene, cameraRef.current));
+
+      scene.add(stars);
+
+      starsRef.current.geometry.attributes.position.needsUpdate = true;
+
+      const handleMouseMove = (event) => {
+        const { clientX, clientY } = event;
+        const aspectRatio = window.innerWidth / window.innerHeight;
+        const x = (clientX / window.innerWidth) * 2 - 1;
+        const y = -(clientY / window.innerHeight) * 2 + 1;
+
+        targetRef.current.set(
+          x * Math.PI,
+          y * Math.PI * aspectRatio,
+          camera.position.z
+        );
+
+        gravityRef.current.set(x * 0.001, y * 0.001, 0);
+      };
+
+      const animate = () => {
+        requestAnimationFrame(animate);
+        renderer.setSize(window.innerWidth, window.innerHeight);
+
+        const camera = cameraRef.current;
+        const target = targetRef.current;
+
+        camera.position.x += (target.x - camera.position.x) * 0.1;
+        camera.position.y += (target.y - camera.position.y) * 0.1;
+        camera.lookAt(scene.position);
+
+        move();
+
+        renderer.render(scene, cameraRef.current);
+        composer.render();
+      };
+
+      window.addEventListener("mousemove", handleMouseMove);
+      animate();
+      rendererRef.current = renderer;
+      composerRef.current = composer;
+    };
     init();
     const handleResize = () => {
       resize();
@@ -226,7 +226,7 @@ const Stars = () => {
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, [init]);
+  }, [stars]);
 
   return (
     <canvas
