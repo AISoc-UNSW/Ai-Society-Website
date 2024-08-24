@@ -139,69 +139,6 @@ const ParticlePattern = () => {
     starsRef.current.geometry.attributes.velocity.needsUpdate = true;
   };
 
-  const initParticles = () => {
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(
-      75,
-      window.innerWidth / window.innerHeight,
-      0.01,
-      2000
-    );
-    cameraRef.current = camera;
-    camera.position.z = 200;
-
-    targetRef.current = new THREE.Vector3();
-
-    const renderer = new THREE.WebGLRenderer({
-      antialias: true,
-      canvas: canvasRef.current,
-      alpha: true,
-    });
-    renderer.setSize(window.innerWidth, window.innerHeight);
-
-    canvasSizeRef.current = {
-      width: window.innerWidth,
-      height: window.innerHeight,
-    };
-
-    scene.add(particles);
-    scene.background = new THREE.Color(0x000000); // Assuming your content has a dark theme
-
-    const handleMouseMove = (event) => {
-      const { clientX, clientY } = event;
-      const aspectRatio = window.innerWidth / window.innerHeight;
-      const x = (clientX / window.innerWidth) * 2 - 1;
-      const y = -(clientY / window.innerHeight) * 2 + 1;
-
-      targetRef.current.set(
-        x * Math.PI,
-        y * Math.PI * aspectRatio,
-        camera.position.z
-      );
-    };
-
-    const animate = () => {
-      requestAnimationFrame(animate);
-      // renderer.setSize(window.innerWidth, window.innerHeight);
-
-      moveParticles();
-
-      const camera = cameraRef.current;
-      const target = targetRef.current;
-
-      camera.position.x += (target.x - camera.position.x) * 0.01;
-      camera.position.y += (target.y - camera.position.y) * 0.01;
-      camera.lookAt(scene.position);
-
-      renderer.render(scene, cameraRef.current);
-      // composer.render();
-    };
-
-    window.addEventListener("mousemove", handleMouseMove);
-    animate();
-    rendererRef.current = renderer;
-  };
-
   const resize = () => {
     const camera = cameraRef.current;
     const renderer = rendererRef.current;
@@ -213,6 +150,68 @@ const ParticlePattern = () => {
   };
 
   useEffect(() => {
+    const initParticles = () => {
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(
+        75,
+        window.innerWidth / window.innerHeight,
+        0.01,
+        2000
+      );
+      cameraRef.current = camera;
+      camera.position.z = 200;
+
+      targetRef.current = new THREE.Vector3();
+
+      const renderer = new THREE.WebGLRenderer({
+        antialias: true,
+        canvas: canvasRef.current,
+        alpha: true,
+      });
+      renderer.setSize(window.innerWidth, window.innerHeight);
+
+      canvasSizeRef.current = {
+        width: window.innerWidth,
+        height: window.innerHeight,
+      };
+
+      scene.add(particles);
+      scene.background = new THREE.Color(0x000000); // Assuming your content has a dark theme
+
+      const handleMouseMove = (event) => {
+        const { clientX, clientY } = event;
+        const aspectRatio = window.innerWidth / window.innerHeight;
+        const x = (clientX / window.innerWidth) * 2 - 1;
+        const y = -(clientY / window.innerHeight) * 2 + 1;
+
+        targetRef.current.set(
+          x * Math.PI,
+          y * Math.PI * aspectRatio,
+          camera.position.z
+        );
+      };
+
+      const animate = () => {
+        requestAnimationFrame(animate);
+        // renderer.setSize(window.innerWidth, window.innerHeight);
+
+        moveParticles();
+
+        const camera = cameraRef.current;
+        const target = targetRef.current;
+
+        camera.position.x += (target.x - camera.position.x) * 0.01;
+        camera.position.y += (target.y - camera.position.y) * 0.01;
+        camera.lookAt(scene.position);
+
+        renderer.render(scene, cameraRef.current);
+        // composer.render();
+      };
+
+      window.addEventListener("mousemove", handleMouseMove);
+      animate();
+      rendererRef.current = renderer;
+    };
     initParticles();
     const handleResize = () => {
       resize(); // Reinitialize on resize
@@ -223,7 +222,7 @@ const ParticlePattern = () => {
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, [initParticles]);
+  }, [particles]);
 
   return (
     <canvas

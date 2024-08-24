@@ -15,7 +15,7 @@ const Sponsor = () => {
       <Box
         id="sponsor"
         sx={{
-          padding: "4.5vh 0",
+          padding: "5% 10% 5% 10%",
           // backgroundImage: `url(${bg})`,
           backgroundSize: "cover",
           backgroundPosition: "center",

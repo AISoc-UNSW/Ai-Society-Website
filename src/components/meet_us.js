@@ -50,7 +50,7 @@ const MeetUs = () => {
       <Box
         id="team"
         sx={{
-          padding: "5vh 0",
+          padding: "5% 10% 5% 10%",
           textAlign: "center",
           // backgroundColor: "#110c29",
           color: "white",
