@@ -184,9 +184,11 @@ const ParticlePattern = () => {
         const x = (clientX / window.innerWidth) * 2 - 1;
         const y = -(clientY / window.innerHeight) * 2 + 1;
 
+        const mouseMovementMultiplier = 5;
+
         targetRef.current.set(
-          x * Math.PI,
-          y * Math.PI * aspectRatio,
+          x * Math.PI * mouseMovementMultiplier,
+          y * Math.PI * aspectRatio * mouseMovementMultiplier,
           camera.position.z
         );
       };
@@ -200,8 +202,8 @@ const ParticlePattern = () => {
         const camera = cameraRef.current;
         const target = targetRef.current;
 
-        camera.position.x += (target.x - camera.position.x) * 0.01;
-        camera.position.y += (target.y - camera.position.y) * 0.01;
+        camera.position.x += (target.x - camera.position.x) * 0.005;
+        camera.position.y += (target.y - camera.position.y) * 0.005;
         camera.lookAt(scene.position);
 
         renderer.render(scene, cameraRef.current);
