@@ -2,46 +2,46 @@ import React, { useState, useEffect } from "react";
 import { Box, Typography, Button, Grid } from "@mui/material";
 import { makeStyles } from "@material-ui/core/styles";
 import Reveal from "../util/Reveal";
-import michael from "../assets/execs/michael.webp";
-import samin from "../assets/execs/samin.webp";
-import aaron from "../assets/execs/Aaron.webp";
-import darren from "../assets/execs/darren.webp";
+import ishman from "../assets/execs/Ishman.webp";
+import saanvi from "../assets/execs/Saanvi.webp";
+import jack from "../assets/execs/Jack.webp";
+import rahul from "../assets/execs/Rahul.webp";
 import aee from "../assets/execs/easter-egg.webp";
 import ree from "../assets/execs/easter-egg2.webp";
-import andrew from "../assets/execs/andrew.webp";
-import ray from "../assets/execs/ray.webp";
+import tarushi from "../assets/execs/Tarushi.webp";
+import hamza from "../assets/execs/Hamza.webp";
 
 const MeetUs = () => {
   const team = [
     {
-      name: "Andrew",
-      image: andrew,
+      name: "Tarushi",
+      image: tarushi,
       role: "President",
     },
     {
-      name: "Samin",
-      image: samin,
+      name: "Saanvi",
+      image: saanvi,
       role: "Secretary",
     },
     {
-      name: "Ray",
-      image: ray,
+      name: "Hamza",
+      image: hamza,
       role: "Treasurer",
     },
     {
-      name: "Michael",
-      image: michael,
-      role: "Arc Delegate",
-    },
-    {
-      name: "Darren",
-      image: darren,
-      role: "Grievance Officer",
-    },
-    {
-      name: "Aaron",
-      image: aaron,
+      name: "Ishman",
+      image: ishman,
       role: "VP of Education",
+    },
+    {
+      name: "Rahul",
+      image: rahul,
+      role: "VP of Operations",
+    },
+    {
+      name: "Jack",
+      image: jack,
+      role: "Grievance Officer",
     },
   ];
 
@@ -107,7 +107,7 @@ const MeetUs = () => {
             ))}
           </Grid>
 
-          <Typography
+          {/* <Typography
             variant="h5"
             sx={{
               fontWeight: "bold",
@@ -134,7 +134,7 @@ const MeetUs = () => {
             }}
           >
             JOIN HERE
-          </Button>
+          </Button> */}
         </Reveal>
       </Box>
     </>
