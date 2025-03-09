@@ -6,7 +6,7 @@ import bg from "../assets/purple-bg.webp";
 import Reveal from "../util/Reveal";
 
 const handleClick = () => {
-  window.location.href = "mailto:unswai.soc.industry@gmail.com";
+  window.location.href = "mailto:partnerships@unswaisoc.com";
 };
 
 const Sponsor = () => {
