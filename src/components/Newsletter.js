@@ -142,7 +142,7 @@ const NewsLetter = () => {
               marginBottom: "15px",
             }}
           >
-            The Watchtower Newsletter
+            The Turing Point Newsletter
           </Typography>
           <Typography
             gutterBottom
