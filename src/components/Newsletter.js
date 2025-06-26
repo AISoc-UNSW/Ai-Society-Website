@@ -154,7 +154,7 @@ const NewsLetter = () => {
                   <Card
                     sx={{
                       marginRight: "1vw",
-                      height: "50vh",
+                      height: "430px",
                       backgroundColor: "#1a1a1a", // Darker shade of gray for the card background
                       color: "#f2f2f2", // Light gray text for better contrast
                       "&:hover": {
