@@ -9,7 +9,7 @@ import rahul from "../assets/execs/Rahul.webp";
 import aee from "../assets/execs/easter-egg.webp";
 import ree from "../assets/execs/easter-egg2.webp";
 import tarushi from "../assets/execs/Tarushi.webp";
-import hamza from "../assets/execs/Hamza.webp";
+import karthi from "../assets/execs/Karthi.webp";
 
 const MeetUs = () => {
   const team = [
@@ -24,8 +24,8 @@ const MeetUs = () => {
       role: "Secretary",
     },
     {
-      name: "Hamza",
-      image: hamza,
+      name: "Karthi",
+      image: karthi,
       role: "Treasurer",
     },
     {
