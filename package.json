@@ -15,6 +15,7 @@
         "@testing-library/react": "^13.4.0",
         "@testing-library/user-event": "^13.5.0",
         "@types/three": "^0.163.0",
+        "caniuse-lite": "^1.0.30001748",
         "framer-motion": "^11.1.7",
         "postprocessing": "^6.35.3",
         "react": "^18.2.0",

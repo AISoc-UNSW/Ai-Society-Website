@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
 import { Box, Typography, useMediaQuery } from "@mui/material";
+import React, { useEffect, useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick-theme.css";
+import "slick-carousel/slick/slick.css";
 import Footer from "../components/Footer";
 import LoadingScreen from "../components/LoadingScreen";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 
 const Merch = () => {
   const [isLoading, setLoading] = useState(true);
@@ -147,8 +147,10 @@ const Merch = () => {
             >
               Home
             </RouterLink>
-            <Typography
-              sx={{
+            <RouterLink
+              to="/shop"
+              style={{
+                textDecoration: "none",
                 color: "#000",
                 fontSize: "20px",
                 fontFamily: "Helvetica, sans-serif",
@@ -156,7 +158,7 @@ const Merch = () => {
               }}
             >
               Shop
-            </Typography>
+            </RouterLink>
           </Box>
 
           {/* Large "aisoc" text logo (desktop/tablet) */}
@@ -319,7 +321,7 @@ const Merch = () => {
             backgroundColor: "#efefef",
           }}
         >
-        <Box sx={{ maxWidth: "1400px", margin: "0 auto", "& .slick-list": { margin: "0 -5px" }, "& .slick-slide > div": { padding: "0 5px" } }}>
+          <Box sx={{ maxWidth: "1400px", margin: "0 auto", "& .slick-list": { margin: "0 -5px" }, "& .slick-slide > div": { padding: "0 5px" } }}>
             <Slider {...sliderSettings}>
               {merchItems.map((item) => (
                 <Box key={item.id}>
