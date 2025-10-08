@@ -58,7 +58,7 @@ const ProductDetail = () => {
           }}
         >
           {/* Header */}
-          <RouterLink to="/home" style={{ textDecoration: 'none', color: 'black', position: 'absolute', top: 0, left: 100 }}>
+          <RouterLink to="/merch" style={{ textDecoration: 'none', color: 'black', position: 'absolute', top: 0, left: 100 }}>
             <Typography variant="h6">Home</Typography>
           </RouterLink>
           <RouterLink to="/cart" style={{ textDecoration: 'none', color: 'black', position: 'absolute', top: 0, right: 100 }}>

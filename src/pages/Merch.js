@@ -1,19 +1,13 @@
 import { Box, Typography, useMediaQuery } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link as RouterLink } from "react-router-dom";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
 import Footer from "../components/Footer";
-import LoadingScreen from "../components/LoadingScreen";
 
 const Merch = () => {
-  const [isLoading, setLoading] = useState(true);
   const isBelowMd = useMediaQuery("(max-width:900px)");
-
-  useEffect(() => {
-    setLoading(false);
-  }, []);
 
   // Merchandise items data - these will need actual images
   const merchItems = [
@@ -103,7 +97,6 @@ const Merch = () => {
 
   return (
     <>
-      <LoadingScreen twoSeconds={false} isLoading={isLoading} />
       <Box
         sx={{
           backgroundColor: "#efefef",
@@ -136,7 +129,7 @@ const Merch = () => {
             }}
           >
             <RouterLink
-              to="/home"
+              to="/merch"
               style={{
                 textDecoration: "none",
                 color: "#000",

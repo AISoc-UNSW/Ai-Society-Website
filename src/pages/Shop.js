@@ -30,9 +30,9 @@ const Shop = () => {
           margin: "0 auto",
         }}
       >
-        {/* Navigation - Home */}
+        {/* Navigation - Home of Merch */}
         <RouterLink
-          to="/home"
+          to="/merch"
           style={{
             position: "absolute",
             left: "138px",
