@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, useTheme, useMediaQuery, Grid } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { Link, Link as RouterLink } from "react-router-dom";
 import Footer from "../components/Footer";
@@ -6,7 +6,9 @@ import LoadingScreen from "../components/LoadingScreen";
 import { products } from "../util/productData";
 
 const Shop = () => {
-  const [isLoading, setLoading] = useState(false);
+  const [isLoading] = useState(false);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   useEffect(() => {
     // Set body background to match page background
@@ -21,222 +23,214 @@ const Shop = () => {
   return (
     <>
       <LoadingScreen twoSeconds={false} isLoading={isLoading} />
+      {/* Outer wrapper to ensure proper background and centering */}
       <Box
         sx={{
           backgroundColor: "#efefef",
-          position: "relative",
-          width: "1280px",
-          height: "1395px",
-          margin: "0 auto",
+          minHeight: "100vh",
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
+          padding: {
+            xs: "0 20px", // Mobile: minimum side margins
+            sm: "0 24px", // Small tablets: slightly more margins
+            md: "0 32px", // Medium screens: more margins
+            lg: "0 40px", // Large screens: generous margins
+            xl: "0 60px", // Extra large: maximum margins
+          },
+          boxSizing: "border-box",
         }}
       >
-        {/* Navigation - Home of Merch */}
-        <RouterLink
-          to="/merch"
-          style={{
-            position: "absolute",
-            left: "138px",
-            top: "56px",
-            textDecoration: "none",
-            color: "#000",
-            fontSize: "20px",
-            fontFamily: "Helvetica",
-            fontWeight: 300,
-            lineHeight: "normal",
-            cursor: "pointer",
+        {/* Inner content container */}
+        <Box
+          sx={{
+            width: "100%",
+            maxWidth: "1280px",
+            // Inner padding for content
+            padding: {
+              xs: "20px 4px", // Mobile: minimal inner padding
+              sm: "30px 8px", // Small tablets: small inner padding
+              md: "40px 16px", // Medium screens: more inner padding
+              lg: "40px 20px", // Large screens: generous inner padding
+              xl: "40px 20px", // Extra large: consistent inner padding
+            },
+            position: "relative",
+            boxSizing: "border-box",
           }}
         >
-          Home
-        </RouterLink>
-
-        {/* Navigation - Cart */}
-        <Typography
+        {/* Navigation Header */}
+        <Box
           sx={{
-            position: "absolute",
-            right: "211px",
-            top: "56px",
-            fontSize: "20px",
-            fontFamily: "Helvetica",
-            fontWeight: 300,
-            color: "#000",
-            lineHeight: "normal",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            marginBottom: isMobile ? "40px" : "60px",
+            paddingTop: isMobile ? "20px" : "16px",
           }}
         >
-          Cart
-        </Typography>
+          <RouterLink
+            to="/merch"
+            style={{
+              textDecoration: "none",
+              color: "#000",
+              fontSize: isMobile ? "18px" : "20px",
+              fontFamily: "Helvetica",
+              fontWeight: 300,
+              cursor: "pointer",
+            }}
+          >
+            Home
+          </RouterLink>
 
-        {/* Main Title - SHOP */}
+          <Typography
+            sx={{
+              fontSize: isMobile ? "18px" : "20px",
+              fontFamily: "Helvetica",
+              fontWeight: 300,
+              color: "#000",
+            }}
+          >
+            Cart
+          </Typography>
+        </Box>
+
+        {/* Main Title */}
         <Typography
           sx={{
-            position: "absolute",
-            left: "50%",
-            top: "155px",
-            transform: "translateX(-50%)",
-            fontSize: "20px",
+            textAlign: "center",
+            fontSize: isMobile ? "18px" : "20px",
             fontFamily: "Helvetica Neue",
             fontWeight: "bold",
             color: "#000",
             letterSpacing: "1px",
             textTransform: "uppercase",
-            lineHeight: "normal",
+            marginBottom: isMobile ? "40px" : "60px",
           }}
         >
           SHOP
         </Typography>
 
-        {/* Product Images - Row 1 */}
-        {products.slice(0, 3).map((product, index) => (
-          <Link to={`/product/${product.id}`} key={product.id}>
-            <Box
+        {/* Products Grid */}
+        <Grid 
+          container 
+          spacing={{
+            xs: 2,    // Mobile: smaller spacing
+            sm: 3,    // Small tablets: medium spacing
+            md: 4,    // Desktop: larger spacing
+          }}
+          sx={{
+            // Additional container padding for better spacing
+            paddingX: {
+              xs: 0,    // Mobile: no extra padding (rely on main container)
+              sm: 1,    // Small tablets: small extra padding
+              md: 2,    // Desktop: more padding
+            }
+          }}
+        >
+          {products.map((product) => (
+            <Grid 
+              item 
+              xs={12} 
+              sm={6} 
+              md={4} 
+              key={product.id}
               sx={{
-                position: "absolute",
-                left: `${175 + index * 304}px`,
-                top: "242px",
-                width: "265px",
-                height: "375px",
-                cursor: "pointer",
+                display: "flex",
+                flexDirection: "column",
               }}
             >
-              <img
-                src={product.mainImage}
-                alt={product.alt}
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "cover",
-                  objectPosition: "50% 50%",
-                }}
-              />
-            </Box>
-          </Link>
-        ))}
+              <Link 
+                to={`/product/${product.id}`} 
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
+                {/* Product Image */}
+                <Box
+                  sx={{
+                    width: "100%",
+                    aspectRatio: "265/375", // Maintain original aspect ratio
+                    marginBottom: "16px",
+                    cursor: "pointer",
+                    overflow: "hidden",
+                    borderRadius: "4px",
+                  }}
+                >
+                  <img
+                    src={product.mainImage}
+                    alt={product.alt}
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                      objectPosition: "50% 50%",
+                      transition: "transform 0.3s ease",
+                    }}
+                    onMouseOver={(e) => {
+                      e.target.style.transform = "scale(1.05)";
+                    }}
+                    onMouseOut={(e) => {
+                      e.target.style.transform = "scale(1)";
+                    }}
+                  />
+                </Box>
 
-        {/* Product Images - Row 2 */}
-        {products.slice(3, 6).map((product, index) => (
-          <Link to={`/product/${product.id}`} key={product.id}>
-            <Box
-              sx={{
-                position: "absolute",
-                left: `${175 + index * 304}px`,
-                top: "701px",
-                width: "265px",
-                height: "375px",
-                cursor: "pointer",
-              }}
-            >
-              <img
-                src={product.mainImage}
-                alt={product.alt}
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "cover",
-                  objectPosition: "50% 50%",
-                }}
-              />
-            </Box>
-          </Link>
-        ))}
-
-        {/* Product Info - Row 1 */}
-        {products.slice(0, 3).map((product, index) => (
-          <Box
-            key={product.id}
-            sx={{
-              position: "absolute",
-              left: `${175 + index * 304}px`,
-              top: index === 0 ? "633px" : "629px",
-              width: "267px",
-            }}
-          >
-            <Typography
-              sx={{
-                fontSize: "12px",
-                fontFamily: "Helvetica Neue",
-                fontWeight: 500,
-                color: "rgba(0,0,0,0.66)",
-                marginBottom: "4px",
-              }}
-            >
-              {product.category}
-            </Typography>
-            <Typography
-              sx={{
-                fontSize: "14px",
-                fontFamily: "Helvetica Neue",
-                fontWeight: 500,
-                color: "#000",
-                textTransform: "capitalize",
-                marginBottom: "4px",
-              }}
-            >
-              {product.productType}
-            </Typography>
-            <Typography
-              sx={{
-                position: "absolute",
-                right: "0px",
-                top: "21.03px",
-                fontSize: "14px",
-                fontFamily: "Helvetica Neue",
-                fontWeight: 500,
-                color: "#000",
-              }}
-            >
-              $ {product.price}
-            </Typography>
-          </Box>
-        ))}
-
-        {/* Product Info - Row 2 */}
-        {products.slice(3, 6).map((product, index) => (
-          <Box
-            key={product.id}
-            sx={{
-              position: "absolute",
-              left: `${175 + index * 304}px`,
-              top: index === 2 ? "1088px" : "1092px",
-              width: "267px",
-            }}
-          >
-            <Typography
-              sx={{
-                fontSize: "12px",
-                fontFamily: "Helvetica Neue",
-                fontWeight: 500,
-                color: "rgba(0,0,0,0.66)",
-                marginBottom: "4px",
-              }}
-            >
-              {product.category}
-            </Typography>
-            <Typography
-              sx={{
-                fontSize: "14px",
-                fontFamily: "Helvetica Neue",
-                fontWeight: 500,
-                color: "#000",
-                textTransform: "capitalize",
-                marginBottom: "4px",
-              }}
-            >
-              {product.productType}
-            </Typography>
-            <Typography
-              sx={{
-                position: "absolute",
-                right: "0px",
-                top: "21.03px",
-                fontSize: "14px",
-                fontFamily: "Helvetica Neue",
-                fontWeight: 500,
-                color: "#000",
-              }}
-            >
-              $ {product.price}
-            </Typography>
-          </Box>
-        ))}
+                {/* Product Info */}
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "4px",
+                  }}
+                >
+                  <Typography
+                    sx={{
+                      fontSize: isMobile ? "11px" : "12px",
+                      fontFamily: "Helvetica Neue",
+                      fontWeight: 500,
+                      color: "rgba(0,0,0,0.66)",
+                    }}
+                  >
+                    {product.category}
+                  </Typography>
+                  
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "flex-start",
+                    }}
+                  >
+                    <Typography
+                      sx={{
+                        fontSize: isMobile ? "13px" : "14px",
+                        fontFamily: "Helvetica Neue",
+                        fontWeight: 500,
+                        color: "#000",
+                        textTransform: "capitalize",
+                        flex: 1,
+                        marginRight: "8px",
+                      }}
+                    >
+                      {product.productType}
+                    </Typography>
+                    
+                    <Typography
+                      sx={{
+                        fontSize: isMobile ? "13px" : "14px",
+                        fontFamily: "Helvetica Neue",
+                        fontWeight: 500,
+                        color: "#000",
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      $ {product.price}
+                    </Typography>
+                  </Box>
+                </Box>
+              </Link>
+            </Grid>
+          ))}
+        </Grid>
+        </Box>
       </Box>
       <Footer />
     </>
