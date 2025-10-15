@@ -3,10 +3,11 @@ import React, { useEffect, useState } from "react";
 import { Link, Link as RouterLink } from "react-router-dom";
 import Footer from "../components/Footer";
 import LoadingScreen from "../components/LoadingScreen";
-import { products } from "../util/productData";
 
 const Shop = () => {
-  const [isLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [products, setProducts] = useState([]);
+  const [error, setError] = useState(null);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
@@ -19,6 +20,56 @@ const Shop = () => {
       document.body.style.backgroundColor = "black";
     };
   }, []);
+
+  useEffect(() => {
+    const abortController = new AbortController();
+    const API_BASE = process.env.REACT_APP_API_BASE_URL || "http://localhost:5008";
+    const url = `${API_BASE}/api/products`;
+
+    async function fetchProducts() {
+      try {
+        setIsLoading(true);
+        setError(null);
+        const res = await fetch(url, { signal: abortController.signal });
+        if (!res.ok) throw new Error(`Failed to load products: ${res.status}`);
+        const data = await res.json();
+        // Expecting an array of products in Mongo shape
+        const activeProducts = Array.isArray(data)
+          ? data.filter((p) => !p.status || p.status === "active")
+          : [];
+        setProducts(activeProducts);
+      } catch (err) {
+        if (err.name !== "AbortError") {
+          setError(err.message || "Failed to load products");
+        }
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
+    fetchProducts();
+    return () => abortController.abort();
+  }, []);
+
+  function extractPrice(price) {
+    if (price == null) return null;
+    if (typeof price === "number") return price;
+    if (typeof price === "string") {
+      const parsed = parseFloat(price);
+      return Number.isNaN(parsed) ? null : parsed;
+    }
+    if (typeof price === "object") {
+      if (price.$numberDecimal != null) {
+        const parsed = parseFloat(price.$numberDecimal);
+        return Number.isNaN(parsed) ? null : parsed;
+      }
+      if (price.$numberInt != null) {
+        const parsed = parseInt(price.$numberInt, 10);
+        return Number.isNaN(parsed) ? null : parsed;
+      }
+    }
+    return null;
+  }
 
   return (
     <>
@@ -127,20 +178,25 @@ const Shop = () => {
             }
           }}
         >
+          {error && (
+            <Typography sx={{ color: "#b00020", px: 2 }}>
+              {error}
+            </Typography>
+          )}
           {products.map((product) => (
             <Grid 
               item 
               xs={12} 
               sm={6} 
               md={4} 
-              key={product.id}
+              key={product._id}
               sx={{
                 display: "flex",
                 flexDirection: "column",
               }}
             >
               <Link 
-                to={`/product/${product.id}`} 
+                to={`/product/${product._id}`} 
                 style={{ textDecoration: "none", color: "inherit" }}
               >
                 {/* Product Image */}
@@ -155,8 +211,8 @@ const Shop = () => {
                   }}
                 >
                   <img
-                    src={product.mainImage}
-                    alt={product.alt}
+                    src={product.imgs && product.imgs.length > 0 ? product.imgs[0] : undefined}
+                    alt={product.name || "product"}
                     style={{
                       width: "100%",
                       height: "100%",
@@ -210,7 +266,7 @@ const Shop = () => {
                         marginRight: "8px",
                       }}
                     >
-                      {product.productType}
+                      {product.name}
                     </Typography>
                     
                     <Typography
@@ -222,7 +278,10 @@ const Shop = () => {
                         whiteSpace: "nowrap",
                       }}
                     >
-                      $ {product.price}
+                      {(() => {
+                        const price = extractPrice(product.price);
+                        return price != null ? `$ ${price.toFixed(2)}` : "";
+                      })()}
                     </Typography>
                   </Box>
                 </Box>

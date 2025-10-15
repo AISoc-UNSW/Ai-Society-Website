@@ -3,6 +3,7 @@
     "homepage": ".",
     "version": "0.1.0",
     "private": true,
+    "proxy": "http://localhost:5008",
     "dependencies": {
         "@emotion/react": "^11.11.4",
         "@emotion/styled": "^11.11.5",
@@ -16,7 +17,11 @@
         "@testing-library/user-event": "^13.5.0",
         "@types/three": "^0.163.0",
         "caniuse-lite": "^1.0.30001748",
+        "cors": "^2.8.5",
+        "dotenv": "^16.4.5",
+        "express": "^4.19.2",
         "framer-motion": "^11.1.7",
+        "mongodb": "^6.8.0",
         "postprocessing": "^6.35.3",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
@@ -33,6 +38,9 @@
     },
     "scripts": {
         "start": "react-scripts start",
+        "server": "node server/index.js",
+        "server:dev": "nodemon server/index.js",
+        "dev": "concurrently \"npm run server:dev\" \"npm start\"",
         "build": "react-scripts build",
         "test": "react-scripts test",
         "eject": "react-scripts eject"
@@ -56,6 +64,8 @@
         ]
     },
     "devDependencies": {
-        "gh-pages": "^6.1.1"
+        "concurrently": "^8.2.2",
+        "gh-pages": "^6.1.1",
+        "nodemon": "^3.1.0"
     }
 }

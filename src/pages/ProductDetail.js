@@ -2,8 +2,8 @@ import { Box, Button, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { Link as RouterLink, useParams } from "react-router-dom";
 import Footer from "../components/Footer";
+import LazyImage from "../components/LazyImage";
 import LoadingScreen from "../components/LoadingScreen";
-import { products } from "../util/productData";
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -15,14 +15,34 @@ const ProductDetail = () => {
   const [mainImage, setMainImage] = useState(null);
 
   useEffect(() => {
-    const foundProduct = products.find((p) => p.id === parseInt(id));
-    if (foundProduct) {
-      setProduct(foundProduct);
-      setSelectedSize(foundProduct.sizes[0]);
-      setSelectedColor(foundProduct.colors[0]);
-      setMainImage(foundProduct.mainImage);
+    const abortController = new AbortController();
+    const API_BASE = process.env.REACT_APP_API_BASE_URL || "http://localhost:5008";
+    const url = `${API_BASE}/api/products/${id}`;
+
+    async function fetchProduct() {
+      try {
+        setLoading(true);
+        const res = await fetch(url, { signal: abortController.signal });
+        if (!res.ok) throw new Error(`Failed to load product: ${res.status}`);
+        const data = await res.json();
+        // Expecting a single product document in Mongo shape
+        setProduct(data);
+        const defaultSize = Array.isArray(data?.sizes) && data.sizes.length > 0 ? data.sizes[0] : null;
+        const defaultColor = Array.isArray(data?.colours) && data.colours.length > 0 ? data.colours[0] : null;
+        setSelectedSize(defaultSize);
+        setSelectedColor(defaultColor);
+        const firstImg = Array.isArray(data?.imgs) && data.imgs.length > 0 ? data.imgs[0] : null;
+        setMainImage(firstImg);
+      } catch (e) {
+        // In case of error, keep product null so UI shows not found
+        setProduct(null);
+      } finally {
+        setLoading(false);
+      }
     }
-    setLoading(false);
+
+    fetchProduct();
+    return () => abortController.abort();
   }, [id]);
 
   useEffect(() => {
@@ -68,12 +88,12 @@ const ProductDetail = () => {
           {/* Image Gallery */}
           <Box sx={{ width: "617px", mt: 10 }}>
             <Box sx={{ mb: 2, width: "617px", height: "864px" }}>
-              <img src={mainImage} alt="product" style={{ width: "100%", height: "100%", objectFit: 'cover', display: 'block' }} />
+              <LazyImage src={mainImage} alt="product" width="100%" height="100%" objectFit="cover" placeholderColor="#d9d9d9" />
             </Box>
             <Box sx={{ display: "flex", gap: "10px" }}>
-              {product.galleryImages.map((img, index) => (
+              {(product.imgs || []).map((img, index) => (
                 <Box key={index} sx={{ cursor: "pointer", width: "153px", height: "156px" }} onClick={() => setMainImage(img)}>
-                  <img src={img} alt={`thumbnail ${index}`} style={{ width: "100%", height: "100%", objectFit: 'cover', display: 'block' }} />
+                  <LazyImage src={img} alt={`thumbnail ${index}`} width="100%" height="100%" objectFit="cover" placeholderColor="#e6e6e6" />
                 </Box>
               ))}
             </Box>
@@ -81,20 +101,20 @@ const ProductDetail = () => {
 
           {/* Product Info */}
           <Box sx={{ width: "40%", mt: 10, ml: 5, position: "relative", pb: 10 }}>
-            <Typography variant="h4" sx={{ mb: 2 }}>{product.title}</Typography>
+            <Typography variant="h4" sx={{ mb: 2 }}>{product.name}</Typography>
 
             <Typography variant="body1" sx={{ mb: 1 }}>Colour:</Typography>
             <Box sx={{ display: "flex", gap: "10px", mb: 3 }}>
-              {product.colors.map((color) => (
+              {(product.colours || []).map((color) => (
                 <Box
-                  key={color.name}
+                  key={color}
                   sx={{
                     width: 30,
                     height: 30,
                     borderRadius: "50%",
-                    backgroundColor: color.value,
+                    backgroundColor: color,
                     cursor: "pointer",
-                    border: selectedColor.name === color.name ? "3px solid #000" : "1px solid #000"
+                    border: selectedColor === color ? "3px solid #000" : "1px solid #000"
                   }}
                   onClick={() => setSelectedColor(color)}
                 />
@@ -103,7 +123,7 @@ const ProductDetail = () => {
 
             <Typography variant="body1" sx={{ mb: 1 }}>Size:</Typography>
             <Box sx={{ display: "flex", gap: "10px", mb: "50px" }}>
-              {product.sizes.map((size) => (
+              {(product.sizes || []).map((size) => (
                 <Button
                   key={size}
                   variant="contained"
@@ -147,7 +167,30 @@ const ProductDetail = () => {
               What is my size?
             </Typography>
 
-            <Typography variant="h5" sx={{ mb: 3 }}>$ {product.price}</Typography>
+            <Typography variant="h5" sx={{ mb: 3 }}>
+              {(() => {
+                const price = (function extractPrice(price) {
+                  if (price == null) return null;
+                  if (typeof price === "number") return price;
+                  if (typeof price === "string") {
+                    const parsed = parseFloat(price);
+                    return Number.isNaN(parsed) ? null : parsed;
+                  }
+                  if (typeof price === "object") {
+                    if (price.$numberDecimal != null) {
+                      const parsed = parseFloat(price.$numberDecimal);
+                      return Number.isNaN(parsed) ? null : parsed;
+                    }
+                    if (price.$numberInt != null) {
+                      const parsed = parseInt(price.$numberInt, 10);
+                      return Number.isNaN(parsed) ? null : parsed;
+                    }
+                  }
+                  return null;
+                })(product.price);
+                return price != null ? `$ ${price.toFixed(2)}` : "";
+              })()}
+            </Typography>
 
             <Button variant="contained" sx={{
               backgroundColor: "#323232",

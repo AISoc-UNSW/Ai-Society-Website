@@ -1,3 +1,27 @@
+## Backend (Node + Express + MongoDB)
+
+Create a `.env` file in the project root with:
+
+```
+REACT_APP_API_BASE_URL=http://localhost:5008
+MONGODB_URI=mongodb+srv://aisoc_db_user:<db_password>@aisoccluster1.brilzcr.mongodb.net/?retryWrites=true&w=majority&appName=AISocCluster1
+MONGODB_DB=Merch_2025
+PORT=5008
+```
+
+Then run:
+
+```
+npm install
+npm run server
+```
+
+For concurrent dev (server + React):
+
+```
+npm run dev
+```
+
 # UNSW AISoc Website <img src="src/assets/aisoc-logo.webp" width="150" height="150" align="right">
 
 Welcome to the official GitHub repository for the UNSW Artificial Intelligence Society's website. This repository contains the source code for the website, which provides information about our activities, events, and newsletters.
