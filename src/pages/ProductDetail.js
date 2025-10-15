@@ -17,6 +17,8 @@ const ProductDetail = () => {
   const [mainImage, setMainImage] = useState(null);
   const dispatch = useDispatch();
   const [snackbarOpen, setSnackbarOpen] = useState(false);
+  // Track 2s timeout for not found fallback
+  const [showNotFound, setShowNotFound] = useState(false);
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -61,21 +63,48 @@ const ProductDetail = () => {
     };
   }, []);
 
+  useEffect(() => {
+    if (product === null && !isLoading) {
+      const timer = setTimeout(() => setShowNotFound(true), 2000);
+      return () => clearTimeout(timer);
+    } else {
+      setShowNotFound(false);
+    }
+  }, [product, isLoading]);
+
+  // Show fallback content after 2s if not found
+  if (!product) {
+    if (showNotFound) {
+      return (
+        <Box
+          sx={{
+            height: "60vh",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <Typography variant="h4" mb={2}>
+            Product not found
+          </Typography>
+          <Button variant="outlined" component={RouterLink} to="/shop">
+            Back to Shop
+          </Button>
+        </Box>
+      );
+    }
+    return <LoadingScreen isLoading={true} />;
+  }
+
   const handleSnackbarClose = (event, reason) => {
     if (reason === "clickaway") return;
     setSnackbarOpen(false);
   };
 
-  if (isLoading) {
-    return <LoadingScreen isLoading={true} />;
-  }
-
-  if (!product) {
-    return <Typography>Product not found</Typography>;
-  }
-
   return (
     <>
+      <LoadingScreen twoSeconds={false} isLoading={isLoading} />
       <Box sx={{ backgroundColor: "#efefef", py: 5 }}>
         <Box
           sx={{
