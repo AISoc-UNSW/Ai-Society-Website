@@ -4,14 +4,14 @@ import Logo from "../assets/aisoc-logo.webp";
 import ArcLogo from "../assets/arc-club-logo.webp";
 import SocialMediaIcons from "../util/Icons";
 
-const Footer = () => {
+const Footer = ({ onLightBackground = false }) => {
   const outerStyles = () => ({
     padding: "3rem",
     // backgroundColor: "#100b28",
   });
   return (
     <Box sx={outerStyles}>
-      <Box sx={{ textAlign: "left", color: "white" }}>
+      <Box sx={{ textAlign: "left", color: onLightBackground ? "#000" : "#fff" }}>
         <img
           src={Logo}
           style={{ width: "200px", margin: "0 -38px" }}

@@ -291,7 +291,7 @@ const Shop = () => {
         </Grid>
         </Box>
       </Box>
-      <Footer />
+      <Footer onLightBackground={true} />
     </>
   );
 };

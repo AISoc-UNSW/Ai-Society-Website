@@ -367,7 +367,7 @@ const Merch = () => {
             </Slider>
           </Box>
         </Box>
-        <Footer />
+        <Footer onLightBackground={true} />
       </Box>
     </>
   );

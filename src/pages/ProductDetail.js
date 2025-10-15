@@ -226,7 +226,7 @@ const ProductDetail = () => {
           </Box>
         </Box>
       </Box>
-      <Footer />
+      <Footer onLightBackground={true} />
     </>
   );
 };
