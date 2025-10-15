@@ -1,6 +1,8 @@
 import { Box, Button, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { Link as RouterLink, useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../store/cartSlice";
 import Footer from "../components/Footer";
 import LazyImage from "../components/LazyImage";
 import LoadingScreen from "../components/LoadingScreen";
@@ -13,6 +15,7 @@ const ProductDetail = () => {
   const [selectedSize, setSelectedSize] = useState(null);
   const [selectedColor, setSelectedColor] = useState(null);
   const [mainImage, setMainImage] = useState(null);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -27,8 +30,10 @@ const ProductDetail = () => {
         const data = await res.json();
         // Expecting a single product document in Mongo shape
         setProduct(data);
-        const defaultSize = Array.isArray(data?.sizes) && data.sizes.length > 0 ? data.sizes[0] : null;
-        const defaultColor = Array.isArray(data?.colours) && data.colours.length > 0 ? data.colours[0] : null;
+        const defaultSize =
+          Array.isArray(data?.sizes) && data.sizes.length > 0 ? data.sizes[0] : null;
+        const defaultColor =
+          Array.isArray(data?.colours) && data.colours.length > 0 ? data.colours[0] : null;
         setSelectedSize(defaultSize);
         setSelectedColor(defaultColor);
         const firstImg = Array.isArray(data?.imgs) && data.imgs.length > 0 ? data.imgs[0] : null;
@@ -78,22 +83,58 @@ const ProductDetail = () => {
           }}
         >
           {/* Header */}
-          <RouterLink to="/merch" style={{ textDecoration: 'none', color: 'black', position: 'absolute', top: 0, left: 100 }}>
+          <RouterLink
+            to="/merch"
+            style={{
+              textDecoration: "none",
+              color: "black",
+              position: "absolute",
+              top: 0,
+              left: 100,
+            }}
+          >
             <Typography variant="h6">Home</Typography>
           </RouterLink>
-          <RouterLink to="/cart" style={{ textDecoration: 'none', color: 'black', position: 'absolute', top: 0, right: 100 }}>
+          <RouterLink
+            to="/cart"
+            style={{
+              textDecoration: "none",
+              color: "black",
+              position: "absolute",
+              top: 0,
+              right: 100,
+            }}
+          >
             <Typography variant="h6">Cart</Typography>
           </RouterLink>
 
           {/* Image Gallery */}
           <Box sx={{ width: "617px", mt: 10 }}>
             <Box sx={{ mb: 2, width: "617px", height: "864px" }}>
-              <LazyImage src={mainImage} alt="product" width="100%" height="100%" objectFit="cover" placeholderColor="#d9d9d9" />
+              <LazyImage
+                src={mainImage}
+                alt="product"
+                width="100%"
+                height="100%"
+                objectFit="cover"
+                placeholderColor="#d9d9d9"
+              />
             </Box>
             <Box sx={{ display: "flex", gap: "10px" }}>
               {(product.imgs || []).map((img, index) => (
-                <Box key={index} sx={{ cursor: "pointer", width: "153px", height: "156px" }} onClick={() => setMainImage(img)}>
-                  <LazyImage src={img} alt={`thumbnail ${index}`} width="100%" height="100%" objectFit="cover" placeholderColor="#e6e6e6" />
+                <Box
+                  key={index}
+                  sx={{ cursor: "pointer", width: "153px", height: "156px" }}
+                  onClick={() => setMainImage(img)}
+                >
+                  <LazyImage
+                    src={img}
+                    alt={`thumbnail ${index}`}
+                    width="100%"
+                    height="100%"
+                    objectFit="cover"
+                    placeholderColor="#e6e6e6"
+                  />
                 </Box>
               ))}
             </Box>
@@ -101,9 +142,13 @@ const ProductDetail = () => {
 
           {/* Product Info */}
           <Box sx={{ width: "40%", mt: 10, ml: 5, position: "relative", pb: 10 }}>
-            <Typography variant="h4" sx={{ mb: 2 }}>{product.name}</Typography>
+            <Typography variant="h4" sx={{ mb: 2 }}>
+              {product.name}
+            </Typography>
 
-            <Typography variant="body1" sx={{ mb: 1 }}>Colour:</Typography>
+            <Typography variant="body1" sx={{ mb: 1 }}>
+              Colour:
+            </Typography>
             <Box sx={{ display: "flex", gap: "10px", mb: 3 }}>
               {(product.colours || []).map((color) => (
                 <Box
@@ -114,14 +159,16 @@ const ProductDetail = () => {
                     borderRadius: "50%",
                     backgroundColor: color,
                     cursor: "pointer",
-                    border: selectedColor === color ? "3px solid #000" : "1px solid #000"
+                    border: selectedColor === color ? "3px solid #000" : "1px solid #000",
                   }}
                   onClick={() => setSelectedColor(color)}
                 />
               ))}
             </Box>
 
-            <Typography variant="body1" sx={{ mb: 1 }}>Size:</Typography>
+            <Typography variant="body1" sx={{ mb: 1 }}>
+              Size:
+            </Typography>
             <Box sx={{ display: "flex", gap: "10px", mb: "50px" }}>
               {(product.sizes || []).map((size) => (
                 <Button
@@ -137,10 +184,10 @@ const ProductDetail = () => {
                     border: "none",
                     borderRadius: 0,
                     boxShadow: "none",
-                    '&:hover': {
+                    "&:hover": {
                       backgroundColor: selectedSize === size ? "black" : "#C0C0C0",
                       boxShadow: "none",
-                    }
+                    },
                   }}
                 >
                   {size}
@@ -159,9 +206,9 @@ const ProductDetail = () => {
                 textDecoration: "underline",
                 cursor: "pointer",
                 mb: 3,
-                '&:hover': {
-                  opacity: 0.7
-                }
+                "&:hover": {
+                  opacity: 0.7,
+                },
               }}
             >
               What is my size?
@@ -192,18 +239,29 @@ const ProductDetail = () => {
               })()}
             </Typography>
 
-            <Button variant="contained" sx={{
-              backgroundColor: "#323232",
-              color: "white",
-              width: "452px",
-              height: "105px",
-              borderRadius: "17px",
-              fontSize: "16px",
-              fontWeight: "bold",
-              '&:hover': {
-                backgroundColor: "#404040",
-              }
-            }}>
+            <Button
+              variant="contained"
+              onClick={() => {
+                if (!product?._id) return;
+                // Default to first options if none selected
+                const colour =
+                  selectedColor || (Array.isArray(product?.colours) && product.colours[0]);
+                const size = selectedSize || (Array.isArray(product?.sizes) && product.sizes[0]);
+                dispatch(addToCart({ id: product._id, colour, size, quantity: 1 }));
+              }}
+              sx={{
+                backgroundColor: "#323232",
+                color: "white",
+                width: "452px",
+                height: "105px",
+                borderRadius: "17px",
+                fontSize: "16px",
+                fontWeight: "bold",
+                "&:hover": {
+                  backgroundColor: "#404040",
+                },
+              }}
+            >
               ADD TO CART
             </Button>
 
@@ -216,9 +274,9 @@ const ProductDetail = () => {
                 fontSize: "24px",
                 fontWeight: 500,
                 cursor: "pointer",
-                '&:hover': {
-                  opacity: 0.7
-                }
+                "&:hover": {
+                  opacity: 0.7,
+                },
               }}
             >
               More details

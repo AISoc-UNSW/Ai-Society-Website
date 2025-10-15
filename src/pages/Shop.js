@@ -109,186 +109,185 @@ const Shop = () => {
             boxSizing: "border-box",
           }}
         >
-        {/* Navigation Header */}
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            marginBottom: isMobile ? "40px" : "60px",
-            paddingTop: isMobile ? "20px" : "16px",
-          }}
-        >
-          <RouterLink
-            to="/merch"
-            style={{
-              textDecoration: "none",
-              color: "#000",
-              fontSize: isMobile ? "18px" : "20px",
-              fontFamily: "Helvetica",
-              fontWeight: 300,
-              cursor: "pointer",
-            }}
-          >
-            Home
-          </RouterLink>
-
-          <Typography
+          {/* Navigation Header */}
+          <Box
             sx={{
-              fontSize: isMobile ? "18px" : "20px",
-              fontFamily: "Helvetica",
-              fontWeight: 300,
-              color: "#000",
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              marginBottom: isMobile ? "40px" : "60px",
+              paddingTop: isMobile ? "20px" : "16px",
             }}
           >
-            Cart
-          </Typography>
-        </Box>
-
-        {/* Main Title */}
-        <Typography
-          sx={{
-            textAlign: "center",
-            fontSize: isMobile ? "18px" : "20px",
-            fontFamily: "Helvetica Neue",
-            fontWeight: "bold",
-            color: "#000",
-            letterSpacing: "1px",
-            textTransform: "uppercase",
-            marginBottom: isMobile ? "40px" : "60px",
-          }}
-        >
-          SHOP
-        </Typography>
-
-        {/* Products Grid */}
-        <Grid 
-          container 
-          spacing={{
-            xs: 2,    // Mobile: smaller spacing
-            sm: 3,    // Small tablets: medium spacing
-            md: 4,    // Desktop: larger spacing
-          }}
-          sx={{
-            // Additional container padding for better spacing
-            paddingX: {
-              xs: 0,    // Mobile: no extra padding (rely on main container)
-              sm: 1,    // Small tablets: small extra padding
-              md: 2,    // Desktop: more padding
-            }
-          }}
-        >
-          {error && (
-            <Typography sx={{ color: "#b00020", px: 2 }}>
-              {error}
-            </Typography>
-          )}
-          {products.map((product) => (
-            <Grid 
-              item 
-              xs={12} 
-              sm={6} 
-              md={4} 
-              key={product._id}
-              sx={{
-                display: "flex",
-                flexDirection: "column",
+            <RouterLink
+              to="/merch"
+              style={{
+                textDecoration: "none",
+                color: "#000",
+                fontSize: isMobile ? "18px" : "20px",
+                fontFamily: "Helvetica",
+                fontWeight: 300,
+                cursor: "pointer",
               }}
             >
-              <Link 
-                to={`/product/${product._id}`} 
-                style={{ textDecoration: "none", color: "inherit" }}
-              >
-                {/* Product Image */}
-                <Box
-                  sx={{
-                    width: "100%",
-                    aspectRatio: "265/375", // Maintain original aspect ratio
-                    marginBottom: "16px",
-                    cursor: "pointer",
-                    overflow: "hidden",
-                    borderRadius: "4px",
-                  }}
-                >
-                  <img
-                    src={product.imgs && product.imgs.length > 0 ? product.imgs[0] : undefined}
-                    alt={product.name || "product"}
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      objectFit: "cover",
-                      objectPosition: "50% 50%",
-                      transition: "transform 0.3s ease",
-                    }}
-                    onMouseOver={(e) => {
-                      e.target.style.transform = "scale(1.05)";
-                    }}
-                    onMouseOut={(e) => {
-                      e.target.style.transform = "scale(1)";
-                    }}
-                  />
-                </Box>
+              Home
+            </RouterLink>
 
-                {/* Product Info */}
-                <Box
-                  sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "4px",
-                  }}
+            <RouterLink
+              to="/cart"
+              style={{
+                textDecoration: "none",
+                color: "#000",
+                fontSize: isMobile ? "18px" : "20px",
+                fontFamily: "Helvetica",
+                fontWeight: 300,
+                cursor: "pointer",
+              }}
+            >
+              Cart
+            </RouterLink>
+          </Box>
+
+          {/* Main Title */}
+          <Typography
+            sx={{
+              textAlign: "center",
+              fontSize: isMobile ? "18px" : "20px",
+              fontFamily: "Helvetica Neue",
+              fontWeight: "bold",
+              color: "#000",
+              letterSpacing: "1px",
+              textTransform: "uppercase",
+              marginBottom: isMobile ? "40px" : "60px",
+            }}
+          >
+            SHOP
+          </Typography>
+
+          {/* Products Grid */}
+          <Grid
+            container
+            spacing={{
+              xs: 2, // Mobile: smaller spacing
+              sm: 3, // Small tablets: medium spacing
+              md: 4, // Desktop: larger spacing
+            }}
+            sx={{
+              // Additional container padding for better spacing
+              paddingX: {
+                xs: 0, // Mobile: no extra padding (rely on main container)
+                sm: 1, // Small tablets: small extra padding
+                md: 2, // Desktop: more padding
+              },
+            }}
+          >
+            {error && <Typography sx={{ color: "#b00020", px: 2 }}>{error}</Typography>}
+            {products.map((product) => (
+              <Grid
+                item
+                xs={12}
+                sm={6}
+                md={4}
+                key={product._id}
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                }}
+              >
+                <Link
+                  to={`/product/${product._id}`}
+                  style={{ textDecoration: "none", color: "inherit" }}
                 >
-                  <Typography
+                  {/* Product Image */}
+                  <Box
                     sx={{
-                      fontSize: isMobile ? "11px" : "12px",
-                      fontFamily: "Helvetica Neue",
-                      fontWeight: 500,
-                      color: "rgba(0,0,0,0.66)",
+                      width: "100%",
+                      aspectRatio: "265/375", // Maintain original aspect ratio
+                      marginBottom: "16px",
+                      cursor: "pointer",
+                      overflow: "hidden",
+                      borderRadius: "4px",
                     }}
                   >
-                    {product.category}
-                  </Typography>
-                  
+                    <img
+                      src={product.imgs && product.imgs.length > 0 ? product.imgs[0] : undefined}
+                      alt={product.name || "product"}
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                        objectPosition: "50% 50%",
+                        transition: "transform 0.3s ease",
+                      }}
+                      onMouseOver={(e) => {
+                        e.target.style.transform = "scale(1.05)";
+                      }}
+                      onMouseOut={(e) => {
+                        e.target.style.transform = "scale(1)";
+                      }}
+                    />
+                  </Box>
+
+                  {/* Product Info */}
                   <Box
                     sx={{
                       display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "flex-start",
+                      flexDirection: "column",
+                      gap: "4px",
                     }}
                   >
                     <Typography
                       sx={{
-                        fontSize: isMobile ? "13px" : "14px",
+                        fontSize: isMobile ? "11px" : "12px",
                         fontFamily: "Helvetica Neue",
                         fontWeight: 500,
-                        color: "#000",
-                        textTransform: "capitalize",
-                        flex: 1,
-                        marginRight: "8px",
+                        color: "rgba(0,0,0,0.66)",
                       }}
                     >
-                      {product.name}
+                      {product.category}
                     </Typography>
-                    
-                    <Typography
+
+                    <Box
                       sx={{
-                        fontSize: isMobile ? "13px" : "14px",
-                        fontFamily: "Helvetica Neue",
-                        fontWeight: 500,
-                        color: "#000",
-                        whiteSpace: "nowrap",
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "flex-start",
                       }}
                     >
-                      {(() => {
-                        const price = extractPrice(product.price);
-                        return price != null ? `$ ${price.toFixed(2)}` : "";
-                      })()}
-                    </Typography>
+                      <Typography
+                        sx={{
+                          fontSize: isMobile ? "13px" : "14px",
+                          fontFamily: "Helvetica Neue",
+                          fontWeight: 500,
+                          color: "#000",
+                          textTransform: "capitalize",
+                          flex: 1,
+                          marginRight: "8px",
+                        }}
+                      >
+                        {product.name}
+                      </Typography>
+
+                      <Typography
+                        sx={{
+                          fontSize: isMobile ? "13px" : "14px",
+                          fontFamily: "Helvetica Neue",
+                          fontWeight: 500,
+                          color: "#000",
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        {(() => {
+                          const price = extractPrice(product.price);
+                          return price != null ? `$ ${price.toFixed(2)}` : "";
+                        })()}
+                      </Typography>
+                    </Box>
                   </Box>
-                </Box>
-              </Link>
-            </Grid>
-          ))}
-        </Grid>
+                </Link>
+              </Grid>
+            ))}
+          </Grid>
         </Box>
       </Box>
       <Footer onLightBackground={true} />
