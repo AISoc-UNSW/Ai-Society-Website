@@ -1,4 +1,4 @@
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, Typography, Snackbar, Alert } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { Link as RouterLink, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -16,6 +16,7 @@ const ProductDetail = () => {
   const [selectedColor, setSelectedColor] = useState(null);
   const [mainImage, setMainImage] = useState(null);
   const dispatch = useDispatch();
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -59,6 +60,11 @@ const ProductDetail = () => {
       document.body.style.backgroundColor = "black";
     };
   }, []);
+
+  const handleSnackbarClose = (event, reason) => {
+    if (reason === "clickaway") return;
+    setSnackbarOpen(false);
+  };
 
   if (isLoading) {
     return <LoadingScreen isLoading={true} />;
@@ -248,6 +254,7 @@ const ProductDetail = () => {
                   selectedColor || (Array.isArray(product?.colours) && product.colours[0]);
                 const size = selectedSize || (Array.isArray(product?.sizes) && product.sizes[0]);
                 dispatch(addToCart({ id: product._id, colour, size, quantity: 1 }));
+                setSnackbarOpen(true);
               }}
               sx={{
                 backgroundColor: "#323232",
@@ -264,6 +271,17 @@ const ProductDetail = () => {
             >
               ADD TO CART
             </Button>
+
+            <Snackbar
+              open={snackbarOpen}
+              autoHideDuration={2000}
+              onClose={handleSnackbarClose}
+              anchorOrigin={{ vertical: "top", horizontal: "center" }}
+            >
+              <Alert onClose={handleSnackbarClose} severity="success" sx={{ width: "100%" }}>
+                Added to cart
+              </Alert>
+            </Snackbar>
 
             {/* More details */}
             <Typography
