@@ -315,7 +315,7 @@ const Merch = () => {
           <Box sx={{ maxWidth: "1400px", margin: "0 auto", "& .slick-list": { margin: "0 -5px" }, "& .slick-slide > div": { padding: "0 5px" } }}>
             <Slider {...sliderSettings}>
               {merchItems.map((item) => (
-                <Box key={item.id}>
+                <RouterLink to="/shop" style={{ textDecoration: "none" }} key={item.id}>
                   <Box
                     sx={{
                       position: "relative",
@@ -362,7 +362,7 @@ const Merch = () => {
                       </Typography>
                     </Box>
                   </Box>
-                </Box>
+                </RouterLink>
               ))}
             </Slider>
           </Box>
