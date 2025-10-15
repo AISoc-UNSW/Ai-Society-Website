@@ -3,6 +3,7 @@ import { Box, Typography } from "@mui/material";
 import Logo from "../assets/aisoc-logo.webp";
 import ArcLogo from "../assets/arc-club-logo.webp";
 import SocialMediaIcons from "../util/Icons";
+import { Link } from "react-router-dom";
 
 const Footer = ({ onLightBackground = false }) => {
   const outerStyles = () => ({
@@ -12,11 +13,9 @@ const Footer = ({ onLightBackground = false }) => {
   return (
     <Box sx={outerStyles}>
       <Box sx={{ textAlign: "left", color: onLightBackground ? "#000" : "#fff" }}>
-        <img
-          src={Logo}
-          style={{ width: "200px", margin: "0 -38px" }}
-          alt="logo"
-        />
+        <Link to="/">
+          <img src={Logo} style={{ width: "200px", margin: "0 -38px" }} alt="logo" />
+        </Link>
         <img
           src={ArcLogo}
           style={{
@@ -28,9 +27,7 @@ const Footer = ({ onLightBackground = false }) => {
           alt="arc logo"
         />
         <Box>
-          <Typography sx={{ fontFamily: "Ubuntu Sans" }}>
-            The AI Society of UNSW
-          </Typography>
+          <Typography sx={{ fontFamily: "Ubuntu Sans" }}>The AI Society of UNSW</Typography>
           <SocialMediaIcons />
           <Typography
             sx={{
