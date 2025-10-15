@@ -5,6 +5,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
 import Footer from "../components/Footer";
+import LazyImage from "../components/LazyImage";
 
 const Merch = () => {
   const isBelowMd = useMediaQuery("(max-width:900px)");
@@ -15,45 +16,42 @@ const Merch = () => {
       id: 1,
       name: "Hoodies",
       color: "Beige",
-      // TODO: Add actual hoodie image path here
-      image: null,
-      alt: "AISOC Beige Hoodie",
+      image: "https://res.cloudinary.com/dlpcuxx7y/image/upload/v1760526278/hoodies_cream_b8jz8f.webp",
+      alt: "AISOC Cream Hoodie",
     },
     {
       id: 2,
       name: "T Shirts",
       color: "Black",
-      // TODO: Add actual t-shirt image path here
-      image: null,
+      image: "https://res.cloudinary.com/dlpcuxx7y/image/upload/v1760526279/T-shirts_black_f8smam.webp",
       alt: "AISOC Black T-Shirt",
     },
     {
       id: 3,
       name: "Crewnecks",
       color: "Beige",
-      // TODO: Add actual crewneck image path here
-      image: null,
-      alt: "AISOC Beige Crewneck",
+      image: "https://res.cloudinary.com/dlpcuxx7y/image/upload/v1760526274/crewnecks_cream_vobfqc.webp",
+      alt: "AISOC Cream Crewneck",
     },
     {
       id: 4,
       name: "Hoodies",
       color: "Black",
-      image: null,
+      image: "https://res.cloudinary.com/dlpcuxx7y/image/upload/v1760526273/hoodies_black_ry2ojv.webp",
       alt: "AISOC Black Hoodie",
     },
     {
       id: 5,
       name: "T Shirts",
       color: "Beige",
-      image: null,
-      alt: "AISOC Beige T-Shirt",
+      image: "https://res.cloudinary.com/dlpcuxx7y/image/upload/v1760526279/T-shirts_cream_uu0nni.webp",
+      alt: "AISOC Cream T-Shirt",
     },
     {
       id: 6,
       name: "Crewnecks",
       color: "Black",
-      image: null,
+      image: "https://res.cloudinary.com/dlpcuxx7y/image/upload/v1760526271/crewnecks_black_m1pn65.webp",
       alt: "AISOC Black Crewneck",
     },
   ];
@@ -332,31 +330,15 @@ const Merch = () => {
                       },
                     }}
                   >
-                    {/* Placeholder for actual merch image */}
-                    <Box
-                      sx={{
-                        width: "100%",
-                        height: "100%",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        backgroundColor: item.color === "Beige" ? "#d3cfc5" : "#3a3a3a",
-                      }}
-                    >
-                      <Typography
-                        sx={{
-                          color: item.color === "Beige" ? "#5a5a5a" : "#fff",
-                          fontSize: "24px",
-                          fontWeight: "bold",
-                          fontFamily: "Ubuntu Sans",
-                          textAlign: "center",
-                        }}
-                      >
-                        {item.name}
-                        <br />
-                        {item.color}
-                      </Typography>
-                    </Box>
+                    {/* Lazy loaded merch image with solid color placeholder */}
+                    <LazyImage
+                      src={item.image}
+                      alt={item.alt}
+                      width="100%"
+                      height="100%"
+                      placeholderColor={item.color === "Beige" ? "#d3cfc5" : "#3a3a3a"}
+                      objectFit="cover"
+                    />
 
                     {/* Item Label at bottom */}
                     <Box
