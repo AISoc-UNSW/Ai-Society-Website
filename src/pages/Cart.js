@@ -6,6 +6,8 @@ import { removeFromCart, selectCartItemsArray, updateQuantity } from "../store/c
 import LazyImage from "../components/LazyImage";
 import Footer from "../components/Footer";
 
+const SHIPPING_FLAT = 5;
+
 // Helper to normalize price from multiple possible types
 function extractPrice(price) {
   if (price == null) return null;
@@ -25,6 +27,14 @@ function extractPrice(price) {
     }
   }
   return null;
+}
+
+function roundCurrency(value) {
+  return Math.round((value + Number.EPSILON) * 100) / 100;
+}
+
+function formatCurrency(value) {
+  return roundCurrency(value).toFixed(2);
 }
 
 // Fetch product docs for all ids present in cart
@@ -47,8 +57,6 @@ async function fetchProductsByIds(ids, signal) {
   }
   return results;
 }
-
-const SHIPPING_FLAT = 5; // USD flat rate per cart (per screenshot)
 
 const Cart = () => {
   const items = useSelector(selectCartItemsArray);
@@ -105,14 +113,14 @@ const Cart = () => {
         price,
         img: imgs[0],
         stock,
-        amount: price * ci.quantity,
+        amount: roundCurrency(price * ci.quantity),
       };
     });
   }, [items, productsById]);
 
-  const subtotal = lineItems.reduce((sum, li) => sum + li.amount, 0);
+  const subtotal = roundCurrency(lineItems.reduce((sum, li) => sum + li.amount, 0));
   const shipping = lineItems.length > 0 ? SHIPPING_FLAT : 0;
-  const total = subtotal + shipping;
+  const total = roundCurrency(subtotal + shipping);
   const hasStockIssue = lineItems.some((li) => li.stock != null && li.quantity > li.stock);
 
   return (
@@ -139,173 +147,222 @@ const Cart = () => {
 
           {/* Cart lines */}
           <Box sx={{ mt: 6, display: "flex", flexDirection: "column", gap: 4 }}>
-            {lineItems.map((li) => (
+            {lineItems.length === 0 ? (
               <Box
-                key={`${li.id}-${li.colour}-${li.size}`}
                 sx={{
                   display: "flex",
-                  flexDirection: { xs: "column", sm: "row" },
-                  alignItems: { xs: "flex-start", sm: "center" },
-                  justifyContent: "space-between",
-                  gap: { xs: 2, sm: 0 },
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: 2,
+                  py: 6,
+                  backgroundColor: "#f5f5f5",
+                  borderRadius: 2,
                 }}
               >
-                <Box sx={{ display: "flex", alignItems: "center", gap: 3, width: "100%" }}>
-                  <Box
-                    sx={{
-                      width: { xs: "40%", sm: 140 },
-                      height: { xs: 180, sm: 160 },
-                      minWidth: { sm: 140 },
-                    }}
-                  >
-                    <LazyImage
-                      src={li.img}
-                      alt={li.name}
-                      width="100%"
-                      height="100%"
-                      objectFit="cover"
-                      placeholderColor="#d9d9d9"
-                    />
-                  </Box>
-                  <Box>
-                    <Typography sx={{ fontWeight: 600 }}>
-                      {li.name}
-                      {li.colour ? ` - ${li.colour}` : ""}
-                    </Typography>
-                    <Typography sx={{ mt: 0.5 }}>x {li.quantity}</Typography>
-                    <Typography sx={{ mt: 0.5, color: "#666" }}>Size: {li.size}</Typography>
-                    {li.stock != null && li.quantity > li.stock && (
-                      <Typography sx={{ mt: 0.5, color: "error.main", fontSize: 14 }}>
-                        Only {li.stock} left. Please reduce quantity.
+                <Typography sx={{ fontSize: 20, fontWeight: 600 }}>Your cart is empty</Typography>
+                <Button
+                  component={RouterLink}
+                  to="/shop"
+                  variant="contained"
+                  sx={{
+                    textTransform: "uppercase",
+                    fontWeight: 600,
+                    backgroundColor: "#323232",
+                    "&:hover": { backgroundColor: "#404040" },
+                  }}
+                >
+                  Browse merch
+                </Button>
+              </Box>
+            ) : (
+              lineItems.map((li) => (
+                <Box
+                  key={`${li.id}-${li.colour}-${li.size}`}
+                  sx={{
+                    display: "flex",
+                    flexDirection: { xs: "column", sm: "row" },
+                    alignItems: { xs: "flex-start", sm: "center" },
+                    justifyContent: "space-between",
+                    gap: { xs: 2, sm: 0 },
+                  }}
+                >
+                  <Box sx={{ display: "flex", alignItems: "center", gap: 3, width: "100%" }}>
+                    <Box
+                      sx={{
+                        width: { xs: "40%", sm: 140 },
+                        height: { xs: 180, sm: 160 },
+                        minWidth: { sm: 140 },
+                      }}
+                    >
+                      <LazyImage
+                        src={li.img}
+                        alt={li.name}
+                        width="100%"
+                        height="100%"
+                        objectFit="cover"
+                        placeholderColor="#d9d9d9"
+                      />
+                    </Box>
+                    <Box>
+                      <Typography sx={{ fontWeight: 600 }}>
+                        {li.name}
+                        {li.colour ? ` - ${li.colour}` : ""}
                       </Typography>
-                    )}
-                    <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mt: 1 }}>
-                      <Button
-                        size="small"
-                        variant="contained"
-                        onClick={() =>
-                          dispatch(
-                            updateQuantity({
-                              id: li.id,
-                              colour: li.colour,
-                              size: li.size,
-                              quantity: Math.max(1, li.quantity - 1),
-                            })
-                          )
-                        }
-                        sx={{
-                          minWidth: 36,
-                          width: 36,
-                          height: 32,
-                          borderRadius: 1,
-                          boxShadow: "none",
-                          backgroundColor: "#D9D9D9",
-                          color: "black",
-                          "&:hover": { backgroundColor: "#C0C0C0", boxShadow: "none" },
-                        }}
-                      >
-                        -
-                      </Button>
-                      <Box sx={{ px: 1.5, minWidth: 28, textAlign: "center", fontWeight: 600 }}>
-                        {li.quantity}
+                      <Typography sx={{ mt: 0.5 }}>x {li.quantity}</Typography>
+                      <Typography sx={{ mt: 0.5, color: "#666" }}>Size: {li.size}</Typography>
+                      {li.stock != null && li.quantity > li.stock && (
+                        <Typography sx={{ mt: 0.5, color: "error.main", fontSize: 14 }}>
+                          Only {li.stock} left. Please reduce quantity.
+                        </Typography>
+                      )}
+                      <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mt: 1 }}>
+                        <Button
+                          size="small"
+                          variant="contained"
+                          onClick={() =>
+                            dispatch(
+                              updateQuantity({
+                                id: li.id,
+                                colour: li.colour,
+                                size: li.size,
+                                quantity: Math.max(1, li.quantity - 1),
+                              })
+                            )
+                          }
+                          sx={{
+                            minWidth: 36,
+                            width: 36,
+                            height: 32,
+                            borderRadius: 1,
+                            boxShadow: "none",
+                            backgroundColor: "#D9D9D9",
+                            color: "black",
+                            "&:hover": { backgroundColor: "#C0C0C0", boxShadow: "none" },
+                          }}
+                        >
+                          -
+                        </Button>
+                        <Box sx={{ px: 1.5, minWidth: 28, textAlign: "center", fontWeight: 600 }}>
+                          {li.quantity}
+                        </Box>
+                        <Button
+                          size="small"
+                          variant="contained"
+                          onClick={() =>
+                            dispatch(
+                              updateQuantity({
+                                id: li.id,
+                                colour: li.colour,
+                                size: li.size,
+                                quantity: li.quantity + 1,
+                              })
+                            )
+                          }
+                          sx={{
+                            minWidth: 36,
+                            width: 36,
+                            height: 32,
+                            borderRadius: 1,
+                            boxShadow: "none",
+                            backgroundColor: "#D9D9D9",
+                            color: "black",
+                            "&:hover": { backgroundColor: "#C0C0C0", boxShadow: "none" },
+                          }}
+                        >
+                          +
+                        </Button>
+                        <Button
+                          size="small"
+                          onClick={() =>
+                            dispatch(removeFromCart({ id: li.id, colour: li.colour, size: li.size }))
+                          }
+                          sx={{
+                            ml: 1,
+                            color: "#cf2b2b",
+                            textTransform: "uppercase",
+                            fontWeight: 600,
+                            "&:hover": { color: "#a61e1e", backgroundColor: "transparent" },
+                          }}
+                        >
+                          Remove
+                        </Button>
                       </Box>
-                      <Button
-                        size="small"
-                        variant="contained"
-                        onClick={() =>
-                          dispatch(
-                            updateQuantity({
-                              id: li.id,
-                              colour: li.colour,
-                              size: li.size,
-                              quantity: li.quantity + 1,
-                            })
-                          )
-                        }
-                        sx={{
-                          minWidth: 36,
-                          width: 36,
-                          height: 32,
-                          borderRadius: 1,
-                          boxShadow: "none",
-                          backgroundColor: "#D9D9D9",
-                          color: "black",
-                          "&:hover": { backgroundColor: "#C0C0C0", boxShadow: "none" },
-                        }}
-                      >
-                        +
-                      </Button>
-                      <Button
-                        size="small"
-                        onClick={() =>
-                          dispatch(removeFromCart({ id: li.id, colour: li.colour, size: li.size }))
-                        }
-                        sx={{
-                          ml: 1,
-                          color: "#cf2b2b",
-                          textTransform: "uppercase",
-                          fontWeight: 600,
-                          "&:hover": { color: "#a61e1e", backgroundColor: "transparent" },
-                        }}
-                      >
-                        Remove
-                      </Button>
                     </Box>
                   </Box>
+                  <Typography sx={{ fontWeight: 500, alignSelf: { xs: "flex-end", sm: "center" } }}>
+                    ${formatCurrency(li.amount)}
+                  </Typography>
                 </Box>
-                <Typography sx={{ fontWeight: 500, alignSelf: { xs: "flex-end", sm: "center" } }}>
-                  ${li.amount.toFixed(0)}
-                </Typography>
-              </Box>
-            ))}
-          </Box>
-
-          {/* Divider and totals */}
-          <Box sx={{ mt: 6 }}>
-            {hasStockIssue && (
-              <Alert severity="error" sx={{ mb: 2 }}>
-                Some items exceed available stock. Please adjust quantities before checkout.
-              </Alert>
+              ))
             )}
-            <Box
-              sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", py: 1 }}
-            >
-              <Typography>Subtotal</Typography>
-              <Typography>${subtotal.toFixed(0)}</Typography>
-            </Box>
-            <Divider />
-            <Box
-              sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", py: 1 }}
-            >
-              <Typography>Shipping</Typography>
-              <Typography>${shipping.toFixed(0)}</Typography>
-            </Box>
-            <Divider />
-            <Box
-              sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", py: 1 }}
-            >
-              <Typography sx={{ fontWeight: 600 }}>Total</Typography>
-              <Typography sx={{ fontWeight: 600 }}>${total.toFixed(0)}</Typography>
-            </Box>
           </Box>
 
-          <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 6 }}>
-            <Button
-              variant="contained"
-              disabled={hasStockIssue || lineItems.length === 0}
-              sx={{
-                width: 200,
-                borderRadius: 2,
-                backgroundColor: hasStockIssue || lineItems.length === 0 ? "#999999" : "#323232",
-                color: "white",
-                "&:hover": {
-                  backgroundColor: hasStockIssue || lineItems.length === 0 ? "#999999" : "#404040",
-                },
-              }}
-            >
-              Checkout
-            </Button>
-          </Box>
+          {lineItems.length > 0 && (
+            <>
+              {/* Divider and totals */}
+              <Box sx={{ mt: 6 }}>
+                {hasStockIssue && (
+                  <Alert severity="error" sx={{ mb: 2 }}>
+                    Some items exceed available stock. Please adjust quantities before checkout.
+                  </Alert>
+                )}
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    py: 1,
+                  }}
+                >
+                  <Typography>Subtotal</Typography>
+                  <Typography>${formatCurrency(subtotal)}</Typography>
+                </Box>
+                <Divider />
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    py: 1,
+                  }}
+                >
+                  <Typography>Shipping</Typography>
+                  <Typography>${formatCurrency(shipping)}</Typography>
+                </Box>
+                <Divider />
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    py: 1,
+                  }}
+                >
+                  <Typography sx={{ fontWeight: 600 }}>Total</Typography>
+                  <Typography sx={{ fontWeight: 600 }}>${formatCurrency(total)}</Typography>
+                </Box>
+              </Box>
+
+              <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 6 }}>
+                <Button
+                  variant="contained"
+                  disabled={hasStockIssue}
+                  sx={{
+                    width: 200,
+                    borderRadius: 2,
+                    backgroundColor: hasStockIssue ? "#999999" : "#323232",
+                    color: "white",
+                    "&:hover": {
+                      backgroundColor: hasStockIssue ? "#999999" : "#404040",
+                    },
+                  }}
+                >
+                  Checkout
+                </Button>
+              </Box>
+            </>
+          )}
         </Box>
       </Box>
       <Footer onLightBackground={true} />

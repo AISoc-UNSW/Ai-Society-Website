@@ -57,7 +57,7 @@ To get a local copy up and running, follow these steps:
 4. **Start the development server:**
 
    ```bash
-   npm start
+   PORT=3000 npm start
    ```
 
 5. **Open your browser and go to:**
