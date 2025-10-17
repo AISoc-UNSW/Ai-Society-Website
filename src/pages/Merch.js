@@ -1,5 +1,5 @@
 import { Box, Typography, useMediaQuery } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick-theme.css";
@@ -9,6 +9,76 @@ import LazyImage from "../components/LazyImage";
 
 const Merch = () => {
   const isBelowMd = useMediaQuery("(max-width:900px)");
+  const pageTitle = "UNSW AI Society Merch | AISOC Merchandise Collection";
+  const pageDescription =
+    "Explore official UNSW AI Society (AISOC) merchandise including hoodies, crewnecks, t-shirts, and accessories. Support the UNSW AI community with our limited release apparel.";
+  const pageKeywords =
+    "UNSW Artificial Intelligence Society, AISOC merchandise, UNSW hoodies, AI Society apparel, UNSW student club merch, UNSW AISOC shop";
+  const pageUrl = "https://unswaisoc.com/merch";
+  const pageImage = "https://res.cloudinary.com/dlpcuxx7y/image/upload/v1760694826/group-photo_zbydap.webp";
+
+  useEffect(() => {
+    const previousTitle = document.title;
+    document.title = pageTitle;
+
+    const metaSelectors = [
+      { selector: 'meta[name="description"]', content: pageDescription },
+      { selector: 'meta[name="keywords"]', content: pageKeywords },
+      { selector: 'meta[property="og:title"]', content: pageTitle },
+      { selector: 'meta[property="og:description"]', content: pageDescription },
+      { selector: 'meta[property="og:url"]', content: pageUrl },
+      { selector: 'meta[property="og:image"]', content: pageImage },
+      { selector: 'meta[name="twitter:title"]', content: pageTitle },
+      { selector: 'meta[name="twitter:description"]', content: pageDescription },
+      { selector: 'meta[name="twitter:image"]', content: pageImage },
+    ];
+
+    const previousMetaValues = metaSelectors.map(({ selector, content }) => {
+      const element = document.querySelector(selector);
+      const originalContent = element?.getAttribute("content") ?? null;
+      if (element) {
+        element.setAttribute("content", content);
+      }
+      return { element, originalContent };
+    });
+
+    let canonicalLink = document.querySelector('link[rel="canonical"]');
+    let previousCanonicalHref = null;
+    let canonicalCreated = false;
+
+    if (!canonicalLink) {
+      canonicalLink = document.createElement("link");
+      canonicalLink.setAttribute("rel", "canonical");
+      canonicalLink.setAttribute("href", pageUrl);
+      document.head.appendChild(canonicalLink);
+      canonicalCreated = true;
+    } else {
+      previousCanonicalHref = canonicalLink.getAttribute("href");
+      canonicalLink.setAttribute("href", pageUrl);
+    }
+
+    return () => {
+      document.title = previousTitle;
+      previousMetaValues.forEach(({ element, originalContent }) => {
+        if (!element) return;
+        if (originalContent === null) {
+          element.removeAttribute("content");
+        } else {
+          element.setAttribute("content", originalContent);
+        }
+      });
+
+      if (canonicalLink) {
+        if (canonicalCreated) {
+          document.head.removeChild(canonicalLink);
+        } else if (previousCanonicalHref === null) {
+          canonicalLink.removeAttribute("href");
+        } else {
+          canonicalLink.setAttribute("href", previousCanonicalHref);
+        }
+      }
+    };
+  }, [pageDescription, pageImage, pageKeywords, pageTitle, pageUrl]);
 
   // Merchandise items data - these will need actual images
   const merchItems = [
@@ -16,42 +86,48 @@ const Merch = () => {
       id: 1,
       name: "Hoodies",
       color: "Beige",
-      image: "https://res.cloudinary.com/dlpcuxx7y/image/upload/v1760526278/hoodies_cream_b8jz8f.webp",
+      image:
+        "https://res.cloudinary.com/dlpcuxx7y/image/upload/v1760526278/hoodies_cream_b8jz8f.webp",
       alt: "AISOC Cream Hoodie",
     },
     {
       id: 2,
       name: "T Shirts",
       color: "Black",
-      image: "https://res.cloudinary.com/dlpcuxx7y/image/upload/v1760526279/T-shirts_black_f8smam.webp",
+      image:
+        "https://res.cloudinary.com/dlpcuxx7y/image/upload/v1760526279/T-shirts_black_f8smam.webp",
       alt: "AISOC Black T-Shirt",
     },
     {
       id: 3,
       name: "Crewnecks",
       color: "Beige",
-      image: "https://res.cloudinary.com/dlpcuxx7y/image/upload/v1760526274/crewnecks_cream_vobfqc.webp",
+      image:
+        "https://res.cloudinary.com/dlpcuxx7y/image/upload/v1760526274/crewnecks_cream_vobfqc.webp",
       alt: "AISOC Cream Crewneck",
     },
     {
       id: 4,
       name: "Hoodies",
       color: "Black",
-      image: "https://res.cloudinary.com/dlpcuxx7y/image/upload/v1760526273/hoodies_black_ry2ojv.webp",
+      image:
+        "https://res.cloudinary.com/dlpcuxx7y/image/upload/v1760526273/hoodies_black_ry2ojv.webp",
       alt: "AISOC Black Hoodie",
     },
     {
       id: 5,
       name: "T Shirts",
       color: "Beige",
-      image: "https://res.cloudinary.com/dlpcuxx7y/image/upload/v1760526279/T-shirts_cream_uu0nni.webp",
+      image:
+        "https://res.cloudinary.com/dlpcuxx7y/image/upload/v1760526279/T-shirts_cream_uu0nni.webp",
       alt: "AISOC Cream T-Shirt",
     },
     {
       id: 6,
       name: "Crewnecks",
       color: "Black",
-      image: "https://res.cloudinary.com/dlpcuxx7y/image/upload/v1760526271/crewnecks_black_m1pn65.webp",
+      image:
+        "https://res.cloudinary.com/dlpcuxx7y/image/upload/v1760526271/crewnecks_black_m1pn65.webp",
       alt: "AISOC Black Crewneck",
     },
   ];
@@ -166,6 +242,7 @@ const Merch = () => {
             }}
           >
             <Typography
+              component="h1"
               sx={{
                 fontSize: { xs: "80px", sm: "120px", md: "180px" },
                 fontWeight: "bold",
@@ -195,7 +272,7 @@ const Merch = () => {
             }}
           >
             <img
-              src={isBelowMd ? "/temp-merch-group-photo-full-bg.png" : "/temp-merch-group-photo.png"}
+              src="https://res.cloudinary.com/dlpcuxx7y/image/upload/v1760694826/group-photo_zbydap.webp"
               alt="AISOC merch group"
               style={{
                 width: isBelowMd ? "100vw" : "min(700px, 85vw)",
@@ -245,7 +322,9 @@ const Merch = () => {
         </Box>
 
         {/* Mobile Grid Section (xs) */}
-        <Box sx={{ display: { xs: "block", md: "none" }, padding: "16px", backgroundColor: "#efefef" }}>
+        <Box
+          sx={{ display: { xs: "block", md: "none" }, padding: "16px", backgroundColor: "#efefef" }}
+        >
           <Box
             sx={{
               display: "grid",
@@ -256,7 +335,10 @@ const Merch = () => {
             {mobileCategories.map((cell) => {
               if (cell.type === "banner") {
                 return (
-                  <Box key={cell.id} sx={{ gridColumn: "1 / -1", position: "relative", overflow: "hidden" }}>
+                  <Box
+                    key={cell.id}
+                    sx={{ gridColumn: "1 / -1", position: "relative", overflow: "hidden" }}
+                  >
                     <Box sx={{ height: "210px", backgroundColor: "#e0e0e0" }}>
                       <img
                         src={"/temp-merch-group-photo-full-bg.png"}
@@ -284,17 +366,45 @@ const Merch = () => {
 
               const isLight = cell.tone === "light";
               return (
-                <Box key={cell.id} sx={{ position: "relative", height: "210px", overflow: "hidden", backgroundColor: isLight ? "#d3cfc5" : "#3a3a3a" }}>
+                <Box
+                  key={cell.id}
+                  sx={{
+                    position: "relative",
+                    height: "210px",
+                    overflow: "hidden",
+                    backgroundColor: isLight ? "#d3cfc5" : "#3a3a3a",
+                  }}
+                >
                   {/* Placeholder center content */}
-                  <Box sx={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  <Box
+                    sx={{
+                      position: "absolute",
+                      inset: 0,
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
                     <img
                       src={"/temp-merch-group-photo.png"}
                       alt={cell.label}
-                      style={{ width: "120%", height: "100%", objectFit: "cover", opacity: isLight ? 0.4 : 0.25 }}
+                      style={{
+                        width: "120%",
+                        height: "100%",
+                        objectFit: "cover",
+                        opacity: isLight ? 0.4 : 0.25,
+                      }}
                     />
                   </Box>
                   <Box sx={{ position: "absolute", left: "10px", bottom: "10px" }}>
-                    <Typography sx={{ color: isLight ? "#4b4b4b" : "#ffffff", fontSize: "14px", fontWeight: 600, fontFamily: "SF Pro Display, Helvetica, sans-serif" }}>
+                    <Typography
+                      sx={{
+                        color: isLight ? "#4b4b4b" : "#ffffff",
+                        fontSize: "14px",
+                        fontWeight: 600,
+                        fontFamily: "SF Pro Display, Helvetica, sans-serif",
+                      }}
+                    >
                       {cell.label}
                     </Typography>
                   </Box>
@@ -312,7 +422,14 @@ const Merch = () => {
             backgroundColor: "#efefef",
           }}
         >
-          <Box sx={{ maxWidth: "1400px", margin: "0 auto", "& .slick-list": { margin: "0 -5px" }, "& .slick-slide > div": { padding: "0 5px" } }}>
+          <Box
+            sx={{
+              maxWidth: "1400px",
+              margin: "0 auto",
+              "& .slick-list": { margin: "0 -5px" },
+              "& .slick-slide > div": { padding: "0 5px" },
+            }}
+          >
             <Slider {...sliderSettings}>
               {merchItems.map((item) => (
                 <RouterLink to="/shop" style={{ textDecoration: "none" }} key={item.id}>
