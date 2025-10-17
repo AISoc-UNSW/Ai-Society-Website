@@ -36,7 +36,7 @@ const Footer = ({ onLightBackground = false }) => {
               borderTop: "2px solid silver",
             }}
           >
-            © 2024 — AISoc UNSW
+            © {new Date().getFullYear()} — AISoc UNSW
           </Typography>
         </Box>
       </Box>
