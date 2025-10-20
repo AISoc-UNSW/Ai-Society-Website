@@ -6,6 +6,7 @@ import { addToCart } from "../store/cartSlice";
 import Footer from "../components/Footer";
 import LazyImage from "../components/LazyImage";
 import LoadingScreen from "../components/LoadingScreen";
+import MerchNavBar from "../components/MerchNavBar";
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -13,12 +14,26 @@ const ProductDetail = () => {
   const [isLoading, setLoading] = useState(true);
 
   const [selectedSize, setSelectedSize] = useState(null);
-  const [selectedColor, setSelectedColor] = useState(null);
   const [mainImage, setMainImage] = useState(null);
   const dispatch = useDispatch();
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   // Track 2s timeout for not found fallback
   const [showNotFound, setShowNotFound] = useState(false);
+
+  // Map product colour names to display hex values for the circle indicator
+  function mapColourToHex(name) {
+    if (!name) return "#D9D9D9";
+    const key = String(name).toLowerCase().trim();
+    switch (key) {
+      case "black":
+        return "#000000";
+      case "bone":
+        return "#E8E6DA"; // off-white/cream tone for bone
+      default:
+        // Fallback: assume the value is a valid CSS color string
+        return name;
+    }
+  }
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -35,10 +50,7 @@ const ProductDetail = () => {
         setProduct(data);
         const defaultSize =
           Array.isArray(data?.sizes) && data.sizes.length > 0 ? data.sizes[0] : null;
-        const defaultColor =
-          Array.isArray(data?.colours) && data.colours.length > 0 ? data.colours[0] : null;
         setSelectedSize(defaultSize);
-        setSelectedColor(defaultColor);
         const firstImg = Array.isArray(data?.imgs) && data.imgs.length > 0 ? data.imgs[0] : null;
         setMainImage(firstImg);
       } catch (e) {
@@ -118,30 +130,13 @@ const ProductDetail = () => {
           }}
         >
           {/* Header */}
-          <RouterLink
-            to="/merch"
-            style={{
-              textDecoration: "none",
-              color: "black",
-              position: "absolute",
-              top: 0,
-              left: 100,
-            }}
-          >
-            <Typography variant="h6">Home</Typography>
-          </RouterLink>
-          <RouterLink
-            to="/cart"
-            style={{
-              textDecoration: "none",
-              color: "black",
-              position: "absolute",
-              top: 0,
-              right: 100,
-            }}
-          >
-            <Typography variant="h6">Cart</Typography>
-          </RouterLink>
+          <MerchNavBar
+            sx={{ position: "absolute", top: 0, left: 0, right: 0, px: "100px" }}
+            items={[
+              { label: "Home", to: "/merch" },
+              { label: "Cart", to: "/cart" },
+            ]}
+          />
 
           {/* Image Gallery */}
           <Box sx={{ width: "617px", mt: 10 }}>
@@ -176,7 +171,16 @@ const ProductDetail = () => {
           </Box>
 
           {/* Product Info */}
-          <Box sx={{ width: "40%", mt: 10, ml: 5, position: "relative", pb: 10 }}>
+          <Box
+            sx={{
+              width: "40%",
+              mt: 10,
+              ml: 5,
+              position: "relative",
+              pb: 10,
+              textTransform: "capitalize",
+            }}
+          >
             <Typography variant="h4" sx={{ mb: 2 }}>
               {product.name}
             </Typography>
@@ -184,21 +188,16 @@ const ProductDetail = () => {
             <Typography variant="body1" sx={{ mb: 1 }}>
               Colour:
             </Typography>
-            <Box sx={{ display: "flex", gap: "10px", mb: 3 }}>
-              {(product.colours || []).map((color) => (
-                <Box
-                  key={color}
-                  sx={{
-                    width: 30,
-                    height: 30,
-                    borderRadius: "50%",
-                    backgroundColor: color,
-                    cursor: "pointer",
-                    border: selectedColor === color ? "3px solid #000" : "1px solid #000",
-                  }}
-                  onClick={() => setSelectedColor(color)}
-                />
-              ))}
+            <Box sx={{ display: "flex", alignItems: "center", gap: "10px", mb: 3 }}>
+              <Box
+                sx={{
+                  width: 30,
+                  height: 30,
+                  borderRadius: "50%",
+                  backgroundColor: mapColourToHex(product.colour),
+                }}
+              />
+              <Typography>{product.colour}</Typography>
             </Box>
 
             <Typography variant="body1" sx={{ mb: 1 }}>
@@ -278,9 +277,7 @@ const ProductDetail = () => {
               variant="contained"
               onClick={() => {
                 if (!product?._id) return;
-                // Default to first options if none selected
-                const colour =
-                  selectedColor || (Array.isArray(product?.colours) && product.colours[0]);
+                const colour = product.colour;
                 const size = selectedSize || (Array.isArray(product?.sizes) && product.sizes[0]);
                 dispatch(addToCart({ id: product._id, colour, size, quantity: 1 }));
                 setSnackbarOpen(true);

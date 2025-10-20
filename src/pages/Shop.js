@@ -1,8 +1,9 @@
 import { Box, Typography, useTheme, useMediaQuery, Grid } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { Link, Link as RouterLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
 import LoadingScreen from "../components/LoadingScreen";
+import MerchNavBar from "../components/MerchNavBar";
 
 const Shop = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -110,43 +111,22 @@ const Shop = () => {
           }}
         >
           {/* Navigation Header */}
-          <Box
+          <MerchNavBar
             sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
               marginBottom: isMobile ? "40px" : "60px",
               paddingTop: isMobile ? "20px" : "16px",
             }}
-          >
-            <RouterLink
-              to="/merch"
-              style={{
-                textDecoration: "none",
-                color: "#000",
-                fontSize: isMobile ? "18px" : "20px",
-                fontFamily: "Helvetica",
-                fontWeight: 300,
-                cursor: "pointer",
-              }}
-            >
-              Home
-            </RouterLink>
-
-            <RouterLink
-              to="/cart"
-              style={{
-                textDecoration: "none",
-                color: "#000",
-                fontSize: isMobile ? "18px" : "20px",
-                fontFamily: "Helvetica",
-                fontWeight: 300,
-                cursor: "pointer",
-              }}
-            >
-              Cart
-            </RouterLink>
-          </Box>
+            items={[
+              {
+                label: "Home",
+                to: "/merch",
+              },
+              {
+                label: "Cart",
+                to: "/cart",
+              },
+            ]}
+          />
 
           {/* Main Title */}
           <Typography
@@ -244,7 +224,7 @@ const Shop = () => {
                         color: "rgba(0,0,0,0.66)",
                       }}
                     >
-                      {product.category}
+                      {product.colour}
                     </Typography>
 
                     <Box

@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { removeFromCart, selectCartItemsArray, updateQuantity } from "../store/cartSlice";
 import LazyImage from "../components/LazyImage";
 import Footer from "../components/Footer";
+import MerchNavBar from "../components/MerchNavBar";
 
 const SHIPPING_FLAT = 5;
 
@@ -111,7 +112,7 @@ const Cart = () => {
         ...ci,
         name,
         price,
-        img: imgs[0],
+        img: imgs[3] || imgs[0],
         stock,
         amount: roundCurrency(price * ci.quantity),
       };
@@ -138,12 +139,7 @@ const Cart = () => {
           }}
         >
           {/* Header */}
-          <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-            <RouterLink to="/merch" style={{ textDecoration: "none", color: "black" }}>
-              <Typography variant="h6">Home</Typography>
-            </RouterLink>
-            <Typography variant="h6">Cart</Typography>
-          </Box>
+          <MerchNavBar items={[{ label: "Home", to: "/merch" }, { label: "Cart" }]} />
 
           {/* Cart lines */}
           <Box sx={{ mt: 6, display: "flex", flexDirection: "column", gap: 4 }}>
@@ -205,7 +201,7 @@ const Cart = () => {
                       />
                     </Box>
                     <Box>
-                      <Typography sx={{ fontWeight: 600 }}>
+                      <Typography sx={{ fontWeight: 600, textTransform: "capitalize" }}>
                         {li.name}
                         {li.colour ? ` - ${li.colour}` : ""}
                       </Typography>
@@ -275,7 +271,9 @@ const Cart = () => {
                         <Button
                           size="small"
                           onClick={() =>
-                            dispatch(removeFromCart({ id: li.id, colour: li.colour, size: li.size }))
+                            dispatch(
+                              removeFromCart({ id: li.id, colour: li.colour, size: li.size })
+                            )
                           }
                           sx={{
                             ml: 1,

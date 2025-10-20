@@ -6,6 +6,7 @@ import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
 import Footer from "../components/Footer";
 import LazyImage from "../components/LazyImage";
+import MerchNavBar from "../components/MerchNavBar";
 
 const Merch = () => {
   const isBelowMd = useMediaQuery("(max-width:900px)");
@@ -189,7 +190,7 @@ const Merch = () => {
           }}
         >
           {/* Simple Navigation Bar */}
-          <Box
+          <MerchNavBar
             sx={{
               position: "absolute",
               top: 0,
@@ -201,32 +202,7 @@ const Merch = () => {
               padding: "20px",
               zIndex: 10,
             }}
-          >
-            <RouterLink
-              to="/merch"
-              style={{
-                textDecoration: "none",
-                color: "#000",
-                fontSize: "20px",
-                fontFamily: "Helvetica, sans-serif",
-                fontWeight: 300,
-              }}
-            >
-              Home
-            </RouterLink>
-            <RouterLink
-              to="/shop"
-              style={{
-                textDecoration: "none",
-                color: "#000",
-                fontSize: "20px",
-                fontFamily: "Helvetica, sans-serif",
-                fontWeight: 300,
-              }}
-            >
-              Shop
-            </RouterLink>
-          </Box>
+          />
 
           {/* Large "aisoc" text logo (desktop/tablet) */}
           <Box
