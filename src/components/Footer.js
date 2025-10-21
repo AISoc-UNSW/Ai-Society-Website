@@ -1,9 +1,9 @@
 import React from "react";
 import { Box, Typography } from "@mui/material";
-import Logo from "../assets/aisoc-logo.webp";
-import ArcLogo from "../assets/arc-club-logo.webp";
+// import Logo from "../assets/aisoc-logo.webp";
+// import ArcLogo from "../assets/arc-club-logo.webp";
 import SocialMediaIcons from "../util/Icons";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
 const Footer = ({ onLightBackground = false }) => {
   const outerStyles = () => ({
@@ -13,7 +13,7 @@ const Footer = ({ onLightBackground = false }) => {
   return (
     <Box sx={outerStyles}>
       <Box sx={{ textAlign: "left", color: onLightBackground ? "#000" : "#fff" }}>
-        <Link to="/">
+        {/* <Link to="/">
           <img src={Logo} style={{ width: "200px", margin: "0 -38px" }} alt="logo" />
         </Link>
         <img
@@ -25,7 +25,7 @@ const Footer = ({ onLightBackground = false }) => {
             marginBottom: "31px",
           }}
           alt="arc logo"
-        />
+        /> */}
         <Box>
           <Typography sx={{ fontFamily: "Ubuntu Sans" }}>The AI Society of UNSW</Typography>
           <SocialMediaIcons />
