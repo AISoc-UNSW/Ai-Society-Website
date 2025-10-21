@@ -29,20 +29,5 @@ export const sizeGuideData = [
     size: "2XL",
     bodyWidth: 69,
     bodyLength: 80
-  },
-  {
-    size: "3XL",
-    bodyWidth: 72,
-    bodyLength: 82.5
-  },
-  {
-    size: "4XL",
-    bodyWidth: 75,
-    bodyLength: 84
-  },
-  {
-    size: "5XL",
-    bodyWidth: 78,
-    bodyLength: 86.5
   }
 ];
