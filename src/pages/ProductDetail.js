@@ -1,12 +1,14 @@
-import { Box, Button, Typography, Snackbar, Alert } from "@mui/material";
+import { Alert, Box, Button, Snackbar, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { Link as RouterLink, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { addToCart } from "../store/cartSlice";
+import { Link as RouterLink, useParams } from "react-router-dom";
 import Footer from "../components/Footer";
 import LazyImage from "../components/LazyImage";
 import LoadingScreen from "../components/LoadingScreen";
 import MerchNavBar from "../components/MerchNavBar";
+import SizeGuideModal from "../components/SizeGuideModal";
+import { addToCart } from "../store/cartSlice";
+import { sizeGuideData } from "../util/sizeData";
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -19,6 +21,8 @@ const ProductDetail = () => {
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   // Track 2s timeout for not found fallback
   const [showNotFound, setShowNotFound] = useState(false);
+  // Size guide modal state
+  const [sizeGuideOpen, setSizeGuideOpen] = useState(false);
 
   // Map product colour names to display hex values for the circle indicator
   function mapColourToHex(name) {
@@ -230,6 +234,7 @@ const ProductDetail = () => {
             </Box>
 
             <Typography
+              onClick={() => setSizeGuideOpen(true)}
               sx={{
                 position: "absolute",
                 right: "118px",
@@ -328,6 +333,14 @@ const ProductDetail = () => {
           </Box>
         </Box>
       </Box>
+
+      {/* Size Guide Modal */}
+      <SizeGuideModal
+        open={sizeGuideOpen}
+        onClose={() => setSizeGuideOpen(false)}
+        sizeData={sizeGuideData}
+      />
+
       <Footer onLightBackground={true} />
     </>
   );
