@@ -1,74 +1,75 @@
 {
-    "name": "aisoc-website",
-    "homepage": ".",
-    "version": "0.1.0",
-    "private": true,
-    "proxy": "http://localhost:5008",
-    "dependencies": {
-        "@emotion/react": "^11.11.4",
-        "@emotion/styled": "^11.11.5",
-        "@material-ui/core": "^4.12.4",
-        "@mui/icons-material": "^5.15.15",
-        "@mui/material": "^5.15.15",
-        "@reduxjs/toolkit": "^2.2.5",
-        "@react-three/drei": "^9.105.4",
-        "@react-three/fiber": "^8.16.1",
-        "@testing-library/jest-dom": "^5.17.0",
-        "@testing-library/react": "^13.4.0",
-        "@testing-library/user-event": "^13.5.0",
-        "@types/three": "^0.163.0",
-        "caniuse-lite": "^1.0.30001748",
-        "cors": "^2.8.5",
-        "dotenv": "^16.4.5",
-        "express": "^4.19.2",
-        "framer-motion": "^11.1.7",
-        "mongodb": "^6.8.0",
-        "postprocessing": "^6.35.3",
-        "react-redux": "^9.1.2",
-        "react": "^18.2.0",
-        "react-dom": "^18.2.0",
-        "react-router-dom": "^6.22.3",
-        "react-scripts": "5.0.1",
-        "react-scroll": "^1.9.0",
-        "react-slick": "^0.30.2",
-        "react-swipeable-views": "^0.14.0",
-        "react-three": "^0.9.7",
-        "react-type-animation": "^3.2.0",
-        "redux-persist": "^6.0.0",
-        "slick-carousel": "^1.8.1",
-        "three": "^0.163.0",
-        "web-vitals": "^2.1.4"
-    },
-    "scripts": {
-        "start": "react-scripts start",
-        "server": "node server/index.js",
-        "server:dev": "nodemon server/index.js",
-        "dev": "concurrently \"npm run server:dev\" \"npm start\"",
-        "build": "react-scripts build",
-        "test": "react-scripts test",
-        "eject": "react-scripts eject"
-    },
-    "eslintConfig": {
-        "extends": [
-            "react-app",
-            "react-app/jest"
-        ]
-    },
-    "browserslist": {
-        "production": [
-            ">0.2%",
-            "not dead",
-            "not op_mini all"
-        ],
-        "development": [
-            "last 1 chrome version",
-            "last 1 firefox version",
-            "last 1 safari version"
-        ]
-    },
-    "devDependencies": {
-        "concurrently": "^8.2.2",
-        "gh-pages": "^6.1.1",
-        "nodemon": "^3.1.0"
-    }
+  "name": "aisoc-website",
+  "homepage": ".",
+  "version": "0.1.0",
+  "private": true,
+  "proxy": "http://localhost:5008",
+  "dependencies": {
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
+    "@material-ui/core": "^4.12.4",
+    "@mui/icons-material": "^5.15.15",
+    "@mui/material": "^5.15.15",
+    "@reduxjs/toolkit": "^2.2.5",
+    "@react-three/drei": "^9.105.4",
+    "@react-three/fiber": "^8.16.1",
+    "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "@types/three": "^0.163.0",
+    "caniuse-lite": "^1.0.30001748",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "framer-motion": "^11.1.7",
+    "mongodb": "^6.8.0",
+    "postprocessing": "^6.35.3",
+    "react-redux": "^9.1.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.22.3",
+    "react-scripts": "5.0.1",
+    "react-scroll": "^1.9.0",
+    "react-slick": "^0.30.2",
+    "react-swipeable-views": "^0.14.0",
+    "react-three": "^0.9.7",
+    "react-type-animation": "^3.2.0",
+    "redux-persist": "^6.0.0",
+    "slick-carousel": "^1.8.1",
+    "three": "^0.163.0",
+    "web-vitals": "^2.1.4"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "server": "node server/index.js",
+    "server:dev": "nodemon server/index.js",
+    "dev": "concurrently \"npm run server:dev\" \"npm start\"",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "gh-pages": "^6.1.1",
+    "nodemon": "^3.1.0",
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11"
+  }
 }

@@ -49,7 +49,9 @@ To get a local copy up and running, follow these steps:
    ```bash
    npm install
    ```
+
    if you encounter any issues, try:
+
    ```bash
    npm install --legacy-peer-deps
    ```
@@ -72,8 +74,8 @@ Create a `.env` file in the project root with:
 
 ```
 REACT_APP_API_BASE_URL=http://localhost:5008
-MONGODB_URI=mongodb+srv://aisoc_db_user:<db_password>@aisoccluster1.brilzcr.mongodb.net/?retryWrites=true&w=majority&appName=AISocCluster1
-MONGODB_DB=Merch_2025
+MONGODB_URI=<your_mongodb_connection_uri>
+MONGODB_DB=<your_db_name>
 PORT=5008
 ```
 
