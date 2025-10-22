@@ -313,23 +313,6 @@ const ProductDetail = () => {
                 Added to cart
               </Alert>
             </Snackbar>
-
-            {/* More details */}
-            <Typography
-              sx={{
-                position: "absolute",
-                bottom: "50px",
-                color: "#000",
-                fontSize: "24px",
-                fontWeight: 500,
-                cursor: "pointer",
-                "&:hover": {
-                  opacity: 0.7,
-                },
-              }}
-            >
-              More details
-            </Typography>
           </Box>
         </Box>
       </Box>
