@@ -7,7 +7,7 @@ import LazyImage from "../components/LazyImage";
 import Footer from "../components/Footer";
 import MerchNavBar from "../components/MerchNavBar";
 
-const SHIPPING_FLAT = 5;
+const SHIPPING_FLAT = 0;
 
 // Helper to normalize price from multiple possible types
 function extractPrice(price) {
@@ -317,17 +317,19 @@ const Cart = () => {
                   <Typography>${formatCurrency(subtotal)}</Typography>
                 </Box>
                 <Divider />
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    py: 1,
-                  }}
-                >
-                  <Typography>Shipping</Typography>
-                  <Typography>${formatCurrency(shipping)}</Typography>
-                </Box>
+                {shipping > 0 && (
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      py: 1,
+                    }}
+                  >
+                    <Typography>Shipping</Typography>
+                    <Typography>${formatCurrency(shipping)}</Typography>
+                  </Box>
+                )}
                 <Divider />
                 <Box
                   sx={{
