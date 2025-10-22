@@ -98,7 +98,7 @@ const Cart = () => {
       const product = productsById[ci.id];
       const price = extractPrice(product?.price) || 0;
       const name = product?.name || "";
-      const imgs = product?.imgs || [];
+      const top_down_shots = product?.top_down_shots || [];
       const inventory = product?.inventory || [];
       const inventoryEntry = inventory.find(
         (inv) => inv.colour === ci.colour && inv.size === ci.size
@@ -112,7 +112,7 @@ const Cart = () => {
         ...ci,
         name,
         price,
-        img: imgs[3] || imgs[0],
+        img: top_down_shots[1] || top_down_shots[0],
         stock,
         amount: roundCurrency(price * ci.quantity),
       };
