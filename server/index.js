@@ -3,12 +3,18 @@ const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
 const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
-
+const Stripe = require('stripe');
 dotenv.config();
 
 const PORT = process.env.PORT || 5008;
 const MONGODB_URI = process.env.MONGODB_URI;
 const MONGODB_DB = process.env.MONGODB_DB;
+const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY;
+const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:3000';
+if (!STRIPE_SECRET_KEY) {
+  console.error('Missing STRIPE_SECRET_KEY. Payments will not work.');
+}
+const stripe = STRIPE_SECRET_KEY ? new Stripe(STRIPE_SECRET_KEY) : null;
 
 if (!MONGODB_URI) {
   console.error("Missing MONGODB_URI. Please set it in your environment.");
@@ -107,6 +113,67 @@ app.get("/api/products/:id", async (req, res) => {
   }
 });
 
+// POST /create-checkout-session - create Stripe Checkout session with detailed product info
+app.post('/create-checkout-session', async (req, res) => {
+  try {
+    if (!stripe) return res.status(500).json({ error: 'Stripe not configured' });
+    const { items, customerEmail, customerName } = req.body || {};
+    if (!Array.isArray(items) || !items.length) {
+      return res.status(400).json({ error: 'No items provided' });
+    }
+
+    // Map to Stripe line_items with product information
+    const lineItems = items.map((item) => {
+      const descriptionParts = [];
+      if (item.colour) descriptionParts.push(`Color: ${item.colour}`);
+      if (item.size) descriptionParts.push(`Size: ${item.size}`);
+      
+      return {
+        price_data: {
+          currency: 'aud',
+          product_data: {
+            name: item.name || item.productName,
+            description: descriptionParts.length > 0 ? descriptionParts.join(' • ') : undefined,
+            images: item.img ? [item.img] : undefined, // Include product image
+            metadata: {
+              product_id: item.id?.toString(),
+              colour: item.colour || '',
+              size: item.size || '',
+            },
+          },
+          // Stripe expects integer amount in cents
+          unit_amount: Math.round(Number(item.price) * 100),
+        },
+        quantity: item.quantity || 1,
+      };
+    });
+
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ['card'],
+      line_items: lineItems,
+      mode: 'payment',
+      success_url: `${FRONTEND_URL}/cart`, // URL redirect for successful payment
+      cancel_url: `${FRONTEND_URL}/cart`, // URL redirect for cancelled payment
+      customer_email: customerEmail,
+      customer_creation: 'always', // Always create customer for better tracking
+      shipping_address_collection: {
+        allowed_countries: ['AU', 'US', 'CA', 'GB'],
+      },
+      metadata: {
+        customer_name: customerName || '',
+        total_items: items.length.toString(),
+      },
+      automatic_tax: { enabled: false },
+    });
+
+    res.json({ sessionId: session.id, url: session.url });
+  } catch (e) {
+    console.error('Error creating checkout session:', e);
+    res.status(500).json({ error: e?.message || 'Failed to create session' });
+  }
+});
+
+
 app.listen(PORT, () => {
   console.log(`Server listening on http://localhost:${PORT}`);
 });
@@ -117,4 +184,8 @@ process.on("SIGINT", async () => {
   } finally {
     process.exit(0);
   }
+<<<<<<< HEAD
 });
+=======
+});
+>>>>>>> 2012068 (Added backend functionality to generate stripe payment URL)
