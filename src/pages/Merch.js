@@ -1,6 +1,6 @@
 import { Box, Typography, useMediaQuery } from "@mui/material";
 import React, { useEffect } from "react";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, Link } from "react-router-dom";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
@@ -16,7 +16,8 @@ const Merch = () => {
   const pageKeywords =
     "UNSW Artificial Intelligence Society, AISOC merchandise, UNSW hoodies, AI Society apparel, UNSW student club merch, UNSW AISOC shop";
   const pageUrl = "https://unswaisoc.com/merch";
-  const pageImage = "https://res.cloudinary.com/dlpcuxx7y/image/upload/v1760694826/group-photo_zbydap.webp";
+  const pageImage =
+    "https://res.cloudinary.com/dlpcuxx7y/image/upload/v1760694826/group-photo_zbydap.webp";
 
   useEffect(() => {
     const previousTitle = document.title;
@@ -133,15 +134,6 @@ const Merch = () => {
     },
   ];
 
-  // Mobile categories grid content (simple placeholders for now)
-  const mobileCategories = [
-    { id: "banner", type: "banner" },
-    { id: "tshirts", label: "T Shirts", tone: "dark" },
-    { id: "crewnecks", label: "Crewnecks", tone: "light" },
-    { id: "hoodies", label: "Hoodies", tone: "dark" },
-    { id: "accessories", label: "Accessories", tone: "dark" },
-  ];
-
   // Slider settings for carousel
   const sliderSettings = {
     dots: false,
@@ -233,8 +225,10 @@ const Merch = () => {
             </Typography>
           </Box>
 
-          {/* Group photo */}
+          {/* Add Link to Shop page around image and logo */}
           <Box
+            component={Link}
+            to="/shop"
             sx={{
               position: { xs: "relative", md: "absolute" },
               top: { xs: 0, md: "170px" },
@@ -245,6 +239,7 @@ const Merch = () => {
               justifyContent: "center",
               width: "100%",
               pointerEvents: "auto",
+              textDecoration: "none",
             }}
           >
             <img
@@ -308,85 +303,40 @@ const Merch = () => {
               gap: "12px",
             }}
           >
-            {mobileCategories.map((cell) => {
-              if (cell.type === "banner") {
-                return (
-                  <Box
-                    key={cell.id}
-                    sx={{ gridColumn: "1 / -1", position: "relative", overflow: "hidden" }}
-                  >
-                    <Box sx={{ height: "210px", backgroundColor: "#e0e0e0" }}>
-                      <img
-                        src={"/temp-merch-group-photo-full-bg.png"}
-                        alt="AISOC collection"
-                        style={{ width: "100%", height: "100%", objectFit: "cover" }}
-                      />
-                    </Box>
-                    <Typography
-                      sx={{
-                        position: "absolute",
-                        bottom: "8px",
-                        left: "8px",
-                        color: "#ffffff",
-                        fontSize: "11px",
-                        letterSpacing: "0.3px",
-                        textShadow: "0 1px 2px rgba(0,0,0,0.35)",
-                        fontFamily: "Helvetica, Arial, sans-serif",
-                      }}
-                    >
-                      Shop Collection
-                    </Typography>
-                  </Box>
-                );
-              }
-
-              const isLight = cell.tone === "light";
-              return (
+            {merchItems.map((item) => (
+              <RouterLink to="/shop" style={{ textDecoration: "none" }} key={item.id}>
                 <Box
-                  key={cell.id}
                   sx={{
                     position: "relative",
-                    height: "210px",
+                    width: "100%",
+                    aspectRatio: "391 / 547",
                     overflow: "hidden",
-                    backgroundColor: isLight ? "#d3cfc5" : "#3a3a3a",
+                    backgroundColor: item.color === "Beige" ? "#d3cfc5" : "#3a3a3a",
                   }}
                 >
-                  {/* Placeholder center content */}
-                  <Box
-                    sx={{
-                      position: "absolute",
-                      inset: 0,
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                    }}
-                  >
-                    <img
-                      src={"/temp-merch-group-photo.png"}
-                      alt={cell.label}
-                      style={{
-                        width: "120%",
-                        height: "100%",
-                        objectFit: "cover",
-                        opacity: isLight ? 0.4 : 0.25,
-                      }}
-                    />
-                  </Box>
+                  <LazyImage
+                    src={item.image}
+                    alt={item.alt}
+                    width="100%"
+                    height="100%"
+                    objectFit="cover"
+                    placeholderColor={item.color === "Beige" ? "#d3cfc5" : "#3a3a3a"}
+                  />
                   <Box sx={{ position: "absolute", left: "10px", bottom: "10px" }}>
                     <Typography
                       sx={{
-                        color: isLight ? "#4b4b4b" : "#ffffff",
+                        color: item.color === "Beige" ? "#4b4b4b" : "#ffffff",
                         fontSize: "14px",
                         fontWeight: 600,
                         fontFamily: "SF Pro Display, Helvetica, sans-serif",
                       }}
                     >
-                      {cell.label}
+                      {item.name}
                     </Typography>
                   </Box>
                 </Box>
-              );
-            })}
+              </RouterLink>
+            ))}
           </Box>
         </Box>
 
