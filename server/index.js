@@ -41,7 +41,30 @@ async function getDb() {
 }
 
 const app = express();
-app.use(cors());
+
+const allowedOrigins = [
+  "https://www.unswaisoc.com", // production
+  "http://localhost:3000", // local dev
+  "https://deploy-preview-31--papaya-twilight-4821fe.netlify.app", // preview
+  // Add more preview URLs if needed, or use a regex below for all Netlify previews.
+];
+
+// For ALL Netlify previews:
+const netlifyPreviewRegex =
+  /^https:\/\/deploy-preview-\\d+--papaya-twilight-4821fe\\.netlify\\.app$/;
+
+const corsOptions = {
+  origin(origin, callback) {
+    // Allow exact matches or if origin matches preview regex
+    if (allowedOrigins.includes(origin) || netlifyPreviewRegex.test(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true,
+};
+app.use(cors(corsOptions));
 app.use(express.json());
 
 app.get("/health", async (req, res) => {
