@@ -49,14 +49,10 @@ const allowedOrigins = [
   // Add more preview URLs if needed, or use a regex below for all Netlify previews.
 ];
 
-// For ALL Netlify previews:
-const netlifyPreviewRegex =
-  /^https:\/\/deploy-preview-\\d+--papaya-twilight-4821fe\\.netlify\\.app$/;
-
 const corsOptions = {
   origin(origin, callback) {
-    // Allow exact matches or if origin matches preview regex
-    if (allowedOrigins.includes(origin) || netlifyPreviewRegex.test(origin)) {
+    // allow empty origin (e.g. Dokploy internal or health check)
+    if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
       callback(new Error("Not allowed by CORS"));
@@ -64,6 +60,7 @@ const corsOptions = {
   },
   credentials: true,
 };
+
 app.use(cors(corsOptions));
 app.use(express.json());
 
