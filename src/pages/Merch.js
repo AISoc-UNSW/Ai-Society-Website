@@ -4,7 +4,7 @@ import { Link as RouterLink, Link } from "react-router-dom";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
-import Footer from "../components/Footer";
+import MerchFooter from "../components/MerchFooter";
 import LazyImage from "../components/LazyImage";
 import MerchNavBar from "../components/MerchNavBar";
 
@@ -410,7 +410,7 @@ const Merch = () => {
             </Slider>
           </Box>
         </Box>
-        <Footer onLightBackground={true} />
+        <MerchFooter onLightBackground={true} />
       </Box>
     </>
   );

@@ -4,7 +4,7 @@ import { Link as RouterLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { removeFromCart, selectCartItemsArray, updateQuantity } from "../store/cartSlice";
 import LazyImage from "../components/LazyImage";
-import Footer from "../components/Footer";
+import MerchFooter from "../components/MerchFooter";
 import MerchNavBar from "../components/MerchNavBar";
 
 const SHIPPING_FLAT = 0;
@@ -365,7 +365,7 @@ const Cart = () => {
           )}
         </Box>
       </Box>
-      <Footer onLightBackground={true} />
+      <MerchFooter onLightBackground={true} />
     </>
   );
 };

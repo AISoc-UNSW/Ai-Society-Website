@@ -2,7 +2,7 @@ import { Alert, Box, Button, Snackbar, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link as RouterLink, useParams } from "react-router-dom";
-import Footer from "../components/Footer";
+import MerchFooter from "../components/MerchFooter";
 import LazyImage from "../components/LazyImage";
 import LoadingScreen from "../components/LoadingScreen";
 import MerchNavBar from "../components/MerchNavBar";
@@ -324,7 +324,7 @@ const ProductDetail = () => {
         sizeData={sizeGuideData}
       />
 
-      <Footer onLightBackground={true} />
+      <MerchFooter onLightBackground={true} />
     </>
   );
 };

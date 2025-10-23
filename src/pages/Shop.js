@@ -1,7 +1,7 @@
 import { Box, Typography, useTheme, useMediaQuery, Grid } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import Footer from "../components/Footer";
+import MerchFooter from "../components/MerchFooter";
 import LoadingScreen from "../components/LoadingScreen";
 import MerchNavBar from "../components/MerchNavBar";
 
@@ -270,7 +270,7 @@ const Shop = () => {
           </Grid>
         </Box>
       </Box>
-      <Footer onLightBackground={true} />
+      <MerchFooter onLightBackground={true} />
     </>
   );
 };
