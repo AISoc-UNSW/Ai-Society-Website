@@ -117,7 +117,7 @@ app.get("/api/products/:id", async (req, res) => {
 app.post('/create-checkout-session', async (req, res) => {
   try {
     if (!stripe) return res.status(500).json({ error: 'Stripe not configured' });
-    const { items, customerEmail, customerName } = req.body || {};
+    const { items, customerEmail, customerName, customerZid } = req.body || {};
     if (!Array.isArray(items) || !items.length) {
       return res.status(400).json({ error: 'No items provided' });
     }
@@ -141,7 +141,7 @@ app.post('/create-checkout-session', async (req, res) => {
               size: item.size || '',
             },
           },
-          // Stripe expects integer amount in cents
+          // Stripe expects integer amount in cents, hardcode the value for testing
           unit_amount: Math.round(Number(item.price) * 100),
         },
         quantity: item.quantity || 1,
@@ -152,16 +152,21 @@ app.post('/create-checkout-session', async (req, res) => {
       payment_method_types: ['card'],
       line_items: lineItems,
       mode: 'payment',
-      success_url: `${FRONTEND_URL}/cart`, // URL redirect for successful payment
-      cancel_url: `${FRONTEND_URL}/cart`, // URL redirect for cancelled payment
+      success_url: `${FRONTEND_URL}/cart`,
+      cancel_url: `${FRONTEND_URL}/cart`,
       customer_email: customerEmail,
       customer_creation: 'always', // Always create customer for better tracking
-      shipping_address_collection: {
-        allowed_countries: ['AU', 'US', 'CA', 'GB'],
-      },
-      metadata: {
+      metadata: {                   // Meta data to store customer name and other info
         customer_name: customerName || '',
+        customer_zid: customerZid || '',
         total_items: items.length.toString(),
+      },
+      payment_intent_data: {    
+        metadata: {                 // NOTE: Whatever change is made to meta data must be made here too
+          customer_name: customerName || '',
+          customer_zid: customerZid || '',
+          total_items: items.length.toString(),
+        }
       },
       automatic_tax: { enabled: false },
     });
