@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Box, Button, Divider, Typography, Alert } from "@mui/material";
+import { Box, Button, Divider, Typography, Alert, TextField } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { removeFromCart, selectCartItemsArray, updateQuantity } from "../store/cartSlice";
@@ -63,6 +63,12 @@ const Cart = () => {
   const items = useSelector(selectCartItemsArray);
   const dispatch = useDispatch();
   const [productsById, setProductsById] = useState({});
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [zid, setZid] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const [formError, setFormError] = useState("");
 
   // Ensure page body matches light background like Shop/ProductDetail
   useEffect(() => {
@@ -123,6 +129,64 @@ const Cart = () => {
   const shipping = lineItems.length > 0 ? SHIPPING_FLAT : 0;
   const total = roundCurrency(subtotal + shipping);
   const hasStockIssue = lineItems.some((li) => li.stock != null && li.quantity > li.stock);
+  const isCartEmpty = lineItems.length === 0;
+
+  function isValidEmail(value) {
+    return /.+@.+\..+/.test(String(value).trim());
+  }
+
+  function isValidZid(value) {
+    return /^z\d{7}$/i.test(String(value).trim());
+  }
+
+  const isFormValid =
+    firstName.trim().length > 0 &&
+    lastName.trim().length > 0 &&
+    isValidEmail(email) &&
+    isValidZid(zid);
+
+  async function handlePayWithStripe() {
+    setFormError("");
+    if (!isFormValid || hasStockIssue || isCartEmpty || submitting) return;
+    try {
+      setSubmitting(true);
+      const API_BASE = process.env.REACT_APP_API_BASE_URL || "http://localhost:5008";
+      const payload = {
+        items: lineItems.map((li) => ({
+          id: li.id,
+          name: li.name,
+          price: li.price,
+          img: li.img,
+          colour: li.colour,
+          size: li.size,
+          quantity: li.quantity,
+        })),
+        customerEmail: email.trim(),
+        customerName: `${firstName.trim()} ${lastName.trim()}`,
+        customerZid: zid.trim(),
+      };
+
+      const res = await fetch(`${API_BASE}/create-checkout-session`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err?.error || "Failed to create session");
+      }
+      const data = await res.json();
+      if (data?.url) {
+        window.location.href = data.url;
+      } else {
+        throw new Error("Invalid response from server");
+      }
+    } catch (e) {
+      setFormError(e?.message || "An unexpected error occurred");
+    } finally {
+      setSubmitting(false);
+    }
+  }
 
   return (
     <>
@@ -141,183 +205,185 @@ const Cart = () => {
           {/* Header */}
           <MerchNavBar items={[{ label: "Home", to: "/merch" }, { label: "Cart" }]} />
 
-          {/* Cart lines */}
-          <Box sx={{ mt: 6, display: "flex", flexDirection: "column", gap: 4 }}>
-            {lineItems.length === 0 ? (
-              <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  gap: 2,
-                  py: 6,
-                  backgroundColor: "#f5f5f5",
-                  borderRadius: 2,
-                }}
-              >
-                <Typography sx={{ fontSize: 20, fontWeight: 600 }}>Your cart is empty</Typography>
-                <Button
-                  component={RouterLink}
-                  to="/shop"
-                  variant="contained"
-                  sx={{
-                    textTransform: "uppercase",
-                    fontWeight: 600,
-                    backgroundColor: "#323232",
-                    "&:hover": { backgroundColor: "#404040" },
-                  }}
-                >
-                  Browse merch
-                </Button>
-              </Box>
-            ) : (
-              lineItems.map((li) => (
-                <Box
-                  key={`${li.id}-${li.colour}-${li.size}`}
-                  sx={{
-                    display: "flex",
-                    flexDirection: { xs: "column", sm: "row" },
-                    alignItems: { xs: "flex-start", sm: "center" },
-                    justifyContent: "space-between",
-                    gap: { xs: 2, sm: 0 },
-                  }}
-                >
-                  <Box sx={{ display: "flex", alignItems: "center", gap: 3, width: "100%" }}>
-                    <Box
+          {/* Main content: left (cart), right (checkout form) */}
+          <Box
+            sx={{
+              mt: 6,
+              display: "flex",
+              flexDirection: { xs: "column", md: "row" },
+              alignItems: "flex-start",
+              gap: { xs: 4, md: 6 },
+            }}
+          >
+            {/* Left: cart items and totals */}
+            <Box sx={{ flex: 2, width: "100%" }}>
+              <Box sx={{ display: "flex", flexDirection: "column", gap: 4 }}>
+                {lineItems.length === 0 ? (
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      gap: 2,
+                      py: 6,
+                      backgroundColor: "#f5f5f5",
+                      borderRadius: 2,
+                    }}
+                  >
+                    <Typography sx={{ fontSize: 20, fontWeight: 600 }}>
+                      Your cart is empty
+                    </Typography>
+                    <Button
+                      component={RouterLink}
+                      to="/shop"
+                      variant="contained"
                       sx={{
-                        width: { xs: "40%", sm: 140 },
-                        height: { xs: 180, sm: 160 },
-                        minWidth: { sm: 140 },
+                        textTransform: "uppercase",
+                        fontWeight: 600,
+                        backgroundColor: "#323232",
+                        "&:hover": { backgroundColor: "#404040" },
                       }}
                     >
-                      <LazyImage
-                        src={li.img}
-                        alt={li.name}
-                        width="100%"
-                        height="100%"
-                        objectFit="cover"
-                        placeholderColor="#d9d9d9"
-                      />
-                    </Box>
-                    <Box>
-                      <Typography sx={{ fontWeight: 600, textTransform: "capitalize" }}>
-                        {li.name}
-                        {li.colour ? ` - ${li.colour}` : ""}
-                      </Typography>
-                      <Typography sx={{ mt: 0.5 }}>x {li.quantity}</Typography>
-                      <Typography sx={{ mt: 0.5, color: "#666" }}>Size: {li.size}</Typography>
-                      {li.stock != null && li.quantity > li.stock && (
-                        <Typography sx={{ mt: 0.5, color: "error.main", fontSize: 14 }}>
-                          Only {li.stock} left. Please reduce quantity.
-                        </Typography>
-                      )}
-                      <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mt: 1 }}>
-                        <Button
-                          size="small"
-                          variant="contained"
-                          onClick={() =>
-                            dispatch(
-                              updateQuantity({
-                                id: li.id,
-                                colour: li.colour,
-                                size: li.size,
-                                quantity: Math.max(1, li.quantity - 1),
-                              })
-                            )
-                          }
-                          sx={{
-                            minWidth: 36,
-                            width: 36,
-                            height: 32,
-                            borderRadius: 1,
-                            boxShadow: "none",
-                            backgroundColor: "#D9D9D9",
-                            color: "black",
-                            "&:hover": { backgroundColor: "#C0C0C0", boxShadow: "none" },
-                          }}
-                        >
-                          -
-                        </Button>
-                        <Box sx={{ px: 1.5, minWidth: 28, textAlign: "center", fontWeight: 600 }}>
-                          {li.quantity}
-                        </Box>
-                        <Button
-                          size="small"
-                          variant="contained"
-                          onClick={() =>
-                            dispatch(
-                              updateQuantity({
-                                id: li.id,
-                                colour: li.colour,
-                                size: li.size,
-                                quantity: li.quantity + 1,
-                              })
-                            )
-                          }
-                          sx={{
-                            minWidth: 36,
-                            width: 36,
-                            height: 32,
-                            borderRadius: 1,
-                            boxShadow: "none",
-                            backgroundColor: "#D9D9D9",
-                            color: "black",
-                            "&:hover": { backgroundColor: "#C0C0C0", boxShadow: "none" },
-                          }}
-                        >
-                          +
-                        </Button>
-                        <Button
-                          size="small"
-                          onClick={() =>
-                            dispatch(
-                              removeFromCart({ id: li.id, colour: li.colour, size: li.size })
-                            )
-                          }
-                          sx={{
-                            ml: 1,
-                            color: "#cf2b2b",
-                            textTransform: "uppercase",
-                            fontWeight: 600,
-                            "&:hover": { color: "#a61e1e", backgroundColor: "transparent" },
-                          }}
-                        >
-                          Remove
-                        </Button>
-                      </Box>
-                    </Box>
+                      Browse merch
+                    </Button>
                   </Box>
-                  <Typography sx={{ fontWeight: 500, alignSelf: { xs: "flex-end", sm: "center" } }}>
-                    ${formatCurrency(li.amount)}
-                  </Typography>
-                </Box>
-              ))
-            )}
-          </Box>
-
-          {lineItems.length > 0 && (
-            <>
-              {/* Divider and totals */}
-              <Box sx={{ mt: 6 }}>
-                {hasStockIssue && (
-                  <Alert severity="error" sx={{ mb: 2 }}>
-                    Some items exceed available stock. Please adjust quantities before checkout.
-                  </Alert>
+                ) : (
+                  lineItems.map((li) => (
+                    <Box
+                      key={`${li.id}-${li.colour}-${li.size}`}
+                      sx={{
+                        display: "flex",
+                        flexDirection: { xs: "column", sm: "row" },
+                        alignItems: { xs: "flex-start", sm: "center" },
+                        justifyContent: "space-between",
+                        gap: { xs: 2, sm: 0 },
+                      }}
+                    >
+                      <Box sx={{ display: "flex", alignItems: "center", gap: 3, width: "100%" }}>
+                        <Box
+                          sx={{
+                            width: { xs: "40%", sm: 140 },
+                            height: { xs: 180, sm: 160 },
+                            minWidth: { sm: 140 },
+                          }}
+                        >
+                          <LazyImage
+                            src={li.img}
+                            alt={li.name}
+                            width="100%"
+                            height="100%"
+                            objectFit="cover"
+                            placeholderColor="#d9d9d9"
+                          />
+                        </Box>
+                        <Box>
+                          <Typography sx={{ fontWeight: 600, textTransform: "capitalize" }}>
+                            {li.name}
+                            {li.colour ? ` - ${li.colour}` : ""}
+                          </Typography>
+                          <Typography sx={{ mt: 0.5 }}>x {li.quantity}</Typography>
+                          <Typography sx={{ mt: 0.5, color: "#666" }}>Size: {li.size}</Typography>
+                          {li.stock != null && li.quantity > li.stock && (
+                            <Typography sx={{ mt: 0.5, color: "error.main", fontSize: 14 }}>
+                              Only {li.stock} left. Please reduce quantity.
+                            </Typography>
+                          )}
+                          <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mt: 1 }}>
+                            <Button
+                              size="small"
+                              variant="contained"
+                              onClick={() =>
+                                dispatch(
+                                  updateQuantity({
+                                    id: li.id,
+                                    colour: li.colour,
+                                    size: li.size,
+                                    quantity: Math.max(1, li.quantity - 1),
+                                  })
+                                )
+                              }
+                              sx={{
+                                minWidth: 36,
+                                width: 36,
+                                height: 32,
+                                borderRadius: 1,
+                                boxShadow: "none",
+                                backgroundColor: "#D9D9D9",
+                                color: "black",
+                                "&:hover": { backgroundColor: "#C0C0C0", boxShadow: "none" },
+                              }}
+                            >
+                              -
+                            </Button>
+                            <Box
+                              sx={{ px: 1.5, minWidth: 28, textAlign: "center", fontWeight: 600 }}
+                            >
+                              {li.quantity}
+                            </Box>
+                            <Button
+                              size="small"
+                              variant="contained"
+                              onClick={() =>
+                                dispatch(
+                                  updateQuantity({
+                                    id: li.id,
+                                    colour: li.colour,
+                                    size: li.size,
+                                    quantity: li.quantity + 1,
+                                  })
+                                )
+                              }
+                              sx={{
+                                minWidth: 36,
+                                width: 36,
+                                height: 32,
+                                borderRadius: 1,
+                                boxShadow: "none",
+                                backgroundColor: "#D9D9D9",
+                                color: "black",
+                                "&:hover": { backgroundColor: "#C0C0C0", boxShadow: "none" },
+                              }}
+                            >
+                              +
+                            </Button>
+                            <Button
+                              size="small"
+                              onClick={() =>
+                                dispatch(
+                                  removeFromCart({ id: li.id, colour: li.colour, size: li.size })
+                                )
+                              }
+                              sx={{
+                                ml: 1,
+                                color: "#cf2b2b",
+                                textTransform: "uppercase",
+                                fontWeight: 600,
+                                "&:hover": { color: "#a61e1e", backgroundColor: "transparent" },
+                              }}
+                            >
+                              Remove
+                            </Button>
+                          </Box>
+                        </Box>
+                      </Box>
+                      <Typography
+                        sx={{ fontWeight: 500, alignSelf: { xs: "flex-end", sm: "center" } }}
+                      >
+                        ${formatCurrency(li.amount)}
+                      </Typography>
+                    </Box>
+                  ))
                 )}
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    py: 1,
-                  }}
-                >
-                  <Typography>Subtotal</Typography>
-                  <Typography>${formatCurrency(subtotal)}</Typography>
-                </Box>
-                <Divider />
-                {shipping > 0 && (
+              </Box>
+
+              {lineItems.length > 0 && (
+                <Box sx={{ mt: 6 }}>
+                  {hasStockIssue && (
+                    <Alert severity="error" sx={{ mb: 2 }}>
+                      Some items exceed available stock. Please adjust quantities before checkout.
+                    </Alert>
+                  )}
                   <Box
                     sx={{
                       display: "flex",
@@ -326,43 +392,145 @@ const Cart = () => {
                       py: 1,
                     }}
                   >
-                    <Typography>Shipping</Typography>
-                    <Typography>${formatCurrency(shipping)}</Typography>
+                    <Typography>Subtotal</Typography>
+                    <Typography>${formatCurrency(subtotal)}</Typography>
                   </Box>
-                )}
-                <Divider />
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    py: 1,
-                  }}
-                >
-                  <Typography sx={{ fontWeight: 600 }}>Total</Typography>
-                  <Typography sx={{ fontWeight: 600 }}>${formatCurrency(total)}</Typography>
+                  <Divider />
+                  {shipping > 0 && (
+                    <Box
+                      sx={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        py: 1,
+                      }}
+                    >
+                      <Typography>Shipping</Typography>
+                      <Typography>${formatCurrency(shipping)}</Typography>
+                    </Box>
+                  )}
+                  <Divider />
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      py: 1,
+                    }}
+                  >
+                    <Typography sx={{ fontWeight: 600 }}>Total</Typography>
+                    <Typography sx={{ fontWeight: 600 }}>${formatCurrency(total)}</Typography>
+                  </Box>
                 </Box>
+              )}
+            </Box>
+
+            {/* Right: checkout form (white card) */}
+            <Box
+              sx={{
+                width: { xs: "95%" },
+                backgroundColor: "white",
+                p: { xs: 2.5, md: 3 },
+                borderRadius: 2,
+                boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
+              }}
+            >
+              <Typography sx={{ fontWeight: 600, mb: 2 }}>Checkout</Typography>
+              <Box sx={{ display: "flex", gap: 2, flexDirection: { xs: "column", sm: "row" } }}>
+                <TextField
+                  label="First name"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                  fullWidth
+                  required
+                  size="small"
+                />
+                <TextField
+                  label="Last name"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                  fullWidth
+                  required
+                  size="small"
+                />
+              </Box>
+              <Box sx={{ mt: 2 }}>
+                <TextField
+                  label="Email"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  fullWidth
+                  required
+                  size="small"
+                  error={email.length > 0 && !isValidEmail(email)}
+                  helperText={email.length > 0 && !isValidEmail(email) ? "Enter a valid email" : ""}
+                />
+              </Box>
+              <Box sx={{ mt: 2 }}>
+                <TextField
+                  label="UNSW zID"
+                  placeholder="e.g. z1234567"
+                  value={zid}
+                  onChange={(e) => setZid(e.target.value)}
+                  fullWidth
+                  required
+                  size="small"
+                  error={zid.length > 0 && !isValidZid(zid)}
+                  helperText={
+                    zid.length > 0 && !isValidZid(zid) ? "Format: z followed by 7 digits" : ""
+                  }
+                />
               </Box>
 
-              <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 6 }}>
-                <Button
-                  variant="contained"
-                  disabled={hasStockIssue}
-                  sx={{
-                    width: 200,
-                    borderRadius: 2,
-                    backgroundColor: hasStockIssue ? "#999999" : "#323232",
-                    color: "white",
-                    "&:hover": {
-                      backgroundColor: hasStockIssue ? "#999999" : "#404040",
-                    },
-                  }}
-                >
-                  Checkout
-                </Button>
-              </Box>
-            </>
-          )}
+              {formError && (
+                <Alert severity="error" sx={{ mt: 2 }}>
+                  {formError}
+                </Alert>
+              )}
+
+              <Button
+                variant="contained"
+                onClick={handlePayWithStripe}
+                disabled={!isFormValid || hasStockIssue || isCartEmpty || submitting}
+                sx={{
+                  mt: 3,
+                  width: "100%",
+                  borderRadius: 2,
+                  backgroundColor:
+                    !isFormValid || hasStockIssue || isCartEmpty || submitting
+                      ? "#999999"
+                      : "#323232",
+                  color: "white",
+                  "&:hover": {
+                    backgroundColor:
+                      !isFormValid || hasStockIssue || isCartEmpty || submitting
+                        ? "#999999"
+                        : "#404040",
+                  },
+                }}
+              >
+                {submitting ? "Processing…" : "Pay with Stripe"}
+              </Button>
+
+              <Typography
+                sx={{
+                  mt: 2,
+                  color: "#B26A00",
+                  backgroundColor: "#FFF8E1",
+                  borderRadius: 1,
+                  px: 1.5,
+                  py: 0.7,
+                  fontWeight: 500,
+                  fontSize: 14,
+                  lineHeight: 1.7
+                }}
+              >
+                Pickup only: Orders must be collected from an UNSW classroom.
+                Pickup details and time will be emailed to you after purchase.
+              </Typography>
+            </Box>
+          </Box>
         </Box>
       </Box>
       <MerchFooter onLightBackground={true} />

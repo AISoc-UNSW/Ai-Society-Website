@@ -141,7 +141,7 @@ app.post("/create-checkout-session", async (req, res) => {
               size: item.size || "",
             },
           },
-          // Stripe expects integer amount in cents, hardcode the value for testing
+          // Stripe expects integer amount in cents
           unit_amount: Math.round(Number(item.price) * 100),
         },
         quantity: item.quantity || 1,
@@ -152,8 +152,8 @@ app.post("/create-checkout-session", async (req, res) => {
       payment_method_types: ["card"],
       line_items: lineItems,
       mode: "payment",
-      success_url: `${FRONTEND_URL}/cart`, // URL redirect for successful payment
-      cancel_url: `${FRONTEND_URL}/cart`, // URL redirect for cancelled payment
+      success_url: `${FRONTEND_URL}/#cart`, // URL redirect for successful payment
+      cancel_url: `${FRONTEND_URL}/#cart`, // URL redirect for cancelled payment
       customer_email: customerEmail,
       customer_creation: "always", // Always create customer for better tracking
       metadata: {
