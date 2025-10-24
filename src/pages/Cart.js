@@ -166,7 +166,7 @@ const Cart = () => {
         customerZid: zid.trim(),
       };
 
-      const res = await fetch(`${API_BASE}/create-checkout-session`, {
+      const res = await fetch(`${API_BASE}/api/create-checkout-session`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),

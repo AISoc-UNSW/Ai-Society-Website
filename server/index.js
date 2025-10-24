@@ -113,8 +113,8 @@ app.get("/api/products/:id", async (req, res) => {
   }
 });
 
-// POST /create-checkout-session - create Stripe Checkout session with detailed product info
-app.post("/create-checkout-session", async (req, res) => {
+// create Stripe Checkout session with detailed product info
+app.post("/api/create-checkout-session", async (req, res) => {
   try {
     if (!stripe) return res.status(500).json({ error: "Stripe not configured" });
     const { items, customerEmail, customerName, customerZid } = req.body || {};
