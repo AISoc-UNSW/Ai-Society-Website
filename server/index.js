@@ -48,24 +48,34 @@ async function getDb() {
 
 const app = express();
 
-const allowedOrigins = [
-  "https://www.unswaisoc.com", // production
-  "http://localhost:3000", // local dev
-  "https://deploy-preview-31--papaya-twilight-4821fe.netlify.app", // preview
-  // Add more preview URLs if needed, or use a regex below for all Netlify previews.
-];
-
 const corsOptions = {
-  origin(origin, callback) {
-    // allow empty origin (e.g. Dokploy internal or health check)
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
+    origin(origin, callback) {
+      // Allow empty origin (e.g., mobile apps, Postman, server-to-server)
+      if (!origin) {
+        return callback(null, true);
+      }
+      
+      // Allow localhost for development
+      if (origin.includes('localhost')) {
+        return callback(null, true);
+      }
+      
+      // Allow your production domains
+      if (origin.includes('unswaisoc.com')) {
+        return callback(null, true);
+      }
+      
+      // Allow Netlify previews
+      if (origin.includes('netlify.app')) {
+        return callback(null, true);
+      }
+      
+      // Log and reject everything else
+      console.log(`CORS rejected origin: ${origin}`);
       callback(new Error("Not allowed by CORS"));
-    }
-  },
-  credentials: true,
-};
+    },
+    credentials: true,
+  };
 
 app.use(cors(corsOptions));
 app.use(express.json());
