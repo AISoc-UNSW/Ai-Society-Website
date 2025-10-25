@@ -79,40 +79,6 @@ app.get("/health", async (req, res) => {
   }
 });
 
-// GET /api/products - list active products
-app.get("/api/products", async (req, res) => {
-  try {
-    const db = await getDb();
-    const col = db.collection("products");
-    const query = { $or: [{ status: { $exists: false } }, { status: "active" }] };
-    const items = await col.find(query).sort({ createdAt: -1 }).toArray();
-    res.json(items);
-  } catch (e) {
-    res.status(500).json({ error: e?.message || "Failed to fetch products" });
-  }
-});
-
-// GET /api/products/:id - fetch single product by ObjectId
-app.get("/api/products/:id", async (req, res) => {
-  const { id } = req.params;
-  if (!id) return res.status(400).json({ error: "Missing id" });
-  let objectId;
-  try {
-    objectId = new ObjectId(id);
-  } catch (e) {
-    return res.status(400).json({ error: "Invalid id" });
-  }
-  try {
-    const db = await getDb();
-    const col = db.collection("products");
-    const doc = await col.findOne({ _id: objectId });
-    if (!doc) return res.status(404).json({ error: "Not found" });
-    res.json(doc);
-  } catch (e) {
-    res.status(500).json({ error: e?.message || "Failed to fetch product" });
-  }
-});
-
 // create Stripe Checkout session with detailed product info
 app.post("/api/create-checkout-session", async (req, res) => {
   try {
@@ -177,6 +143,40 @@ app.post("/api/create-checkout-session", async (req, res) => {
   } catch (e) {
     console.error("Error creating checkout session:", e);
     res.status(500).json({ error: e?.message || "Failed to create session" });
+  }
+});
+
+// GET /api/products - list active products
+app.get("/api/products", async (req, res) => {
+  try {
+    const db = await getDb();
+    const col = db.collection("products");
+    const query = { $or: [{ status: { $exists: false } }, { status: "active" }] };
+    const items = await col.find(query).sort({ createdAt: -1 }).toArray();
+    res.json(items);
+  } catch (e) {
+    res.status(500).json({ error: e?.message || "Failed to fetch products" });
+  }
+});
+
+// GET /api/products/:id - fetch single product by ObjectId
+app.get("/api/products/:id", async (req, res) => {
+  const { id } = req.params;
+  if (!id) return res.status(400).json({ error: "Missing id" });
+  let objectId;
+  try {
+    objectId = new ObjectId(id);
+  } catch (e) {
+    return res.status(400).json({ error: "Invalid id" });
+  }
+  try {
+    const db = await getDb();
+    const col = db.collection("products");
+    const doc = await col.findOne({ _id: objectId });
+    if (!doc) return res.status(404).json({ error: "Not found" });
+    res.json(doc);
+  } catch (e) {
+    res.status(500).json({ error: e?.message || "Failed to fetch product" });
   }
 });
 
