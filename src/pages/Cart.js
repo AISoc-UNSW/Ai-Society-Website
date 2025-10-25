@@ -205,18 +205,10 @@ const Cart = () => {
           {/* Header */}
           <MerchNavBar items={[{ label: "Home", to: "/merch" }, { label: "Cart" }]} />
 
-          {/* Main content: left (cart), right (checkout form) */}
-          <Box
-            sx={{
-              mt: 6,
-              display: "flex",
-              flexDirection: { xs: "column", md: "row" },
-              alignItems: "flex-start",
-              gap: { xs: 4, md: 6 },
-            }}
-          >
-            {/* Left: cart items and totals */}
-            <Box sx={{ flex: 2, width: "100%" }}>
+          {/* Main content: cart items and totals */}
+          <Box sx={{ mt: 6 }}>
+            {/* Cart items and totals */}
+            <Box sx={{ width: "100%" }}>
               <Box sx={{ display: "flex", flexDirection: "column", gap: 4 }}>
                 {lineItems.length === 0 ? (
                   <Box
@@ -425,10 +417,12 @@ const Cart = () => {
               )}
             </Box>
 
-            {/* Right: checkout form (white card) */}
+            {/* Checkout form (white card) - below cart */}
             <Box
               sx={{
-                width: { xs: "95%" },
+                mt: 6,
+                width: "95%",
+                margin: "48px auto 0 auto",
                 backgroundColor: "white",
                 p: { xs: 2.5, md: 3 },
                 borderRadius: 2,
@@ -523,11 +517,11 @@ const Cart = () => {
                   py: 0.7,
                   fontWeight: 500,
                   fontSize: 14,
-                  lineHeight: 1.7
+                  lineHeight: 1.7,
                 }}
               >
-                Pickup only: Orders must be collected from an UNSW classroom.
-                Pickup details and time will be emailed to you after purchase.
+                Pickup only: Orders must be collected from an UNSW classroom. Pickup details and
+                time will be emailed to you after purchase.
               </Typography>
             </Box>
           </Box>
