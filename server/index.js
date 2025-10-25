@@ -118,9 +118,9 @@ app.post("/api/create-checkout-session", async (req, res) => {
       payment_method_types: ["card"],
       line_items: lineItems,
       mode: "payment",
-      // Append status flags so frontend can react (e.g., clear cart)
-      success_url: `${FRONTEND_URL}/#cart?paid=true`, // URL redirect for successful payment
-      cancel_url: `${FRONTEND_URL}/#cart?canceled=true`, // URL redirect for cancelled payment
+      // Redirect to dedicated success and cancel pages
+      success_url: `${FRONTEND_URL}/#/payment-success`, // URL redirect for successful payment
+      cancel_url: `${FRONTEND_URL}/#/payment-canceled`, // URL redirect for cancelled payment
       customer_email: customerEmail,
       customer_creation: "always", // Always create customer for better tracking
       metadata: {

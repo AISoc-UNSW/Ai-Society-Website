@@ -2,12 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { Box, Button, Divider, Typography, Alert, TextField } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  removeFromCart,
-  selectCartItemsArray,
-  updateQuantity,
-  clearCart,
-} from "../store/cartSlice";
+import { removeFromCart, selectCartItemsArray, updateQuantity } from "../store/cartSlice";
 import LazyImage from "../components/LazyImage";
 import MerchFooter from "../components/MerchFooter";
 import MerchNavBar from "../components/MerchNavBar";
@@ -82,24 +77,6 @@ const Cart = () => {
       document.body.style.backgroundColor = "black";
     };
   }, []);
-
-  // On return from Stripe success redirect, clear cart once and strip the query
-  useEffect(() => {
-    try {
-      const currentHash = window.location.hash || "";
-      const [hashPath, hashQuery = ""] = currentHash.split("?");
-      const params = new URLSearchParams(hashQuery);
-      const isPaid = params.get("paid") === "true";
-      if (isPaid) {
-        dispatch(clearCart());
-        const newHash = hashPath; // remove query to avoid repeating action on refresh
-        const newUrl = `${window.location.pathname}${window.location.search}${newHash}`;
-        window.history.replaceState(null, "", newUrl);
-      }
-    } catch (_) {
-      // No-op: do not block rendering if URL parsing fails
-    }
-  }, [dispatch]);
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -544,7 +521,7 @@ const Cart = () => {
                 }}
               >
                 Pickup only: Orders must be collected from an UNSW classroom. Pickup details and
-                time will be emailed to you after purchase.
+                time will be emailed to you in 1-2 weeks after purchase.
               </Typography>
             </Box>
           </Box>
