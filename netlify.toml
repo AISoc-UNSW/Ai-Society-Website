@@ -1,0 +1,7 @@
+[build]
+  command = "CI=false npm run build"
+  publish = "build"
+
+[build.environment]
+  # This client-side env var is intentionally public; omit it from secrets scan
+  SECRETS_SCAN_OMIT_KEYS = "REACT_APP_API_BASE_URL"

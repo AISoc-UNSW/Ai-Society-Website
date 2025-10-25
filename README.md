@@ -50,10 +50,16 @@ To get a local copy up and running, follow these steps:
    npm install
    ```
 
+   if you encounter any issues, try:
+
+   ```bash
+   npm install --legacy-peer-deps
+   ```
+
 4. **Start the development server:**
 
    ```bash
-   npm start
+   PORT=3000 npm start
    ```
 
 5. **Open your browser and go to:**
@@ -61,6 +67,24 @@ To get a local copy up and running, follow these steps:
    ```
    http://localhost:3000
    ```
+
+## Backend (Node + Express + MongoDB)
+
+Create a `.env` file in the project root with:
+
+```
+REACT_APP_API_BASE_URL=http://localhost:5008
+MONGODB_URI=<your_mongodb_connection_uri>
+MONGODB_DB=<your_db_name>
+PORT=5008
+```
+
+Then run:
+
+```
+npm install --legacy-peer-deps
+npm run server
+```
 
 We also welcome contributions to the project! To contribute, please follow these steps:
 
