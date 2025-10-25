@@ -124,18 +124,27 @@ const ProductDetail = () => {
       <Box sx={{ backgroundColor: "#efefef", py: 5 }}>
         <Box
           sx={{
-            width: "1280px",
+            width: { xs: "100%", lg: "1280px" },
             margin: "0 auto",
             position: "relative",
             display: "flex",
-            justifyContent: "space-between",
-            padding: "0 100px",
+            flexDirection: { xs: "column", md: "row" },
+            justifyContent: { xs: "flex-start", md: "space-between" },
+            alignItems: { xs: "stretch", md: "flex-start" },
+            px: { xs: 2, sm: 4, md: 4, lg: "100px" },
             boxSizing: "border-box",
+            gap: { xs: 4, md: 4, lg: 0 },
           }}
         >
           {/* Header */}
           <MerchNavBar
-            sx={{ position: "absolute", top: 0, left: 0, right: 0, px: "100px" }}
+            sx={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              right: 0,
+              px: { xs: 2, sm: 4, md: 4, lg: "100px" },
+            }}
             items={[
               { label: "Home", to: "/merch" },
               { label: "Cart", to: "/cart" },
@@ -143,8 +152,8 @@ const ProductDetail = () => {
           />
 
           {/* Image Gallery */}
-          <Box sx={{ width: "617px", mt: 10 }}>
-            <Box sx={{ mb: 2, width: "617px", height: "864px" }}>
+          <Box sx={{ width: { xs: "100%", md: "55%", lg: "617px" }, mt: { xs: 12, md: 10 } }}>
+            <Box sx={{ mb: 2, width: "100%", height: { xs: 640, md: 720, lg: 864 } }}>
               <LazyImage
                 src={mainImage}
                 alt="product"
@@ -154,11 +163,16 @@ const ProductDetail = () => {
                 placeholderColor="#d9d9d9"
               />
             </Box>
-            <Box sx={{ display: "flex", gap: "10px" }}>
+            <Box sx={{ display: "flex", gap: "10px", overflowX: "auto", pb: 1 }}>
               {(product.imgs || []).map((img, index) => (
                 <Box
                   key={index}
-                  sx={{ cursor: "pointer", width: "153px", height: "156px" }}
+                  sx={{
+                    cursor: "pointer",
+                    flex: "0 0 auto",
+                    width: { xs: 80, sm: 120, md: 120, lg: 153 },
+                    height: { xs: 82, sm: 120, md: 122, lg: 156 },
+                  }}
                   onClick={() => setMainImage(img)}
                 >
                   <LazyImage
@@ -177,11 +191,11 @@ const ProductDetail = () => {
           {/* Product Info */}
           <Box
             sx={{
-              width: "40%",
-              mt: 10,
-              ml: 5,
+              width: { xs: "100%", md: "45%", lg: "40%" },
+              mt: { xs: 4, md: 10 },
+              ml: { xs: 0, md: 0, lg: 5 },
               position: "relative",
-              pb: 10,
+              pb: { xs: 6, md: 10 },
               textTransform: "capitalize",
             }}
           >
@@ -236,15 +250,17 @@ const ProductDetail = () => {
             <Typography
               onClick={() => setSizeGuideOpen(true)}
               sx={{
-                position: "absolute",
-                right: "118px",
+                position: { xs: "static", md: "static", lg: "absolute" },
+                right: { lg: "118px" },
                 color: "#000",
-                fontSize: "15px",
+                fontSize: { xs: "14px", md: "15px" },
                 fontWeight: 510,
                 letterSpacing: "-0.75px",
                 textDecoration: "underline",
                 cursor: "pointer",
                 mb: 3,
+                mt: { xs: -1, md: 0 },
+                alignSelf: { xs: "flex-start", md: "auto" },
                 "&:hover": {
                   opacity: 0.7,
                 },
@@ -290,14 +306,15 @@ const ProductDetail = () => {
               sx={{
                 backgroundColor: "#323232",
                 color: "white",
-                width: "452px",
-                height: "105px",
-                borderRadius: "17px",
-                fontSize: "16px",
+                width: { xs: "100%", md: "100%", lg: "452px" },
+                height: { xs: 56, md: 72, lg: 105 },
+                borderRadius: { xs: "10px", md: "12px", lg: "17px" },
+                fontSize: { xs: "15px", md: "16px" },
                 fontWeight: "bold",
                 "&:hover": {
                   backgroundColor: "#404040",
                 },
+                mt: { xs: 2, md: 0 },
               }}
             >
               ADD TO CART
