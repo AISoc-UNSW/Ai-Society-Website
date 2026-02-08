@@ -6,9 +6,6 @@ import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 
 import Typography from "@mui/material/Typography";
-import img19 from "../assets/watchtower/19.webp";
-import img20 from "../assets/watchtower/20.webp";
-import img23 from "../assets/watchtower/23.webp";
 import img28 from "../assets/watchtower/28.webp";
 import img29 from "../assets/watchtower/29.webp";
 import img30 from "../assets/watchtower/30.webp";
@@ -24,54 +21,33 @@ const cardData = [
     author: "By AI Society Education Team",
     date: "June 05, 2025",
     img: img32,
-    link: "https://aisocthewatchtower.beehiiv.com/p/the-turing-point-32nd-edition",
+    link: "https://aisocturingpoint.beehiiv.com/p/the-turing-point-32nd-edition",
   },
   {
     title: "Rise of Autonomous Agents and a Huge Week for Open Source",
     author: "By AI Society Education Team",
     date: "March 29, 2025",
     img: img30,
-    link: "https://aisocthewatchtower.beehiiv.com/p/the-turing-point-30th-edition",
+    link: "https://aisocturingpoint.beehiiv.com/p/the-turing-point-30th-edition",
   },
   {
     title: "Grok 3, Claude 3.7, and GPT-4.5: The AI Titans Redefining Intelligence",
     author: "By AI Society Education Team",
     date: "March 08, 2025",
     img: img29,
-    link: "https://aisocthewatchtower.beehiiv.com/p/the-turing-point-29th-edition",
+    link: "https://aisocturingpoint.beehiiv.com/p/the-turing-point-29th-edition",
   },
   {
     title: "2024: The Year AI Took Center Stage (Recap Edition)",
     author: "By AI Society Education Team",
     date: "February 13, 2025",
     img: img28,
-    link: "https://aisocthewatchtower.beehiiv.com/p/the-watchtower-28th-edition-2024-recap",
-  },
-  {
-    title: "YOLOv10",
-    author: "By AI Society Education Team",
-    date: "July 29, 2024",
-    img: img23,
-    link: "https://aisocthewatchtower.beehiiv.com/p/watchtower-23rd-edition",
-  },
-  {
-    title: "How Physics Is Revolutionizing AI Image Generation",
-    author: "By Ziming Gong",
-    date: "July 08 2024",
-    img: img20,
-    link: "https://aisocthewatchtower.beehiiv.com/p/watchtower-20th-edition",
-  },
-  {
-    title: "The Bitter Lesson - Computation over Cognition",
-    author: "By Jonas Macken",
-    date: "July 01 2024",
-    img: img19,
-    link: "https://aisocthewatchtower.beehiiv.com/p/watchtower-19th-edition",
+    link: "https://aisocturingpoint.beehiiv.com/p/the-watchtower-28th-edition-2024-recap",
   },
 ];
 
 function handleClick() {
-  window.location.href = "https://aisocthewatchtower.beehiiv.com";
+  window.location.href = "https://aisocturingpoint.beehiiv.com/";
 }
 
 const NewsLetter = () => {
