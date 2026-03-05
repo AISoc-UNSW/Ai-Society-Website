@@ -42,20 +42,29 @@ function formatCurrency(value) {
 async function fetchProductsByIds(ids, signal) {
   const API_BASE = process.env.REACT_APP_API_BASE_URL || "http://localhost:5008";
   const results = {};
-  for (const id of ids) {
+  // Fetch all products in parallel with per-request timeout
+  const promises = ids.map(async (id) => {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 10000);
+    // Also abort if the parent signal fires
+    const onParentAbort = () => controller.abort();
+    signal.addEventListener("abort", onParentAbort);
     try {
-      const res = await fetch(`${API_BASE}/api/products/${id}`, { signal });
+      const res = await fetch(`${API_BASE}/api/products/${id}`, { signal: controller.signal });
       if (res.ok) {
         const data = await res.json();
         results[id] = data;
       }
     } catch (e) {
-      // Rethrow abort so caller can silently ignore it; ignore other per-id errors
-      if (e && e.name === "AbortError") {
+      if (e && e.name === "AbortError" && signal.aborted) {
         throw e;
       }
+    } finally {
+      clearTimeout(timeoutId);
+      signal.removeEventListener("abort", onParentAbort);
     }
-  }
+  });
+  await Promise.all(promises);
   return results;
 }
 
@@ -166,11 +175,15 @@ const Cart = () => {
         customerZid: zid.trim(),
       };
 
+      const checkoutController = new AbortController();
+      const checkoutTimeout = setTimeout(() => checkoutController.abort(), 15000);
       const res = await fetch(`${API_BASE}/api/create-checkout-session`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
+        signal: checkoutController.signal,
       });
+      clearTimeout(checkoutTimeout);
       if (!res.ok) {
         const err = await res.json().catch(() => ({}));
         throw new Error(err?.error || "Failed to create session");

@@ -44,6 +44,9 @@ const ProductDetail = () => {
     const API_BASE = process.env.REACT_APP_API_BASE_URL || "http://localhost:5008";
     const url = `${API_BASE}/api/products/${id}`;
 
+    // Timeout to prevent hanging forever when API is unreachable
+    const timeoutId = setTimeout(() => abortController.abort(), 10000);
+
     async function fetchProduct() {
       try {
         setLoading(true);
@@ -61,12 +64,16 @@ const ProductDetail = () => {
         // In case of error, keep product null so UI shows not found
         setProduct(null);
       } finally {
+        clearTimeout(timeoutId);
         setLoading(false);
       }
     }
 
     fetchProduct();
-    return () => abortController.abort();
+    return () => {
+      clearTimeout(timeoutId);
+      abortController.abort();
+    };
   }, [id]);
 
   useEffect(() => {

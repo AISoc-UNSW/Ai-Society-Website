@@ -1,4 +1,4 @@
-import { Box, Typography, useTheme, useMediaQuery, Grid } from "@mui/material";
+import { Box, Typography, useTheme, useMediaQuery, Grid, Alert, Button } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import MerchFooter from "../components/MerchFooter";
@@ -27,6 +27,9 @@ const Shop = () => {
     const API_BASE = process.env.REACT_APP_API_BASE_URL || "http://localhost:5008";
     const url = `${API_BASE}/api/products`;
 
+    // Timeout to prevent hanging forever when API is unreachable
+    const timeoutId = setTimeout(() => abortController.abort(), 10000);
+
     async function fetchProducts() {
       try {
         setIsLoading(true);
@@ -40,16 +43,22 @@ const Shop = () => {
           : [];
         setProducts(activeProducts);
       } catch (err) {
-        if (err.name !== "AbortError") {
+        if (err.name === "AbortError") {
+          setError("Unable to reach the server. Please try again later.");
+        } else {
           setError(err.message || "Failed to load products");
         }
       } finally {
+        clearTimeout(timeoutId);
         setIsLoading(false);
       }
     }
 
     fetchProducts();
-    return () => abortController.abort();
+    return () => {
+      clearTimeout(timeoutId);
+      abortController.abort();
+    };
   }, []);
 
   function extractPrice(price) {
@@ -161,7 +170,21 @@ const Shop = () => {
               },
             }}
           >
-            {error && <Typography sx={{ color: "#b00020", px: 2 }}>{error}</Typography>}
+            {error && (
+              <Grid item xs={12}>
+                <Alert
+                  severity="error"
+                  sx={{ mb: 2 }}
+                  action={
+                    <Button color="inherit" size="small" onClick={() => window.location.reload()}>
+                      Retry
+                    </Button>
+                  }
+                >
+                  {error}
+                </Alert>
+              </Grid>
+            )}
             {products.map((product) => (
               <Grid
                 item
