@@ -26,7 +26,7 @@ const cardData = [
     link: "https://aisocturingpoint.beehiiv.com/p/the-turing-point-2026-version-two",
   },
   {
-    title: "Google redfining Mathematics, Global AI Shortages",
+    title: "Google redfining Mathematics, Global RAM Shortages",
     author: "AISociety Education",
     date: "February 8, 2026",
     img: img35,
