@@ -27,8 +27,8 @@ function App() {
           <Route path="/payment-canceled" element={<PaymentCanceled />} />
 
           {/* Admin Routes */}
-          <Route path="/#/admin" element={<AdminLogin />} />
-          <Route path="/#/admin/dashboard" element={<AdminDashboard />} />
+          <Route path="/admin" element={<AdminLogin />} />
+          <Route path="/admin/dashboard" element={<AdminDashboard />} />
 
         </Routes>
       </HashRouter>
