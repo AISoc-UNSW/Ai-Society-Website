@@ -5,7 +5,7 @@ import "slick-carousel/slick/slick-theme.css";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, Typography, Button } from "@mui/material";
 import Reveal from "../util/Reveal";
-import defaultEvent from "../assets/build.webp";
+import defaultEvent from "../assets/coming-soon.webp";
 
 const useCarouselStyles = makeStyles({
   dotContainer: {
@@ -165,7 +165,7 @@ const Events = () => {
                 padding: "12px 30px",
               }}
             >
-              View & Register
+              View Our Events
             </Button>
           </Box>
         </Reveal>
