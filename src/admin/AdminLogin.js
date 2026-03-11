@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { auth } from "../firebase/firebaseConfig";
+import { auth } from "../firebase/firebaseconfig";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { Button, Box, Typography, Paper } from "@mui/material";
 
