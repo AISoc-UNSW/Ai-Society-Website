@@ -6,7 +6,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Box, Typography, Button } from "@mui/material";
 import Reveal from "../util/Reveal";
 import defaultEvent from "../assets/build.webp";
-import munchAndMonet from "../assets/mAm.webp"; 
 
 const useCarouselStyles = makeStyles({
   dotContainer: {
@@ -43,7 +42,11 @@ Future events example:
 import hackathon from "../assets/hackathon.webp";
 
 const imageData = [
-  { src: hackathon, alt: "AI Hackathon" },
+  {
+    src: hackathon,
+    alt: "AI Hackathon",
+    link: "https://campus.hellorubric.com/event/12345"
+  }
 ];
 */
 
@@ -51,11 +54,10 @@ const imageData = [
   {
     src: defaultEvent,
     alt: "AI Society Events",
+    link: "https://campus.hellorubric.com/?s=12437",
+    description: "Subscribe to more of our events!"
   },
-  {
-    src: munchAndMonet,
-    alt: "Munch and Monet"
-  }
+  
 ];
 
 const Events = () => {
@@ -115,51 +117,56 @@ const Events = () => {
                 <Box
                   key={index}
                   sx={{
-                    position: "relative",
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
                   }}
                 >
-                  <img
-                    src={image.src}
-                    alt={image.alt}
-                    style={{
-                      margin: "0 auto",
-                      maxWidth: "100%",
-                      height: "auto",
-                      maxHeight: "40vh",
-                      objectFit: "contain",
-                    }}
-                  />
-
-                  {/* Overlay CTA */}
-                  <Box
-                    sx={{
-                      position: "absolute",
-                      bottom: "20px",
-                      left: "50%",
-                      transform: "translateX(-50%)",
-                    }}
+                  <a
+                    href={image.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ display: "block" }}
                   >
-                    <Button
-                      variant="contained"
-                      size="large"
-                      href="https://campus.hellorubric.com/?s=12437"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      sx={{
-                        fontFamily: "Ubuntu Sans",
-                        fontSize: "18px",
-                        padding: "12px 30px",
+                    <img
+                      src={image.src}
+                      alt={image.alt}
+                      style={{
+                        margin: "0 auto",
+                        maxWidth: "100%",
+                        height: "auto",
+                        maxHeight: "40vh",
+                        objectFit: "contain",
+                        cursor: "pointer",
                       }}
-                    >
-                      View & Register
-                    </Button>
-                  </Box>
+                    />
+                  </a>
                 </Box>
               ))}
             </Slider>
+          </Box>
+
+          {/* CTA Button */}
+          <Box
+            sx={{
+              textAlign: "center",
+              marginTop: "40px",
+            }}
+          >
+            <Button
+              variant="contained"
+              size="large"
+              href="https://campus.hellorubric.com/?s=12437"
+              target="_blank"
+              rel="noopener noreferrer"
+              sx={{
+                fontFamily: "Ubuntu Sans",
+                fontSize: "18px",
+                padding: "12px 30px",
+              }}
+            >
+              View & Register
+            </Button>
           </Box>
         </Reveal>
       </Box>
