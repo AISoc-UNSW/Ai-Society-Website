@@ -1,6 +1,5 @@
 import React from "react";
 import { Box, Typography, Button } from "@mui/material";
-// import build from "../assets/build.webp";
 import AISoc from "../assets/aisoc-group-photo.webp";
 import Reveal from "../util/Reveal";
 import SocialMediaIcons from "../util/Icons";
