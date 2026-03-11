@@ -5,7 +5,8 @@ import "slick-carousel/slick/slick-theme.css";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, Typography, Button } from "@mui/material";
 import Reveal from "../util/Reveal";
-import defaultEvent from "../assets/build.webp"; // placeholder image
+import defaultEvent from "../assets/build.webp";
+import munchAndMonet from "../assets/mAm.webp"; 
 
 const useCarouselStyles = makeStyles({
   dotContainer: {
@@ -51,6 +52,10 @@ const imageData = [
     src: defaultEvent,
     alt: "AI Society Events",
   },
+  {
+    src: munchAndMonet,
+    alt: "Munch and Monet"
+  }
 ];
 
 const Events = () => {
