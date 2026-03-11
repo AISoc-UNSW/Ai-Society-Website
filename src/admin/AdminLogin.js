@@ -4,6 +4,9 @@ import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { Button, Box, Typography, Paper } from "@mui/material";
 
 const allowedPattern = /^unswai\.soc\..+@unsw\.edu\.au$/;
+const allowedTestEmails = [
+  "sinsuasti95@gmail.com",
+];
 
 function AdminLogin() {
   const [error, setError] = useState("");
@@ -18,7 +21,7 @@ function AdminLogin() {
 
       const user = result.user;
 
-      if (!allowedPattern.test(user.email)) {
+      if (!allowedPattern.test(user.email) && !allowedTestEmails.test(user.email)) {
         await auth.signOut();
         setError(
           "This email is not authorized to access the AISoc admin dashboard."
