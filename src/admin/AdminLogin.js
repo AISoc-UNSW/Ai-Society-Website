@@ -3,9 +3,12 @@ import { auth } from "../firebase/firebaseconfig";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { Button, Box, Typography, Paper } from "@mui/material";
 
+// AISoc admin email pattern
 const allowedPattern = /^unswai\.soc\..+@unsw\.edu\.au$/;
+
+// Add your email here for testing
 const allowedTestEmails = [
-  "sinsuasti95@gmail.com",
+  "sinsuasti95@gmail.com"
 ];
 
 function AdminLogin() {
@@ -14,28 +17,36 @@ function AdminLogin() {
   const handleLogin = async () => {
     try {
       const provider = new GoogleAuthProvider();
-      provider.setCustomParameters({
-      prompt: "select_account"
-      });
-      const result = await signInWithPopup(auth, provider);
 
+      // Force account selection every login
+      provider.setCustomParameters({
+        prompt: "select_account",
+      });
+
+      const result = await signInWithPopup(auth, provider);
       const user = result.user;
 
-      if (!allowedPattern.test(user.email) && !allowedTestEmails.test(user.email)) {
+      console.log("Logged in user:", user);
+      console.log("Logged in email:", user.email);
+
+      const email = user.email.toLowerCase();
+
+      if (
+        !allowedPattern.test(email) &&
+        !allowedTestEmails.includes(email)
+      ) {
         await auth.signOut();
+
         setError(
           "This email is not authorized to access the AISoc admin dashboard."
         );
 
-        setTimeout(() => {
-          window.location.reload();
-        }, 2500);
-
         return;
       }
 
-      // successful login
+      // Success → redirect to dashboard
       window.location.href = "/#/admin/dashboard";
+
     } catch (err) {
       console.error(err);
       setError("Login failed. Please try again.");
@@ -83,7 +94,6 @@ function AdminLogin() {
             sx={{
               color: "#ff6b6b",
               marginTop: "20px",
-              textAlign: "center",
             }}
           >
             {error}
