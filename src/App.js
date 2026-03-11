@@ -7,6 +7,10 @@ import Shop from "./pages/Shop";
 import Cart from "./pages/Cart";
 import PaymentSuccess from "./pages/PaymentSuccess";
 import PaymentCanceled from "./pages/PaymentCanceled";
+
+import AdminLogin from "./admin/AdminLogin";
+import AdminDashboard from "./admin/AdminDashboard";
+
 function App() {
   return (
     <div className="App">
@@ -21,6 +25,11 @@ function App() {
           <Route path="/product/:id" element={<ProductDetail />} />
           <Route path="/payment-success" element={<PaymentSuccess />} />
           <Route path="/payment-canceled" element={<PaymentCanceled />} />
+
+          {/* Admin Routes */}
+          <Route path="/#/admin" element={<AdminLogin />} />
+          <Route path="/#/admin/dashboard" element={<AdminDashboard />} />
+
         </Routes>
       </HashRouter>
     </div>
