@@ -1,6 +1,7 @@
 import React from "react";
 import { Box, Typography, Button } from "@mui/material";
-import build from "../assets/build.webp";
+// import build from "../assets/build.webp";
+import AISoc from "../assets/aisoc-group-photo.webp";
 import Reveal from "../util/Reveal";
 import SocialMediaIcons from "../util/Icons";
 
@@ -87,11 +88,11 @@ const About = () => {
               }}
             >
               <img
-                src={build}
+                src={AISoc}
                 style={{
                   width: "100%",
                 }}
-                alt="build"
+                alt="AISoc"
               />
             </Box>
           </Box>
