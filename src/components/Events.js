@@ -3,10 +3,9 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { makeStyles } from "@material-ui/core/styles";
-import { Box, Typography } from "@mui/material";
-import llm_workshop from "../assets/llm-workshop.webp";
-import bbq from "../assets/bbq.webp";
+import { Box, Typography, Button } from "@mui/material";
 import Reveal from "../util/Reveal";
+import defaultEvent from "../assets/build.webp"; // placeholder image
 
 const useCarouselStyles = makeStyles({
   dotContainer: {
@@ -14,7 +13,7 @@ const useCarouselStyles = makeStyles({
       "& li": {
         marginRight: "45px",
         "&:last-child": {
-          marginRight: 0, // Remove the right margin for the last dot
+          marginRight: 0,
         },
         "& button": {
           "&:before": {
@@ -36,28 +35,22 @@ const useCarouselStyles = makeStyles({
     },
   },
 });
+
+/*
+Future events example:
+
+import hackathon from "../assets/hackathon.webp";
+
+const imageData = [
+  { src: hackathon, alt: "AI Hackathon" },
+];
+*/
+
 const imageData = [
   {
-    src: bbq,
-    alt: "Image 1",
+    src: defaultEvent,
+    alt: "AI Society Events",
   },
-  {
-    src: llm_workshop,
-    alt: "Image 2",
-  },
-
-  // {
-  //     src: "https://cdn.discordapp.com/emojis/876294478640594974.gif?size=512",
-  //     alt: "Image 3",
-  // },
-  // {
-  //     src: "https://cdn.discordapp.com/emojis/1142664037910454283.gif?size=96&quality=lossless",
-  //     alt: "Image 3",
-  // },
-  // {
-  //     src: "https://cdn.discordapp.com/emojis/1210125145101041685.gif?size=96&quality=lossless",
-  //     alt: "Image 3",
-  // },
 ];
 
 const Events = () => {
@@ -66,12 +59,11 @@ const Events = () => {
   const settings = {
     dots: true,
     arrows: false,
-    infinite: true,
+    infinite: false,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 3000,
+    autoplay: false,
     pauseOnHover: true,
     className: classes.dotContainer,
   };
@@ -82,7 +74,6 @@ const Events = () => {
         id="events"
         sx={{
           padding: "5% 10% 5% 10%",
-          // backgroundColor: "#000033",
           color: "white",
         }}
       >
@@ -98,35 +89,31 @@ const Events = () => {
             >
               Discover
             </Typography>
+
             <Typography
               gutterBottom
               sx={{
-                marginBottom: "15px",
+                marginBottom: "30px",
                 fontFamily: "Ubuntu Sans",
                 fontSize: "20px",
                 color: "rgba(255, 255, 255, 0.8)",
               }}
             >
               Stay updated with the latest events, lectures, and meetings
-              related to artifical intelligence.
+              related to artificial intelligence.
             </Typography>
           </Box>
 
-          <Box
-            sx={{
-              margin: "0 5vw",
-            }}
-          >
+          <Box sx={{ margin: "0 5vw" }}>
             <Slider {...settings}>
               {imageData.map((image, index) => (
                 <Box
                   key={index}
                   sx={{
+                    position: "relative",
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
-                    margin: 0,
-                    // height: "auto",
                   }}
                 >
                   <img
@@ -137,9 +124,34 @@ const Events = () => {
                       maxWidth: "100%",
                       height: "auto",
                       maxHeight: "40vh",
-                      objectFit: "contain", // Preserve aspect ratio
+                      objectFit: "contain",
                     }}
                   />
+
+                  {/* Overlay CTA */}
+                  <Box
+                    sx={{
+                      position: "absolute",
+                      bottom: "20px",
+                      left: "50%",
+                      transform: "translateX(-50%)",
+                    }}
+                  >
+                    <Button
+                      variant="contained"
+                      size="large"
+                      href="https://campus.hellorubric.com/?s=12437"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      sx={{
+                        fontFamily: "Ubuntu Sans",
+                        fontSize: "18px",
+                        padding: "12px 30px",
+                      }}
+                    >
+                      View & Register
+                    </Button>
+                  </Box>
                 </Box>
               ))}
             </Slider>
