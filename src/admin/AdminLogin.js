@@ -6,7 +6,7 @@ import { Button, Box, Typography, Paper } from "@mui/material";
 const allowedPattern = /^unswai\.soc\..+@gmail.com$/;
 
 const allowedTestEmails = [
-  "sinsuasti95@gmail.com"
+  // "sinsuasti95@gmail.com"
 ];
 
 function AdminLogin() {
