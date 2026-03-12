@@ -151,12 +151,12 @@ const NewsLetter = () => {
                     <CardMedia
                       component="img"
                       alt={card.title}
-                      height={{ xs: "70vh" }}
                       image={card.img}
                       sx={{
-                        maxHeight: "60%",
-                        objectFit: "cover",
-                        filter: "brightness(0.9)", // Slightly reduce the brightness of the image
+                        height: "220px",          // fixed height
+                        width: "100%",
+                        objectFit: "cover",       // crops evenly
+                        filter: "brightness(0.9)"
                       }}
                     />
                     <CardContent>
