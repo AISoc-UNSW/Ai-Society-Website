@@ -3,7 +3,7 @@ import { auth } from "../firebase/firebaseconfig";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { Button, Box, Typography, Paper } from "@mui/material";
 
-const allowedPattern = /^unswai\.soc\..+@unsw\.edu\.au$/;
+const allowedPattern = /^unswai\.soc\..+@gmail.com$/;
 
 const allowedTestEmails = [
   "sinsuasti95@gmail.com"

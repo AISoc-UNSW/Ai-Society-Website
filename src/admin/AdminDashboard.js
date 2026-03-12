@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import { Box, Typography, TextField, Button, Paper } from "@mui/material";
+import { Box, Typography, TextField, Button, Paper, Select, MenuItem, FormControl, InputLabel } from "@mui/material";
+import { signOut } from "firebase/auth";
+import { auth } from "../firebase/firebaseconfig";
 
 function AdminDashboard() {
 
@@ -8,6 +10,9 @@ function AdminDashboard() {
   const [time, setTime] = useState("");
   const [link, setLink] = useState("");
   const [imageURL, setImageURL] = useState("");
+  const [priority, setPriority] = useState("");
+  const [requestedBy, setRequestedBy] = useState("");
+
   const [status, setStatus] = useState("");
   const [submitted, setSubmitted] = useState(false);
 
@@ -23,7 +28,7 @@ function AdminDashboard() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!title || !date || !time || !link || !imageURL) {
+    if (!title || !date || !time || !link || !imageURL || !priority || !requestedBy) {
       setStatus("Please fill in all required fields.");
       return;
     }
@@ -50,7 +55,7 @@ function AdminDashboard() {
 
     try {
 
-      const webhookURL = "YOUR_DISCORD_WEBHOOK_URL";
+      const webhookURL = "https://discordapp.com/api/webhooks/1481530466136883263/d_J77WyQZ_lOBkzup1FeI9LbF-F_5VK-mcb02hNMMqbq-xQ5Lc-0IDW-qCTJCfv1Mjui";
 
       await fetch(webhookURL, {
         method: "POST",
@@ -66,6 +71,8 @@ function AdminDashboard() {
                 { name: "Event Title", value: title },
                 { name: "Date", value: date },
                 { name: "Time", value: time },
+                { name: "Priority", value: priority },
+                { name: "Requested By", value: requestedBy },
                 { name: "Rubric Link", value: link },
                 { name: "Banner Image URL", value: imageURL }
               ]
@@ -91,10 +98,17 @@ function AdminDashboard() {
     setTime("");
     setLink("");
     setImageURL("");
+    setPriority("");
+    setRequestedBy("");
   };
 
-  const handleLogout = () => {
-    window.location.href = "/#/admin";
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      window.location.href = "/";
+    } catch (err) {
+      console.error("Logout failed:", err);
+    }
   };
 
   return (
@@ -147,9 +161,19 @@ function AdminDashboard() {
         ) : (
 
           <>
-            <Typography variant="h4" sx={{ mb: 1 }}>
-              Create Event
-            </Typography>
+            <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 2 }}>
+              <Typography variant="h4">
+                Create Event
+              </Typography>
+
+              <Button
+                variant="outlined"
+                size="small"
+                onClick={handleLogout}
+              >
+                Log Out
+              </Button>
+            </Box>
 
             <Typography
               variant="body1"
@@ -192,6 +216,35 @@ function AdminDashboard() {
                 value={time}
                 onChange={(e) => setTime(e.target.value)}
               />
+
+              <FormControl fullWidth sx={{ mb: 3 }}>
+                <InputLabel>Priority</InputLabel>
+                <Select
+                  value={priority}
+                  label="Priority"
+                  onChange={(e) => setPriority(e.target.value)}
+                >
+                  <MenuItem value="Low">Low</MenuItem>
+                  <MenuItem value="Medium">Medium</MenuItem>
+                  <MenuItem value="High">High</MenuItem>
+                </Select>
+              </FormControl>
+
+              <FormControl fullWidth sx={{ mb: 3 }}>
+                <InputLabel>Requested By</InputLabel>
+                <Select
+                  value={requestedBy}
+                  label="Requested By"
+                  onChange={(e) => setRequestedBy(e.target.value)}
+                >
+                  <MenuItem value="Events">Events</MenuItem>
+                  <MenuItem value="Creatives">Creatives</MenuItem>
+                  <MenuItem value="Partnerships">Partnerships</MenuItem>
+                  <MenuItem value="HR">HR</MenuItem>
+                  <MenuItem value="Education">Education</MenuItem>
+                  <MenuItem value="Projects">Projects</MenuItem>
+                </Select>
+              </FormControl>
 
               <TextField
                 label="Rubric Event Link"
