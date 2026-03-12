@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -6,6 +6,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Box, Typography, Button } from "@mui/material";
 import Reveal from "../util/Reveal";
 import defaultEvent from "../assets/coming-soon.webp";
+
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../firebase/firebaseconfig";
 
 const useCarouselStyles = makeStyles({
   dotContainer: {
@@ -36,41 +39,80 @@ const useCarouselStyles = makeStyles({
   },
 });
 
-/*
-Future events example:
-
-import hackathon from "../assets/hackathon.webp";
-
-const imageData = [
-  {
-    src: hackathon,
-    alt: "AI Hackathon",
-    link: "https://campus.hellorubric.com/event/12345"
-  }
-];
-*/
-
-const imageData = [
-  {
-    src: defaultEvent,
-    alt: "AI Society Events",
-    link: "https://campus.hellorubric.com/?s=12437",
-    description: "Subscribe to more of our events!"
-  },
-  
-];
-
 const Events = () => {
+
   const classes = useCarouselStyles();
+
+  const [imageData, setImageData] = useState([
+    {
+      src: defaultEvent,
+      alt: "AI Society Events",
+      link: "https://campus.hellorubric.com/?s=12437",
+      title: "AI Society Events",
+      date: "",
+      time: ""
+    }
+  ]);
+
+  useEffect(() => {
+
+    const loadEvents = async () => {
+
+      try {
+
+        const snapshot = await getDocs(collection(db, "events"));
+
+        const events = snapshot.docs.map(doc => doc.data());
+
+        if (!events.length) return;
+
+        const now = new Date();
+
+        const upcomingEvents = events
+          .map(event => ({
+            ...event,
+            eventDate: new Date(`${event.date}T${event.time}`)
+          }))
+          .filter(event => event.eventDate >= now)
+          .sort((a, b) => a.eventDate - b.eventDate);
+
+        if (!upcomingEvents.length) return;
+
+        const formatted = upcomingEvents.map(event => ({
+          src: event.image,
+          alt: event.title,
+          link: event.link,
+          title: event.title,
+          date: new Date(event.date).toLocaleDateString("en-AU", {
+            day: "numeric",
+            month: "short",
+            year: "numeric"
+          }),
+          time: event.time
+        }));
+
+        setImageData(formatted);
+
+      } catch (err) {
+
+        console.error("Failed to load events:", err);
+
+      }
+
+    };
+
+    loadEvents();
+
+  }, []);
 
   const settings = {
     dots: true,
     arrows: false,
-    infinite: false,
+    infinite: true,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-    autoplay: false,
+    autoplay: true,
     pauseOnHover: true,
     className: classes.dotContainer,
   };
@@ -118,35 +160,130 @@ const Events = () => {
                   key={index}
                   sx={{
                     display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
+                    flexDirection: "column",
+                    alignItems: "center"
                   }}
                 >
+
                   <a
                     href={image.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    style={{ display: "block" }}
+                    style={{
+                      display: "block",
+                      textDecoration: "none"
+                    }}
                   >
-                    <img
-                      src={image.src}
-                      alt={image.alt}
-                      style={{
-                        margin: "0 auto",
-                        maxWidth: "100%",
-                        height: "auto",
-                        maxHeight: "40vh",
-                        objectFit: "contain",
-                        cursor: "pointer",
+
+                    <Box
+                      sx={{
+                        position: "relative",
+                        "&:hover .overlay": {
+                          opacity: 1
+                        },
+                        "&:hover .caption": {
+                          opacity: 0
+                        }
                       }}
-                    />
+                    >
+
+                      <img
+                        src={image.src}
+                        alt={image.alt}
+                        style={{
+                          margin: "0 auto",
+                          maxWidth: "100%",
+                          height: "auto",
+                          maxHeight: "40vh",
+                          objectFit: "contain",
+                          cursor: "pointer"
+                        }}
+                      />
+
+                      {/* Hover overlay */}
+                      <Box
+                        className="overlay"
+                        sx={{
+                          position: "absolute",
+                          top: 0,
+                          left: 0,
+                          width: "100%",
+                          height: "100%",
+                          background: "rgba(0,0,0,0.65)",
+                          display: "flex",
+                          flexDirection: "column",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          textAlign: "center",
+                          color: "white",
+                          opacity: 0,
+                          transition: "opacity 0.25s ease"
+                        }}
+                      >
+
+                        <Typography
+                          sx={{
+                            fontFamily: "Ubuntu Sans",
+                            fontWeight: "bold",
+                            fontSize: "18px"
+                          }}
+                        >
+                          {image.title}
+                        </Typography>
+
+                        <Typography
+                          sx={{
+                            fontFamily: "Ubuntu Sans",
+                            fontSize: "15px"
+                          }}
+                        >
+                          {image.date} • {image.time}
+                        </Typography>
+
+                      </Box>
+
+                    </Box>
+
                   </a>
+
+                  {/* Caption below image */}
+                  <Box
+                    className="caption"
+                    sx={{
+                      marginTop: "8px",
+                      textAlign: "center",
+                      transition: "opacity 0.25s ease"
+                    }}
+                  >
+
+                    <Typography
+                      sx={{
+                        fontFamily: "Ubuntu Sans",
+                        fontWeight: "bold",
+                        fontSize: "16px",
+                        color: "white"
+                      }}
+                    >
+                      {image.title}
+                    </Typography>
+
+                    <Typography
+                      sx={{
+                        fontFamily: "Ubuntu Sans",
+                        fontSize: "14px",
+                        color: "white"
+                      }}
+                    >
+                      {image.date} • {image.time}
+                    </Typography>
+
+                  </Box>
+
                 </Box>
               ))}
             </Slider>
           </Box>
 
-          {/* CTA Button */}
           <Box
             sx={{
               textAlign: "center",
@@ -168,6 +305,7 @@ const Events = () => {
               View Our Events
             </Button>
           </Box>
+
         </Reveal>
       </Box>
     </>
