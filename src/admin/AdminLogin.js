@@ -16,7 +16,6 @@ function AdminLogin() {
     try {
       const provider = new GoogleAuthProvider();
 
-      // Force account selection every login
       provider.setCustomParameters({
         prompt: "select_account",
       });
@@ -42,7 +41,6 @@ function AdminLogin() {
         return;
       }
 
-      // Success → redirect to dashboard
       window.location.href = "/#/admin/dashboard";
 
     } catch (err) {

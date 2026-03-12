@@ -15,7 +15,6 @@ import Slider from "react-slick";
 import Reveal from "../util/Reveal";
 import { Link } from "@mui/material";
 
-// TODO: get api from newsletter website to dynamically get this info
 const cardData = [
   
   {
@@ -140,11 +139,11 @@ const NewsLetter = () => {
                     sx={{
                       marginRight: "1vw",
                       height: "430px",
-                      backgroundColor: "#1a1a1a", // Darker shade of gray for the card background
-                      color: "#f2f2f2", // Light gray text for better contrast
+                      backgroundColor: "#1a1a1a", 
+                      color: "#f2f2f2", 
                       "&:hover": {
-                        backgroundColor: "#2c2c2c", // Slightly lighter shade of gray on hover
-                        boxShadow: "0 4px 20px rgba(0, 0, 0, 0.2)", // Add a subtle shadow on hover
+                        backgroundColor: "#2c2c2c", 
+                        boxShadow: "0 4px 20px rgba(0, 0, 0, 0.2)", 
                       },
                     }}
                   >
@@ -153,9 +152,9 @@ const NewsLetter = () => {
                       alt={card.title}
                       image={card.img}
                       sx={{
-                        height: "220px",          // fixed height
+                        height: "220px",         
                         width: "100%",
-                        objectFit: "cover",       // crops evenly
+                        objectFit: "cover",       
                         filter: "brightness(0.9)"
                       }}
                     />
@@ -165,19 +164,19 @@ const NewsLetter = () => {
                         variant="h5"
                         fontWeight="bold"
                         component="div"
-                        sx={{ color: "#f2f2f2" }} // Light gray text for the title
+                        sx={{ color: "#f2f2f2" }} 
                       >
                         {card.title}
                       </Typography>
                       <Typography
                         variant="body2"
-                        sx={{ color: "#b2b2b2" }} // Medium gray text for the author
+                        sx={{ color: "#b2b2b2" }} 
                       >
                         {card.author}
                       </Typography>
                       <Typography
                         variant="body2"
-                        sx={{ color: "#8c8c8c" }} // Light gray text for the date
+                        sx={{ color: "#8c8c8c" }} 
                       >
                         {card.date}
                       </Typography>

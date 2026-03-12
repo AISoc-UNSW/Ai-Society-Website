@@ -7,7 +7,7 @@
 ### Task 2: Reinventing the Events Section
 To create the admin section where each port can upload events, I used Firebase, which can easily handle authentication, image storage and metadata storage. If we are to continue with my changes, I'll organise the Firebase access such that it will no longer be me, but the AISoc projects email.
 
-For authentication, I made sure to include an accepted regex pattern, which would accept all ports in AISoc's Gmail accounts, and no others. I have however, kept an empty list for regular email addresses to be added if any execs want exclusive access to the page. You can find this under the variable `allowedTestEmails` in AdminLogin.js.
+For authentication, I made sure to include an accepted regex pattern, which would accept all ports in AISoc's Gmail accounts, and no others. I have however, kept an empty list for regular email addresses to be added if any execs want exclusive access to the page (my email can be seen as an example). You can find this under the variable `allowedTestEmails` in AdminLogin.js.
 But more importantly, this login page can only be accessed through the extension "/admin". Once this link is accessed, the user is taken away from the main page and will see this element.
 ![Screenshot of Admin Page](admin-page.webp)
 Colours and aesthetics for the following sections are open to suggestion and further edits.

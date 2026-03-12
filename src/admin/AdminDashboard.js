@@ -102,6 +102,7 @@ function AdminDashboard() {
 
       setStatus("Sending Discord ticket...");
 
+      // update to chosen Discord webhook here!
       const webhookURL =
         "https://discordapp.com/api/webhooks/1481530466136883263/d_J77WyQZ_lOBkzup1FeI9LbF-F_5VK-mcb02hNMMqbq-xQ5Lc-0IDW-qCTJCfv1Mjui";
 
@@ -201,7 +202,7 @@ function AdminDashboard() {
 
             <Typography sx={{ mb: 4 }}>
               The Projects team has been notified on Discord.
-              The event banner should appear on the website shortly.
+              The event should appear on the website shortly!
             </Typography>
 
             <Button
