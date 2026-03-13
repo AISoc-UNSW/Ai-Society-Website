@@ -3,7 +3,8 @@ import { Box, Typography, Button } from "@mui/material";
 import Reveal from "../util/Reveal";
 
 const handleClick = () => {
-  window.location.href = "mailto:unsw.ai.soc@gmail.com";
+  // window.location.href = "mailto:unsw.ai.soc@gmail.com";
+  window.location.href = "https://campus.hellorubric.com/?s=12437";
 };
 
 const Faq = () => {
@@ -49,33 +50,6 @@ const Faq = () => {
               >
                 Frequently Asked Questions
               </Typography>
-              <Typography
-                sx={{
-                  marginBottom: "20px",
-                  fontFamily: "Ubuntu Sans",
-                  color: "rgba(255, 255, 255, 0.8)",
-                }}
-              >
-                Find answers to common questions about our society, membership
-                and events.
-              </Typography>
-              <Button
-                variant="outlined"
-                onClick={handleClick}
-                sx={{
-                  color: "white",
-                  fontWeight: "bold",
-                  borderColor: "white",
-                  fontFamily: "Ubuntu Sans",
-                  fontSize: "18px",
-                  "&:hover": {
-                    backgroundColor: "#1d1740",
-                    borderColor: "white",
-                  },
-                }}
-              >
-                Contact
-              </Button>
             </Box>
             <Box
               sx={{
@@ -190,6 +164,23 @@ const Faq = () => {
                 for the events you are interested in and join us for an
                 enriching experience
               </Typography>
+              <Button
+                variant="outlined"
+                onClick={handleClick}
+                sx={{
+                  color: "white",
+                  fontWeight: "bold",
+                  borderColor: "white",
+                  fontFamily: "Ubuntu Sans",
+                  fontSize: "18px",
+                  "&:hover": {
+                    backgroundColor: "#1d1740",
+                    borderColor: "white",
+                  },
+                }}
+              >
+                Find Out More
+              </Button>
             </Box>
           </Box>
         </Reveal>
