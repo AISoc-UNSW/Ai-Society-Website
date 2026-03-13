@@ -31,7 +31,7 @@ const SocialMediaIcons = () => {
     >
       <IconWithHover
         icon={<Instagram sx={{ fontSize: 35 }} />}
-        link="https://www.instagram.com/unswai.soc/"
+        link="https://www.instagram.com/aisocunsw/"
       />
       <IconWithHover
         icon={<Facebook sx={{ fontSize: 35 }} />}
