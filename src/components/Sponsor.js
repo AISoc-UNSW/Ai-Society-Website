@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Box, Typography, Button } from "@mui/material";
-import UNSWFounders from "../assets/companies/unsw-founders.webp";
+import UNSWFounders from "../assets/companies/unsw-founders1.webp";
 import Microsoft from "../assets/companies/microsoft.webp";
 import Quantium from "../assets/companies/quantium.webp";
 import Lovable from "../assets/companies/lovable.webp";
-import Notion from "../assets/companies/Logo.webp";
+import Notion from "../assets/companies/notion.webp";
 import Lorikeet from "../assets/companies/lorikeet.webp";
 import Preve from "../assets/companies/preve.webp";
 import CGI from "../assets/companies/cgi.webp";
@@ -16,10 +16,10 @@ const handleClick = () => {
 
 const sponsors = [
   { name: "UNSW Founders", logo: UNSWFounders, url: "https://www.unswfounders.com", size: 160 },
-  { name: "Microsoft", logo: Microsoft, url: "https://www.microsoft.com", size: 160 },
+  { name: "Microsoft", logo: Microsoft, url: "https://www.microsoft.com", size: 400 },
   { name: "Quantium", logo: Quantium, url: "https://www.quantium.com", size: 130 },
-  { name: "Lovable", logo: Lovable, url: "https://lovable.dev", size: 300 },
-  { name: "Notion", logo: Notion, url: "https://www.notion.so", size: 100 },
+  { name: "Lovable", logo: Lovable, url: "https://lovable.dev", size: 700 },
+  { name: "Notion", logo: Notion, url: "https://www.notion.so", size: 400 },
   { name: "Lorikeet", logo: Lorikeet, url: "https://lorikeet.com", size: 125 },
   { name: "Preve", logo: Preve, url: "https://preve.com", size: 110 },
   { name: "CGI", logo: CGI, url: "https://www.cgi.com", size: 60 },
@@ -78,8 +78,8 @@ const Sponsor = () => {
           {/* Sponsor Panel */}
           <Box
             sx={{
-              background:
-                "linear-gradient(180deg, rgba(255,255,255,0.82), rgba(245,245,245,0.70))",
+              // background:
+              //   "linear-gradient(180deg, rgba(255,255,255,0.82), rgba(245,245,245,0.70))",
               border: "1px solid rgba(255,255,255,0.08)",
               borderRadius: "14px",
               padding: "50px 40px",
