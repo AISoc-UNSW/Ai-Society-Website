@@ -11,12 +11,19 @@ import img32 from "../assets/watchtower/32.webp";
 import img33 from "../assets/watchtower/33.webp";
 import img34 from "../assets/watchtower/34.webp";
 import img35 from "../assets/watchtower/35.webp";
+import img36 from "../assets/watchtower/36.webp";
 import Slider from "react-slick";
 import Reveal from "../util/Reveal";
 import { Link } from "@mui/material";
 
 const cardData = [
-  
+  {
+    title: "The Great Data Centre Debate, Anthropic vs. The Pentagon",
+    author: "AISociet Education",
+    date: "March 17, 2026",
+    img: img36,
+    link: "https://aisocturingpoint.beehiiv.com/p/the-turing-point-2026-version-three"
+  },
   {
     title: "The Death of Saas: A 'whodunnit' with One Suspect",
     author: "AISociety Education",

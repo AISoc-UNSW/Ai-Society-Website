@@ -11,10 +11,15 @@ import PaymentCanceled from "./pages/PaymentCanceled";
 import AdminLogin from "./admin/AdminLogin";
 import AdminDashboard from "./admin/AdminDashboard";
 
+import FloatingSocials from "./components/FloatingSocials";
+
 function App() {
   return (
     <div className="App">
       <HashRouter>
+
+        <FloatingSocials />
+
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/home" element={<Home />} />
@@ -29,7 +34,6 @@ function App() {
           {/* Admin Routes */}
           <Route path="/admin" element={<AdminLogin />} />
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
-
         </Routes>
       </HashRouter>
     </div>

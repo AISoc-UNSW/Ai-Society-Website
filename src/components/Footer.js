@@ -5,13 +5,14 @@ import { Box, Typography } from "@mui/material";
 import SocialMediaIcons from "../util/Icons";
 // import { Link } from "react-router-dom";
 
+
 const Footer = ({ onLightBackground = false }) => {
   const outerStyles = () => ({
     padding: "3rem",
     // backgroundColor: "#100b28",
   });
   return (
-    <Box sx={outerStyles}>
+    <Box id="footer-socials" sx={outerStyles}>
       <Box sx={{ textAlign: "left", color: onLightBackground ? "#000" : "#fff" }}>
         {/* <Link to="/">
           <img src={Logo} style={{ width: "200px", margin: "0 -38px" }} alt="logo" />

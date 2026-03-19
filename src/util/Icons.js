@@ -8,9 +8,13 @@ const IconWithHover = ({ icon, link }) => {
       sx={{
         marginRight: "5px", // Add some margin between icons
         transition: "transform 0.2s", // Add transition for smooth hover effect
-        "&:hover": {
-          transform: "scale(1.2)", // Enlarge the icon by 20% on hover
-          cursor: "pointer",
+        "& svg": {
+          color: "#ffffff",
+          transition: "all 0.4s ease",
+        },
+
+        "& svg:hover": {
+          transform: "scale(1.15)",
         },
       }}
       onClick={() => window.open(link, "_blank")}
@@ -20,11 +24,12 @@ const IconWithHover = ({ icon, link }) => {
   );
 };
 
-const SocialMediaIcons = () => {
+const SocialMediaIcons = ({direction = "row"}) => {
   return (
     <Box
       sx={{
         display: "flex",
+        flexDirection: direction,
         marginBottom: "5px",
         paddingBottom: "10px",
       }}
