@@ -123,8 +123,16 @@ const Faq = () => {
                   color: "rgba(255, 255, 255, 0.8)",
                 }}
               >
-                To join our society, you can sign up through our website or
-                attend one of our events and register on the spot. Membership is
+                To join our society, sign up through{" "}
+                
+                  <a href="https://campus.hellorubric.com/?s=12437"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ color: "white", fontWeight: "bold" }}
+                >
+                  our Rubric page
+                </a>
+                {" "}or attend one of our events and register on the spot. Membership is
                 open to all university students.
               </Typography>
               <Typography

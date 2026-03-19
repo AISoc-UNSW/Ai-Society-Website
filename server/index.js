@@ -191,6 +191,65 @@ app.get("/api/products/:id", async (req, res) => {
   }
 });
 
+// GET /api/events - list all events
+app.get("/api/events", async (req, res) => {
+  try {
+    const db = await getDb();
+    const col = db.collection("events");
+    const items = await col.find({}).sort({ createdAt: -1 }).toArray();
+    res.json(items);
+  } catch (e) {
+    res.status(500).json({ error: e?.message || "Failed to fetch events" });
+  }
+});
+
+// POST /api/events - create a new event (admin only)
+app.post("/api/events", async (req, res) => {
+  const { adminPassword, title, photo, description, link } = req.body || {};
+  if (adminPassword !== process.env.ADMIN_PASSWORD) {
+    return res.status(401).json({ error: "Unauthorized" });
+  }
+  if (!title || !photo || !link) {
+    return res.status(400).json({ error: "title, photo, and link are required" });
+  }
+  try {
+    const db = await getDb();
+    const col = db.collection("events");
+    const result = await col.insertOne({
+      title,
+      photo,
+      description: description || "",
+      link,
+      createdAt: new Date(),
+    });
+    res.json({ insertedId: result.insertedId });
+  } catch (e) {
+    res.status(500).json({ error: e?.message || "Failed to create event" });
+  }
+});
+
+// DELETE /api/events/:id - delete an event (admin only)
+app.delete("/api/events/:id", async (req, res) => {
+  const { adminPassword } = req.body || {};
+  if (adminPassword !== process.env.ADMIN_PASSWORD) {
+    return res.status(401).json({ error: "Unauthorized" });
+  }
+  let objectId;
+  try {
+    objectId = new ObjectId(req.params.id);
+  } catch (e) {
+    return res.status(400).json({ error: "Invalid id" });
+  }
+  try {
+    const db = await getDb();
+    const col = db.collection("events");
+    await col.deleteOne({ _id: objectId });
+    res.json({ ok: true });
+  } catch (e) {
+    res.status(500).json({ error: e?.message || "Failed to delete event" });
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`Server listening on http://localhost:${PORT}`);
 });

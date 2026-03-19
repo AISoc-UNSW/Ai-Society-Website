@@ -2,47 +2,23 @@ import React, { useState, useEffect } from "react";
 import { Box, Typography, Button, Grid } from "@mui/material";
 import { makeStyles } from "@material-ui/core/styles";
 import Reveal from "../util/Reveal";
-import ishman from "../assets/execs/Ishman.webp";
-import saanvi from "../assets/execs/Saanvi.webp";
-import jack from "../assets/execs/Jack.webp";
-import rahul from "../assets/execs/Rahul.webp";
 import aee from "../assets/execs/easter-egg.webp";
 import ree from "../assets/execs/easter-egg2.webp";
-import tarushi from "../assets/execs/Tarushi.webp";
-import karthi from "../assets/execs/Karthi.webp";
+import anika from "../assets/execs/Anika.webp";
+import diva from "../assets/execs/Diva.webp";
+import isabella from "../assets/execs/Isabella.webp";
+import ishmanbir from "../assets/execs/Ishmanbir.webp";
+import nalin from "../assets/execs/Nalin.webp";
+import shreya from "../assets/execs/Shreya.webp";
 
 const MeetUs = () => {
   const team = [
-    {
-      name: "Tarushi",
-      image: tarushi,
-      role: "President",
-    },
-    {
-      name: "Saanvi",
-      image: saanvi,
-      role: "Secretary",
-    },
-    {
-      name: "Karthi",
-      image: karthi,
-      role: "Treasurer",
-    },
-    {
-      name: "Ishman",
-      image: ishman,
-      role: "VP of Education",
-    },
-    {
-      name: "Rahul",
-      image: rahul,
-      role: "VP of Operations",
-    },
-    {
-      name: "Jack",
-      image: jack,
-      role: "Grievance Officer",
-    },
+  { name: "Isabella Cordaro", image: isabella, role: "Co-President (Operations)" },
+  { name: "Ishmanbir Singh", image: ishmanbir, role: "Co-President (Engineering)" },
+  { name: "Anika Chandra", image: anika, role: "Treasurer" },
+  { name: "Diva Thakkar", image: diva, role: "Vice President (Creatives)" },
+  { name: "Nalin Iyer", image: nalin, role: "Vice President (Engineering)" },
+  { name: "Shreya Muthiah", image: shreya, role: "Vice President (Internals)" },
   ];
 
   return (
