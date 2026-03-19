@@ -23,8 +23,8 @@ export default function PhotoStack({ images }) {
       onClick={handleClick}
       sx={{
         position: "relative",
-        width: { xs: "100%", md: 380 },
-        height: { xs: 280, md: 300 },
+        width: { xs: "100%", md: 290 },
+        height: { xs: 280, md: 400 },
         maxWidth: 420,
         cursor: "pointer",
       }}
@@ -58,7 +58,7 @@ export default function PhotoStack({ images }) {
               sx={{
                 width: "100%",
                 height: "100%",
-                backgroundColor: "white",
+                backgroundColor: "#f5f5f2",
                 borderRadius: "6px",
                 padding: "12px 12px 20px 12px",
                 boxShadow: isTop ? "0 12px 30px rgba(0,0,0,0.4)" : "0 6px 15px rgba(0,0,0,0.25)",
@@ -82,8 +82,8 @@ export default function PhotoStack({ images }) {
                 sx={{
                   marginTop: "10px",
                   textAlign: "center",
-                  fontFamily: "'Permanent Marker'",
-                  fontSize: "16px",
+                  fontFamily: "Permanent Marker",
+                  fontSize: "30px",
                   color: "#222",
                 }}
               >
