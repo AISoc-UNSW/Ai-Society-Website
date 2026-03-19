@@ -7,7 +7,12 @@ import PhotoStack from "../util/PhotoStack";
 import test from "../assets/build.webp";
 
 // Placeholder stack (same image repeated)
-const images = [AISoc, test, AISoc, test, AISoc];
+const images = [
+  {src: AISoc, caption: "O-Week 2026"},
+  {src: test, caption: "Test Caption"},
+  {src: AISoc, caption: "O-Week 2026"},
+  {src: test, caption: "Test Caption"},
+];
 
 const handleClick = () => {
   window.location.href = "mailto:unsw.ai.soc@gmail.com";
@@ -55,7 +60,7 @@ const About = () => {
             <Typography
               sx={{
                 paddingBottom: "20px",
-                color: "rgba(255, 255, 255, 0.8)",
+                color: "rgba(174, 171, 171, 0.8)",
                 fontSize: "20px",
                 fontFamily: "Ubuntu Sans",
               }}
@@ -97,17 +102,6 @@ const About = () => {
             }}
           >
             <PhotoStack images={images} />
-
-            {/* Interaction hint */}
-            <Typography
-              sx={{
-                fontSize: "14px",
-                color: "rgba(255,255,255,0.6)",
-                mt: 1,
-              }}
-            >
-              Click to explore →
-            </Typography>
           </Box>
         </Box>
       </Reveal>

@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 
 const rotations = [-6, 4, -3, 6, -2];
 
 export default function PhotoStack({ images }) {
-  const [stack, setStack] = useState(images);
+  const [activeIndex, setActiveIndex] = useState(0);
   const [moving, setMoving] = useState(false);
 
   const handleClick = () => {
@@ -13,15 +13,9 @@ export default function PhotoStack({ images }) {
     setMoving(true);
 
     setTimeout(() => {
-      setStack(prev => {
-        const newArr = [...prev];
-        const first = newArr.shift();
-        newArr.push(first);
-        return newArr;
-      });
-
+      setActiveIndex((prev) => (prev + 1) % images.length);
       setMoving(false);
-    }, 400);
+    }, 350);
   };
 
   return (
@@ -30,49 +24,73 @@ export default function PhotoStack({ images }) {
       sx={{
         position: "relative",
         width: { xs: "100%", md: 380 },
-        height: { xs: 240, md: 260 },
-        maxWidth: 400,
+        height: { xs: 280, md: 300 },
+        maxWidth: 420,
         cursor: "pointer",
       }}
     >
-      {stack.map((img, index) => {
+      {images.map((item, i) => {
+        const index = (i - activeIndex + images.length) % images.length;
         const isTop = index === 0;
 
         return (
           <Box
-            key={index}
-            component="img"
-            src={img}
+            key={i}
             sx={{
               position: "absolute",
               width: "100%",
               height: "100%",
-              objectFit: "cover",
-              borderRadius: "12px",
-              boxShadow: 3,
 
               transition: "transform 0.45s ease, opacity 0.35s ease",
 
               transform: isTop
                 ? moving
-                  ? "translateY(-40px) rotate(10deg) scale(0.9)"
+                  ? "translateY(-20px) rotate(6deg) scale(0.97)"
                   : "rotate(0deg)"
-                : `rotate(${rotations[index]}deg) translateY(${index * 8}px)`,
+                : `rotate(${rotations[index]}deg) translateY(${index * 10}px)`,
 
-              opacity: isTop && moving ? 0.99 : 1,
-
-              zIndex: stack.length - index,
-              filter: isTop ? "none" : `brightness(${1 - index * 0.05})`,
-
+              zIndex: images.length - index,
               pointerEvents: isTop ? "auto" : "none",
-
-              "&:hover": isTop && !moving
-                ? {
-                    transform: "translateY(-8px) scale(1.02)",
-                  }
-                : {},
             }}
-          />
+          >
+            {/* POLAROID FRAME */}
+            <Box
+              sx={{
+                width: "100%",
+                height: "100%",
+                backgroundColor: "white",
+                borderRadius: "6px",
+                padding: "12px 12px 20px 12px",
+                boxShadow: isTop ? "0 12px 30px rgba(0,0,0,0.4)" : "0 6px 15px rgba(0,0,0,0.25)",
+                filter: isTop ? "none" : `brightness(${1 - index * 0.05})`,
+              }}
+            >
+              {/* IMAGE */}
+              <Box
+                component="img"
+                src={item.src}
+                sx={{
+                  width: "100%",
+                  height: "80%",
+                  objectFit: "cover",
+                  borderRadius: "4px",
+                }}
+              />
+
+              {/* CAPTION */}
+              <Typography
+                sx={{
+                  marginTop: "10px",
+                  textAlign: "center",
+                  fontFamily: "'Permanent Marker'",
+                  fontSize: "16px",
+                  color: "#222",
+                }}
+              >
+                {item.caption}
+              </Typography>
+            </Box>
+          </Box>
         );
       })}
     </Box>
