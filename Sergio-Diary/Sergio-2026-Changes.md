@@ -37,9 +37,22 @@ As requested, I updated the newsletter articles to show the latest posts. I made
 Images all formatted to be the same ratio for uniformity, animations kept.
 
 ### Task 5: FAQ Section
-
+![Updated FAQ Section](updated-faq.webp)
+The plan for this section was to continue the reading momentum the rest of the website suggests. This involved moving the external link button to the bottom of the component. As requested, this links to the rubric page, but can be extended to link to a contact form if necessary.
 
 ### Task 6: Sponsor Section
+![Updated Logo Section](updated-logos.webp)
+To suit the dark theme of the website, some external work was performed to create contrast-friendly logos. Other than that, the
+arrangement of the logos was simple, and I also included some animation to the logos when the user scrolls to this section.
+The video preview for this animation can be found in `Animated-Sponsors.mp4` in this directory.
+
+### Task 7: Custom Element
+To be honest, I really enjoy the single page which contains all the information regarding the society. So I made the decision not to create anything that takes visitors away from important information such as events.
+For this section, I aimed to include more subtle features that helps capitalise on the view time of each visitor, and capturing their intentions quickly. This meant including interactive elements such as a photo stack in the about section to increase visitor retention and always-accessible social media icons to capture visitor interest immediately.
+
+**Photo Stack**
+For now, the photo stack contains only one photo but I feel that you will see the vision with other images. Media from recent events would have a great home in this section, providing an active and interactive snapshot of AISoc now!
 
 
+****
 
