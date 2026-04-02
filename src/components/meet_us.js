@@ -2,46 +2,46 @@ import React, { useState, useEffect } from "react";
 import { Box, Typography, Button, Grid } from "@mui/material";
 import { makeStyles } from "@material-ui/core/styles";
 import Reveal from "../util/Reveal";
-import ishman from "../assets/execs/Ishman.webp";
-import saanvi from "../assets/execs/Saanvi.webp";
-import jack from "../assets/execs/Jack.webp";
-import rahul from "../assets/execs/Rahul.webp";
+import ishman from "../assets/execs/Ishmanbir Singh, Co Pres (Engineering).webp";
+import bella from "../assets/execs/Isabella Cordaro, Co-President (Operations).webp";
+import anika from "../assets/execs/Anika Chandra, Treasurer.webp";
+import diva from "../assets/execs/Diva Thakkar, Vice President (Creatives).webp";
+import nalin from "../assets/execs/Nalin Iyer, Vice President (Engineering).webp";
+import shreya from "../assets/execs/Shreya Muthiah, Vice President (Internals).webp";
 import aee from "../assets/execs/easter-egg.webp";
 import ree from "../assets/execs/easter-egg2.webp";
-import tarushi from "../assets/execs/Tarushi.webp";
-import karthi from "../assets/execs/Karthi.webp";
 
 const MeetUs = () => {
   const team = [
     {
-      name: "Tarushi",
-      image: tarushi,
-      role: "President",
+      name: "Ishman",
+      image: ishman,
+      role: "Co-President (Engineering)",
     },
     {
-      name: "Saanvi",
-      image: saanvi,
-      role: "Secretary",
+      name: "Bella",
+      image: bella,
+      role: "Co-President (Operations)",
     },
     {
-      name: "Karthi",
-      image: karthi,
+      name: "Anika",
+      image: anika,
       role: "Treasurer",
     },
     {
-      name: "Ishman",
-      image: ishman,
-      role: "VP of Education",
+      name: "Diva",
+      image: diva,
+      role: "Vice President (Creatives)",
     },
     {
-      name: "Rahul",
-      image: rahul,
-      role: "VP of Operations",
+      name: "Nalin",
+      image: nalin,
+      role: "Vice President (Engineering)",
     },
     {
-      name: "Jack",
-      image: jack,
-      role: "Grievance Officer",
+      name: "Shreya",
+      image: shreya,
+      role: "Vice President (Operations)",
     },
   ];
 
@@ -153,6 +153,7 @@ const useStyles = makeStyles((theme) => ({
     height: "180px",
     borderRadius: "50%",
     objectFit: "cover",
+    objectPosition: "center",
   },
   name: {
     marginTop: theme.spacing(1),

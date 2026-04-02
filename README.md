@@ -4,11 +4,14 @@ Welcome to the official GitHub repository for the UNSW Artificial Intelligence S
 
 ## Table of Contents
 
-- [Introduction](#introduction)
-- [Features](#features)
-- [Technologies Used](#technologies-used)
-- [Installation & Contributing](#installation-and-contributing)
-- [Contact](#contact)
+- [UNSW AISoc Website ](#unsw-aisoc-website-)
+  - [Table of Contents](#table-of-contents)
+  - [✨Introduction](#introduction)
+  - [🚀Features](#features)
+  - [🛠Technologies Used](#technologies-used)
+  - [💻Installation And Contributing](#installation-and-contributing)
+  - [Backend (Node + Express + MongoDB)](#backend-node--express--mongodb)
+  - [📬Contact](#contact)
 
 ## ✨Introduction
 
@@ -117,5 +120,5 @@ You can also join us on:
 
 - [Discord](https://discord.gg/856FnEQePJ)
 - [Facebook](https://www.facebook.com/profile.php?id=100092595608038)
-- [Instagram](https://www.instagram.com/unswai.soc/)
+- [Instagram](https://www.instagram.com/aisocunsw/)
 - [LinkedIn](https://www.linkedin.com/company/unsw-artificial-intelligence-society/mycompany/)

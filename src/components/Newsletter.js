@@ -6,16 +6,45 @@ import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 
 import Typography from "@mui/material/Typography";
-import img28 from "../assets/watchtower/28.webp";
-import img29 from "../assets/watchtower/29.webp";
 import img30 from "../assets/watchtower/30.webp";
 import img32 from "../assets/watchtower/32.webp";
+import img33 from "../assets/watchtower/33.webp";
+import img34 from "../assets/watchtower/34.webp";
+import img35 from "../assets/watchtower/35.webp";
+import img36 from "../assets/watchtower/36.webp";
 import Slider from "react-slick";
 import Reveal from "../util/Reveal";
 import { Link } from "@mui/material";
 
-// TODO: get api from newsletter website to dynamically get this info
 const cardData = [
+  {
+    title: "The Great Data Centre Debate, Anthropic vs. The Pentagon",
+    author: "AISociet Education",
+    date: "March 17, 2026",
+    img: img36,
+    link: "https://aisocturingpoint.beehiiv.com/p/the-turing-point-2026-version-three"
+  },
+  {
+    title: "The Death of Saas: A 'whodunnit' with One Suspect",
+    author: "AISociety Education",
+    date: "March 2, 2026",
+    img: img33,
+    link: "https://aisocturingpoint.beehiiv.com/p/the-turing-point-2026-version-two",
+  },
+  {
+    title: "Google redfining Mathematics, Global RAM Shortages",
+    author: "AISociety Education",
+    date: "February 8, 2026",
+    img: img35,
+    link: "https://aisocturingpoint.beehiiv.com/p/the-turing-point-2026-version-one",
+  },
+  {
+    title: "Entering the new AI Era, The Rise of Meta AI ",
+    author: "AISociety Education",
+    date: "July 3, 2025",
+    img: img34,
+    link: "https://aisocturingpoint.beehiiv.com/p/the-turing-point-33rd-edition",
+  },
   {
     title: "Google Strikes Back: Veo 3, Gemini 2.5, and the IO Offensive",
     author: "By AI Society Education Team",
@@ -29,20 +58,6 @@ const cardData = [
     date: "March 29, 2025",
     img: img30,
     link: "https://aisocturingpoint.beehiiv.com/p/the-turing-point-30th-edition",
-  },
-  {
-    title: "Grok 3, Claude 3.7, and GPT-4.5: The AI Titans Redefining Intelligence",
-    author: "By AI Society Education Team",
-    date: "March 08, 2025",
-    img: img29,
-    link: "https://aisocturingpoint.beehiiv.com/p/the-turing-point-29th-edition",
-  },
-  {
-    title: "2024: The Year AI Took Center Stage (Recap Edition)",
-    author: "By AI Society Education Team",
-    date: "February 13, 2025",
-    img: img28,
-    link: "https://aisocturingpoint.beehiiv.com/p/the-watchtower-28th-edition-2024-recap",
   },
 ];
 
@@ -131,23 +146,23 @@ const NewsLetter = () => {
                     sx={{
                       marginRight: "1vw",
                       height: "430px",
-                      backgroundColor: "#1a1a1a", // Darker shade of gray for the card background
-                      color: "#f2f2f2", // Light gray text for better contrast
+                      backgroundColor: "#1a1a1a", 
+                      color: "#f2f2f2", 
                       "&:hover": {
-                        backgroundColor: "#2c2c2c", // Slightly lighter shade of gray on hover
-                        boxShadow: "0 4px 20px rgba(0, 0, 0, 0.2)", // Add a subtle shadow on hover
+                        backgroundColor: "#2c2c2c", 
+                        boxShadow: "0 4px 20px rgba(0, 0, 0, 0.2)", 
                       },
                     }}
                   >
                     <CardMedia
                       component="img"
                       alt={card.title}
-                      height={{ xs: "70vh" }}
                       image={card.img}
                       sx={{
-                        maxHeight: "60%",
-                        objectFit: "cover",
-                        filter: "brightness(0.9)", // Slightly reduce the brightness of the image
+                        height: "220px",         
+                        width: "100%",
+                        objectFit: "cover",       
+                        filter: "brightness(0.9)"
                       }}
                     />
                     <CardContent>
@@ -156,19 +171,19 @@ const NewsLetter = () => {
                         variant="h5"
                         fontWeight="bold"
                         component="div"
-                        sx={{ color: "#f2f2f2" }} // Light gray text for the title
+                        sx={{ color: "#f2f2f2" }} 
                       >
                         {card.title}
                       </Typography>
                       <Typography
                         variant="body2"
-                        sx={{ color: "#b2b2b2" }} // Medium gray text for the author
+                        sx={{ color: "#b2b2b2" }} 
                       >
                         {card.author}
                       </Typography>
                       <Typography
                         variant="body2"
-                        sx={{ color: "#8c8c8c" }} // Light gray text for the date
+                        sx={{ color: "#8c8c8c" }} 
                       >
                         {card.date}
                       </Typography>
