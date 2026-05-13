@@ -27,7 +27,7 @@ function AdminHome() {
       <Box
         sx={{
           marginTop: 2,
-          padding: { xs: 2, md: 3 },
+          padding: { xs: 1.5, md: 3 },
           borderRadius: "18px",
           border: "1px solid rgba(15, 23, 42, 0.08)",
           backgroundColor: "#f8fafc"
@@ -45,8 +45,8 @@ function AdminHome() {
               key={action.title}
               variant="outlined"
               sx={{
-                minHeight: "260px",
-                padding: 3,
+                minHeight: { xs: "220px", md: "260px" },
+                padding: { xs: 2.25, md: 3 },
                 borderRadius: "16px",
                 display: "flex",
                 flexDirection: "column",
@@ -55,11 +55,11 @@ function AdminHome() {
               }}
             >
               <Box>
-                <Typography variant="h5" sx={{ mb: 1.5 }}>
+                <Typography variant="h5" sx={{ mb: 1.5, fontSize: { xs: "1.55rem", md: "2rem" } }}>
                   {action.title}
                 </Typography>
 
-                <Typography color="text.secondary" sx={{ mb: 3 }}>
+                <Typography color="text.secondary" sx={{ mb: 3, fontSize: { xs: "1rem", md: "1.125rem" } }}>
                   {action.description}
                 </Typography>
               </Box>

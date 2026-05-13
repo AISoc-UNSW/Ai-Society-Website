@@ -31,7 +31,7 @@ function AdminShell({ title, subtitle, children }) {
 
   const handleLogout = async () => {
     await signOut(auth);
-    window.location.href = "/#/admin";
+    window.location.href = "/";
   };
 
   return (
@@ -39,7 +39,7 @@ function AdminShell({ title, subtitle, children }) {
       sx={{
         minHeight: "100vh",
         backgroundColor: "#111",
-        padding: { xs: "24px", md: "40px" },
+        padding: { xs: "14px", md: "40px" },
       }}
     >
       <Paper
@@ -47,8 +47,8 @@ function AdminShell({ title, subtitle, children }) {
         sx={{
           maxWidth: "1100px",
           margin: "0 auto",
-          padding: { xs: "24px", md: "32px" },
-          borderRadius: "16px",
+          padding: { xs: "18px", md: "32px" },
+          borderRadius: { xs: "12px", md: "16px" },
           overflow: "hidden",
         }}
       >
@@ -60,31 +60,70 @@ function AdminShell({ title, subtitle, children }) {
           sx={{ mb: 3 }}
         >
           <Box>
-            <Typography variant="h4" sx={{ mb: 1 }}>
+            <Typography
+              variant="h4"
+              sx={{
+                mb: 1,
+                fontSize: { xs: "2.1rem", md: "2.5rem" }
+              }}
+            >
               {title}
             </Typography>
 
             {subtitle && (
-              <Typography color="text.secondary">
+              <Typography
+                color="text.secondary"
+                sx={{
+                  fontSize: { xs: "1rem", md: "1.125rem" }
+                }}
+              >
                 {subtitle}
               </Typography>
             )}
           </Box>
 
-          <Stack direction="row" spacing={1.5} flexWrap="wrap">
-            <Button component={RouterLink} to="/admin/dashboard" variant="outlined">
+          <Stack
+            direction="row"
+            spacing={1.5}
+            useFlexGap
+            flexWrap="wrap"
+            sx={{
+              width: { xs: "100%", md: "auto" }
+            }}
+          >
+            <Button
+              component={RouterLink}
+              to="/admin/dashboard"
+              variant="outlined"
+              sx={{ flex: { xs: "1 1 calc(50% - 6px)", md: "0 0 auto" } }}
+            >
               Dashboard
             </Button>
 
-            <Button component={RouterLink} to="/admin/events/new" variant="outlined">
+            <Button
+              component={RouterLink}
+              to="/admin/events/new"
+              variant="outlined"
+              sx={{ flex: { xs: "1 1 calc(50% - 6px)", md: "0 0 auto" } }}
+            >
               Create Event
             </Button>
 
-            <Button component={RouterLink} to="/admin/events" variant="outlined">
+            <Button
+              component={RouterLink}
+              to="/admin/events"
+              variant="outlined"
+              sx={{ flex: { xs: "1 1 calc(50% - 6px)", md: "0 0 auto" } }}
+            >
               Manage Events
             </Button>
 
-            <Button variant="contained" color="error" onClick={handleLogout}>
+            <Button
+              variant="contained"
+              color="error"
+              onClick={handleLogout}
+              sx={{ flex: { xs: "1 1 calc(50% - 6px)", md: "0 0 auto" } }}
+            >
               Log Out
             </Button>
           </Stack>
