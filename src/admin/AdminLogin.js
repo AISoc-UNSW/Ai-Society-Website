@@ -2,12 +2,7 @@ import React, { useState } from "react";
 import { auth } from "../firebase/firebaseconfig";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { Button, Box, Typography, Paper } from "@mui/material";
-
-const allowedPattern = /^unswai\.soc\..+@gmail.com$/;
-
-const allowedTestEmails = [
-  // "sinsuasti95@gmail.com"
-];
+import { isAuthorizedEmail } from "./adminUtils";
 
 function AdminLogin() {
   const [error, setError] = useState("");
@@ -28,10 +23,7 @@ function AdminLogin() {
 
       const email = user.email.toLowerCase();
 
-      if (
-        !allowedPattern.test(email) &&
-        !allowedTestEmails.includes(email)
-      ) {
+      if (!isAuthorizedEmail(email)) {
         await auth.signOut();
 
         setError(

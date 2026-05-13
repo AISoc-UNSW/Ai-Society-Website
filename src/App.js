@@ -9,7 +9,9 @@ import PaymentSuccess from "./pages/PaymentSuccess";
 import PaymentCanceled from "./pages/PaymentCanceled";
 
 import AdminLogin from "./admin/AdminLogin";
+import AdminHome from "./admin/AdminHome";
 import AdminDashboard from "./admin/AdminDashboard";
+import AdminEvents from "./admin/AdminEvents";
 
 import FloatingSocials from "./components/FloatingSocials";
 
@@ -34,7 +36,9 @@ function AppContent() {
 
         {/* Admin Routes */}
         <Route path="/admin" element={<AdminLogin />} />
-        <Route path="/admin/dashboard" element={<AdminDashboard />} />
+        <Route path="/admin/dashboard" element={<AdminHome />} />
+        <Route path="/admin/events/new" element={<AdminDashboard />} />
+        <Route path="/admin/events" element={<AdminEvents />} />
       </Routes>
     </>
   );
