@@ -1,4 +1,5 @@
 import { onAuthStateChanged, signOut } from "firebase/auth";
+import { getDownloadURL, ref } from "firebase/storage";
 import { useEffect, useState } from "react";
 import { auth } from "../firebase/firebaseconfig";
 
@@ -58,6 +59,24 @@ export function getEventStoragePath(event) {
   return event.storagePath || buildStoragePath(event.id);
 }
 
+export async function resolveEventImage(event, storage) {
+  if (typeof event.image === "string" && /^https?:\/\//i.test(event.image)) {
+    return event.image;
+  }
+
+  const candidates = buildStorageCandidates(event);
+
+  for (const path of candidates) {
+    try {
+      return await getDownloadURL(ref(storage, path));
+    } catch {
+      continue;
+    }
+  }
+
+  return "";
+}
+
 export async function convertImageToWebp(file, quality = 0.82) {
   if (!file || !file.type.startsWith("image/")) {
     throw new Error("Please upload a valid image file.");
@@ -114,4 +133,32 @@ function loadImage(src) {
 
     image.src = src;
   });
+}
+
+function buildStorageCandidates(event) {
+  const candidates = new Set();
+  const addCandidate = (value) => {
+    if (typeof value === "string" && value.trim()) {
+      candidates.add(value.trim());
+    }
+  };
+
+  addCandidate(event.storagePath);
+
+  if (event.id) {
+    addCandidate(buildStoragePath(event.id));
+  }
+
+  if (event.docId) {
+    addCandidate(buildStoragePath(event.docId));
+  }
+
+  if (typeof event.image === "string" && event.image.trim() && !/^https?:\/\//i.test(event.image)) {
+    const imageValue = event.image.trim();
+    addCandidate(imageValue);
+    addCandidate(`event-banners/${imageValue}`);
+    addCandidate(`event-banners/${imageValue}.webp`);
+  }
+
+  return [...candidates];
 }

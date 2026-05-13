@@ -8,7 +8,8 @@ import Reveal from "../util/Reveal";
 import defaultEvent from "../assets/coming-soon.webp";
 
 import { collection, getDocs } from "firebase/firestore";
-import { db } from "../firebase/firebaseconfig";
+import { db, storage } from "../firebase/firebaseconfig";
+import { resolveEventImage } from "../admin/adminUtils";
 
 const useCarouselStyles = makeStyles({
   dotContainer: {
@@ -62,7 +63,19 @@ const Events = () => {
 
         const snapshot = await getDocs(collection(db, "events"));
 
-        const events = snapshot.docs.map(doc => doc.data());
+        const events = await Promise.all(
+          snapshot.docs.map(async (snapshotDoc) => {
+            const event = {
+              docId: snapshotDoc.id,
+              ...snapshotDoc.data()
+            };
+
+            return {
+              ...event,
+              image: await resolveEventImage(event, storage)
+            };
+          })
+        );
 
         if (!events.length) return;
 
@@ -79,7 +92,7 @@ const Events = () => {
         if (!upcomingEvents.length) return;
 
         const formatted = upcomingEvents.map(event => ({
-          src: event.image,
+          src: event.image || defaultEvent,
           alt: event.title,
           link: event.link,
           title: event.title,

@@ -26,14 +26,12 @@ import {
   deleteDoc,
   doc,
   getDocs,
-  orderBy,
-  query,
   updateDoc
 } from "firebase/firestore";
 import { deleteObject, getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import AdminShell from "./AdminShell";
 import { db, storage } from "../firebase/firebaseconfig";
-import { convertImageToWebp, getEventStoragePath } from "./adminUtils";
+import { convertImageToWebp, getEventStoragePath, resolveEventImage } from "./adminUtils";
 
 function AdminEvents() {
   const [events, setEvents] = useState([]);
@@ -48,18 +46,25 @@ function AdminEvents() {
     setLoading(true);
 
     try {
-      const snapshot = await getDocs(
-        query(collection(db, "events"), orderBy("date", "asc"))
-      );
+      const snapshot = await getDocs(collection(db, "events"));
 
-      const loadedEvents = snapshot.docs.map((snapshotDoc) => ({
-        docId: snapshotDoc.id,
-        ...snapshotDoc.data()
-      }));
+      const loadedEvents = await Promise.all(
+        snapshot.docs.map(async (snapshotDoc) => {
+          const eventItem = {
+            docId: snapshotDoc.id,
+            ...snapshotDoc.data()
+          };
+
+          return {
+            ...eventItem,
+            image: await resolveEventImage(eventItem, storage)
+          };
+        })
+      );
 
       setEvents(loadedEvents);
     } catch (error) {
-      setStatus("Unable to load events right now.");
+      setStatus(`Unable to load events right now. ${error?.message || ""}`.trim());
     } finally {
       setLoading(false);
     }
@@ -206,22 +211,29 @@ function AdminEvents() {
 
             return (
               <Card key={eventItem.docId} variant="outlined">
-                {eventItem.image && (
-                  <CardMedia
-                    component="img"
-                    image={eventItem.image}
-                    alt={eventItem.title}
-                    sx={{ height: { xs: "200px", md: "280px" }, objectFit: "cover" }}
-                  />
-                )}
-
                 <CardContent>
                   <Stack
                     direction={{ xs: "column", md: "row" }}
-                    justifyContent="space-between"
                     spacing={2}
+                    alignItems={{ xs: "stretch", md: "flex-start" }}
                   >
-                    <Box sx={{ flex: 1 }}>
+                    {eventItem.image && (
+                      <CardMedia
+                        component="img"
+                        image={eventItem.image}
+                        alt={eventItem.title}
+                        sx={{
+                          width: { xs: "100%", md: "260px" },
+                          minWidth: { md: "260px" },
+                          height: { xs: "180px", md: "160px" },
+                          borderRadius: "12px",
+                          objectFit: "cover",
+                          backgroundColor: "#f4f4f5"
+                        }}
+                      />
+                    )}
+
+                    <Box sx={{ flex: 1, minWidth: 0 }}>
                       {isEditing ? (
                         <Stack spacing={2}>
                           <TextField
@@ -324,7 +336,13 @@ function AdminEvents() {
                             {eventItem.date} at {eventItem.time}
                           </Typography>
 
-                          <Typography color="text.secondary" sx={{ mb: 1 }}>
+                          <Typography
+                            color="text.secondary"
+                            sx={{
+                              mb: 1,
+                              overflowWrap: "anywhere"
+                            }}
+                          >
                             {eventItem.link}
                           </Typography>
 
@@ -349,25 +367,46 @@ function AdminEvents() {
                       )}
                     </Box>
 
-                    <Stack direction={{ xs: "row", md: "column" }} spacing={1.5}>
+                    <Stack
+                      direction={{ xs: "row", md: "column" }}
+                      spacing={1.5}
+                      sx={{
+                        width: { xs: "100%", md: "auto" },
+                        justifyContent: { xs: "flex-start", md: "flex-start" },
+                        flexShrink: 0
+                      }}
+                    >
                       {isEditing ? (
                         <>
-                          <Button variant="contained" onClick={() => handleSave(eventItem)}>
+                          <Button
+                            variant="contained"
+                            onClick={() => handleSave(eventItem)}
+                            sx={{ minWidth: { md: "120px" } }}
+                          >
                             Save
                           </Button>
-                          <Button variant="outlined" onClick={() => cancelEditing(eventItem.docId)}>
+                          <Button
+                            variant="outlined"
+                            onClick={() => cancelEditing(eventItem.docId)}
+                            sx={{ minWidth: { md: "120px" } }}
+                          >
                             Cancel
                           </Button>
                         </>
                       ) : (
                         <>
-                          <Button variant="contained" onClick={() => beginEditing(eventItem)}>
+                          <Button
+                            variant="contained"
+                            onClick={() => beginEditing(eventItem)}
+                            sx={{ minWidth: { md: "120px" } }}
+                          >
                             Edit
                           </Button>
                           <Button
                             variant="outlined"
                             color="error"
                             onClick={() => setDeleteTarget(eventItem)}
+                            sx={{ minWidth: { md: "120px" } }}
                           >
                             Delete
                           </Button>
