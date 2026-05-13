@@ -1,0 +1,20 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isAdminUser() {
+      return request.auth != null
+        && request.auth.token.email != null
+        && request.auth.token.email.matches('^unswai\\.soc\\..+@gmail\\.com$');
+    }
+
+    match /events/{eventId} {
+      allow read: if true;
+      allow create, update, delete: if isAdminUser();
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

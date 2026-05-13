@@ -1,0 +1,20 @@
+rules_version = '2';
+
+service firebase.storage {
+  match /b/{bucket}/o {
+    function isAdminUser() {
+      return request.auth != null
+        && request.auth.token.email != null
+        && request.auth.token.email.matches('^unswai\\.soc\\..+@gmail\\.com$');
+    }
+
+    match /event-banners/{allPaths=**} {
+      allow read: if true;
+      allow write: if isAdminUser() && request.resource.contentType.matches('image/.*');
+    }
+
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}
