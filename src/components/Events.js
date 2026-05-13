@@ -24,6 +24,7 @@ const Events = () => {
   const railRef = useRef(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [imageData, setImageData] = useState(fallbackEvents);
+  const [fallbackState, setFallbackState] = useState("loading");
 
   useEffect(() => {
     const loadEvents = async () => {
@@ -45,6 +46,7 @@ const Events = () => {
         );
 
         if (!events.length) {
+          setFallbackState("empty");
           return;
         }
 
@@ -59,6 +61,7 @@ const Events = () => {
           .sort((a, b) => a.eventDate - b.eventDate);
 
         if (!upcomingEvents.length) {
+          setFallbackState("empty");
           return;
         }
 
@@ -79,8 +82,10 @@ const Events = () => {
 
         setImageData(formattedEvents);
         setActiveIndex(0);
+        setFallbackState("ready");
       } catch (error) {
         console.error("Failed to load events:", error);
+        setFallbackState("error");
       }
     };
 
@@ -252,50 +257,108 @@ const Events = () => {
         </Box>
 
         <Box sx={{ margin: "0 auto", maxWidth: "1100px" }}>
-          <Box
-            ref={railRef}
-            sx={{
-              display: "flex",
-              justifyContent: useDesktopGrid ? "center" : hasMultipleEvents ? "flex-start" : "center",
-              flexWrap: useDesktopGrid ? "wrap" : "nowrap",
-              gap: 2.5,
-              overflowX: useDesktopGrid ? "visible" : "auto",
-              paddingBottom: 2,
-              scrollSnapType: useDesktopGrid ? "none" : "x mandatory",
-              scrollbarWidth: "none",
-              "&::-webkit-scrollbar": {
-                display: "none"
-              }
-            }}
-          >
-            {eventCards}
-          </Box>
+          {fallbackState === "ready" ? (
+            <>
+              <Box
+                ref={railRef}
+                sx={{
+                  display: "flex",
+                  justifyContent: useDesktopGrid ? "center" : hasMultipleEvents ? "flex-start" : "center",
+                  flexWrap: useDesktopGrid ? "wrap" : "nowrap",
+                  gap: 2.5,
+                  overflowX: useDesktopGrid ? "visible" : "auto",
+                  paddingBottom: 2,
+                  scrollSnapType: useDesktopGrid ? "none" : "x mandatory",
+                  scrollbarWidth: "none",
+                  "&::-webkit-scrollbar": {
+                    display: "none"
+                  }
+                }}
+              >
+                {eventCards}
+              </Box>
 
-          {hasMultipleEvents && !useDesktopGrid && (
+              {hasMultipleEvents && !useDesktopGrid && (
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    gap: 1.25,
+                    marginTop: 1
+                  }}
+                >
+                  {imageData.map((_, index) => (
+                    <Box
+                      key={`dot-${index}`}
+                      onClick={() => setActiveIndex(index)}
+                      sx={{
+                        width: index === activeIndex ? "36px" : "10px",
+                        height: "10px",
+                        borderRadius: "999px",
+                        backgroundColor: index === activeIndex
+                          ? "#ffffff"
+                          : "rgba(255,255,255,0.35)",
+                        transition: "all 0.2s ease",
+                        cursor: "pointer"
+                      }}
+                    />
+                  ))}
+                </Box>
+              )}
+            </>
+          ) : (
             <Box
               sx={{
-                display: "flex",
-                justifyContent: "center",
-                gap: 1.25,
-                marginTop: 1
+                maxWidth: "620px",
+                margin: "0 auto",
+                padding: { xs: "24px", md: "32px" },
+                borderRadius: "18px",
+                border: "1px solid rgba(255,255,255,0.08)",
+                backgroundColor: "rgba(255,255,255,0.04)",
+                textAlign: "center"
               }}
             >
-              {imageData.map((_, index) => (
-                <Box
-                  key={`dot-${index}`}
-                  onClick={() => setActiveIndex(index)}
-                  sx={{
-                    width: index === activeIndex ? "36px" : "10px",
-                    height: "10px",
-                    borderRadius: "999px",
-                    backgroundColor: index === activeIndex
-                      ? "#ffffff"
-                      : "rgba(255,255,255,0.35)",
-                    transition: "all 0.2s ease",
-                    cursor: "pointer"
-                  }}
-                />
-              ))}
+              <Typography
+                sx={{
+                  fontFamily: "Ubuntu Sans",
+                  fontWeight: "bold",
+                  fontSize: { xs: "24px", md: "30px" },
+                  color: "white",
+                  marginBottom: "10px"
+                }}
+              >
+                {fallbackState === "error"
+                  ? "We couldn’t load events right now."
+                  : "No upcoming events just yet."}
+              </Typography>
+
+              <Typography
+                sx={{
+                  fontFamily: "Ubuntu Sans",
+                  fontSize: "17px",
+                  color: "rgba(255,255,255,0.78)",
+                  marginBottom: "24px"
+                }}
+              >
+                {fallbackState === "error"
+                  ? "Please try again shortly, or check our events page for the latest updates."
+                  : "We’re planning the next AI Society event now. Check our events page for the latest updates."}
+              </Typography>
+
+              <Button
+                variant="contained"
+                size="large"
+                href="https://campus.hellorubric.com/?s=12437"
+                target="_blank"
+                rel="noopener noreferrer"
+                sx={{
+                  fontFamily: "Ubuntu Sans",
+                  fontSize: "17px",
+                  padding: "12px 26px"
+                }}
+              >
+                View Our Events
+              </Button>
             </Box>
           )}
         </Box>
