@@ -1,8 +1,4 @@
-import React, { useState, useEffect } from "react";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import { makeStyles } from "@material-ui/core/styles";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Box, Typography, Button } from "@mui/material";
 import Reveal from "../util/Reveal";
 import defaultEvent from "../assets/coming-soon.webp";
@@ -11,56 +7,25 @@ import { collection, getDocs } from "firebase/firestore";
 import { db, storage } from "../firebase/firebaseconfig";
 import { resolveEventImage } from "../admin/adminUtils";
 
-const useCarouselStyles = makeStyles({
-  dotContainer: {
-    "& .slick-dots": {
-      "& li": {
-        marginRight: "45px",
-        "&:last-child": {
-          marginRight: 0,
-        },
-        "& button": {
-          "&:before": {
-            content: '""',
-            width: "60px",
-            height: "5px",
-            borderRadius: 0,
-            backgroundColor: "rgba(255, 255, 255, .4)",
-          },
-        },
-        "&.slick-active": {
-          "& button": {
-            "&:before": {
-              backgroundColor: "#fff",
-            },
-          },
-        },
-      },
-    },
-  },
-});
+const fallbackEvents = [
+  {
+    src: defaultEvent,
+    alt: "AI Society Events",
+    link: "https://campus.hellorubric.com/?s=12437",
+    title: "AI Society Events",
+    date: "",
+    time: ""
+  }
+];
 
 const Events = () => {
-
-  const classes = useCarouselStyles();
-
-  const [imageData, setImageData] = useState([
-    {
-      src: defaultEvent,
-      alt: "AI Society Events",
-      link: "https://campus.hellorubric.com/?s=12437",
-      title: "AI Society Events",
-      date: "",
-      time: ""
-    }
-  ]);
+  const railRef = useRef(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [imageData, setImageData] = useState(fallbackEvents);
 
   useEffect(() => {
-
     const loadEvents = async () => {
-
       try {
-
         const snapshot = await getDocs(collection(db, "events"));
 
         const events = await Promise.all(
@@ -77,251 +42,271 @@ const Events = () => {
           })
         );
 
-        if (!events.length) return;
+        if (!events.length) {
+          return;
+        }
 
         const now = new Date();
 
         const upcomingEvents = events
-          .map(event => ({
+          .map((event) => ({
             ...event,
-            eventDate: new Date(`${event.date}T${event.time}`)
+            eventDate: new Date(`${event.date}T${event.time || "00:00"}`)
           }))
-          .filter(event => event.eventDate >= now)
+          .filter((event) => event.eventDate >= now)
           .sort((a, b) => a.eventDate - b.eventDate);
 
-        if (!upcomingEvents.length) return;
+        if (!upcomingEvents.length) {
+          return;
+        }
 
-        const formatted = upcomingEvents.map(event => ({
+        const formattedEvents = upcomingEvents.map((event) => ({
           src: event.image || defaultEvent,
-          alt: event.title,
-          link: event.link,
-          title: event.title,
-          date: new Date(event.date).toLocaleDateString("en-AU", {
-            day: "numeric",
-            month: "short",
-            year: "numeric"
-          }),
-          time: event.time
+          alt: event.title || "AI Society event",
+          link: event.link || "https://campus.hellorubric.com/?s=12437",
+          title: event.title || "Upcoming Event",
+          date: event.date
+            ? new Date(event.date).toLocaleDateString("en-AU", {
+              day: "numeric",
+              month: "short",
+              year: "numeric"
+            })
+            : "",
+          time: event.time || ""
         }));
 
-        setImageData(formatted);
-
-      } catch (err) {
-
-        console.error("Failed to load events:", err);
-
+        setImageData(formattedEvents);
+        setActiveIndex(0);
+      } catch (error) {
+        console.error("Failed to load events:", error);
       }
-
     };
 
     loadEvents();
-
   }, []);
 
-  const settings = {
-    dots: true,
-    arrows: false,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    autoplay: true,
-    pauseOnHover: true,
-    className: classes.dotContainer,
-  };
+  const hasMultipleEvents = imageData.length > 1;
 
-  return (
-    <>
-      <Box
-        id="events"
-        sx={{
-          padding: "5% 10% 5% 10%",
-          color: "white",
-        }}
-      >
-        <Reveal>
-          <Box sx={{ textAlign: "center" }}>
-            <Typography
-              variant="h3"
-              sx={{
-                fontWeight: "bold",
-                marginBottom: "15px",
-                fontFamily: "Ubuntu Sans",
-              }}
-            >
-              Discover
-            </Typography>
+  useEffect(() => {
+    if (!hasMultipleEvents) {
+      return undefined;
+    }
 
-            <Typography
-              gutterBottom
-              sx={{
-                marginBottom: "30px",
-                fontFamily: "Ubuntu Sans",
-                fontSize: "20px",
-                color: "rgba(255, 255, 255, 0.8)",
-              }}
-            >
-              Stay updated with the latest events, lectures, and meetings
-              related to artificial intelligence.
-            </Typography>
-          </Box>
+    const intervalId = window.setInterval(() => {
+      setActiveIndex((currentIndex) => (currentIndex + 1) % imageData.length);
+    }, 4000);
 
-          <Box sx={{ margin: "0 5vw" }}>
-            <Slider {...settings}>
-              {imageData.map((image, index) => (
-                <Box
-                  key={index}
-                  sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center"
-                  }}
-                >
+    return () => window.clearInterval(intervalId);
+  }, [hasMultipleEvents, imageData.length]);
 
-                  <a
-                    href={image.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{
-                      display: "block",
-                      textDecoration: "none"
-                    }}
-                  >
+  useEffect(() => {
+    const rail = railRef.current;
+    if (!rail) {
+      return;
+    }
 
-                    <Box
-                      sx={{
-                        position: "relative",
-                        "&:hover .overlay": {
-                          opacity: 1
-                        },
-                        "&:hover .caption": {
-                          opacity: 0
-                        }
-                      }}
-                    >
+    const activeCard = rail.querySelector(`[data-event-index="${activeIndex}"]`);
+    if (!activeCard) {
+      return;
+    }
 
-                      <img
-                        src={image.src}
-                        alt={image.alt}
-                        style={{
-                          margin: "0 auto",
-                          maxWidth: "100%",
-                          height: "auto",
-                          maxHeight: "40vh",
-                          objectFit: "contain",
-                          cursor: "pointer"
-                        }}
-                      />
+    rail.scrollTo({
+      left: activeCard.offsetLeft,
+      behavior: "smooth"
+    });
+  }, [activeIndex]);
 
-                      {/* Hover overlay */}
-                      <Box
-                        className="overlay"
-                        sx={{
-                          position: "absolute",
-                          top: 0,
-                          left: 0,
-                          width: "100%",
-                          height: "100%",
-                          background: "rgba(0,0,0,0.65)",
-                          display: "flex",
-                          flexDirection: "column",
-                          justifyContent: "center",
-                          alignItems: "center",
-                          textAlign: "center",
-                          color: "white",
-                          opacity: 0,
-                          transition: "opacity 0.25s ease"
-                        }}
-                      >
-
-                        <Typography
-                          sx={{
-                            fontFamily: "Ubuntu Sans",
-                            fontWeight: "bold",
-                            fontSize: "18px"
-                          }}
-                        >
-                          {image.title}
-                        </Typography>
-
-                        <Typography
-                          sx={{
-                            fontFamily: "Ubuntu Sans",
-                            fontSize: "15px"
-                          }}
-                        >
-                          {image.date} • {image.time}
-                        </Typography>
-
-                      </Box>
-
-                    </Box>
-
-                  </a>
-
-                  {/* Caption below image */}
-                  <Box
-                    className="caption"
-                    sx={{
-                      marginTop: "8px",
-                      textAlign: "center",
-                      transition: "opacity 0.25s ease"
-                    }}
-                  >
-
-                    <Typography
-                      sx={{
-                        fontFamily: "Ubuntu Sans",
-                        fontWeight: "bold",
-                        fontSize: "16px",
-                        color: "white"
-                      }}
-                    >
-                      {image.title}
-                    </Typography>
-
-                    <Typography
-                      sx={{
-                        fontFamily: "Ubuntu Sans",
-                        fontSize: "14px",
-                        color: "white"
-                      }}
-                    >
-                      {image.date} • {image.time}
-                    </Typography>
-
-                  </Box>
-
-                </Box>
-              ))}
-            </Slider>
-          </Box>
-
-          <Box
-            sx={{
-              textAlign: "center",
-              marginTop: "40px",
+  const eventCards = useMemo(
+    () =>
+      imageData.map((image, index) => (
+        <Box
+          key={`${image.title}-${index}`}
+          data-event-index={index}
+          sx={{
+            flex: "0 0 min(320px, 78vw)",
+            scrollSnapAlign: "center"
+          }}
+        >
+          <a
+            href={image.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              display: "block",
+              textDecoration: "none"
             }}
           >
-            <Button
-              variant="contained"
-              size="large"
-              href="https://campus.hellorubric.com/?s=12437"
-              target="_blank"
-              rel="noopener noreferrer"
+            <Box
               sx={{
-                fontFamily: "Ubuntu Sans",
-                fontSize: "18px",
-                padding: "12px 30px",
+                borderRadius: "18px",
+                overflow: "hidden",
+                backgroundColor: "rgba(255, 255, 255, 0.04)",
+                border: index === activeIndex
+                  ? "1px solid rgba(255,255,255,0.3)"
+                  : "1px solid rgba(255,255,255,0.08)",
+                transition: "transform 0.25s ease, border-color 0.25s ease",
+                transform: index === activeIndex ? "translateY(-4px)" : "translateY(0)",
+                "&:hover": {
+                  transform: "translateY(-4px)",
+                  borderColor: "rgba(255,255,255,0.3)"
+                }
               }}
             >
-              View Our Events
-            </Button>
+              <Box
+                sx={{
+                  aspectRatio: "4 / 5",
+                  backgroundColor: "#0b0b12"
+                }}
+              >
+                <Box
+                  component="img"
+                  src={image.src}
+                  alt={image.alt}
+                  sx={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                    display: "block"
+                  }}
+                />
+              </Box>
+
+              <Box sx={{ padding: "14px 16px 16px" }}>
+                <Typography
+                  sx={{
+                    fontFamily: "Ubuntu Sans",
+                    fontWeight: "bold",
+                    fontSize: "17px",
+                    color: "white",
+                    marginBottom: "6px"
+                  }}
+                >
+                  {image.title}
+                </Typography>
+
+                <Typography
+                  sx={{
+                    fontFamily: "Ubuntu Sans",
+                    fontSize: "14px",
+                    color: "rgba(255, 255, 255, 0.8)"
+                  }}
+                >
+                  {image.date} {image.date && image.time ? "•" : ""} {image.time}
+                </Typography>
+              </Box>
+            </Box>
+          </a>
+        </Box>
+      )),
+    [activeIndex, imageData]
+  );
+
+  return (
+    <Box
+      id="events"
+      sx={{
+        padding: "5% 10% 5% 10%",
+        color: "white",
+      }}
+    >
+      <Reveal>
+        <Box sx={{ textAlign: "center" }}>
+          <Typography
+            variant="h3"
+            sx={{
+              fontWeight: "bold",
+              marginBottom: "15px",
+              fontFamily: "Ubuntu Sans",
+            }}
+          >
+            Discover
+          </Typography>
+
+          <Typography
+            gutterBottom
+            sx={{
+              marginBottom: "30px",
+              fontFamily: "Ubuntu Sans",
+              fontSize: "20px",
+              color: "rgba(255, 255, 255, 0.8)",
+            }}
+          >
+            Stay updated with the latest events, lectures, and meetings
+            related to artificial intelligence.
+          </Typography>
+        </Box>
+
+        <Box sx={{ margin: "0 auto", maxWidth: "1100px" }}>
+          <Box
+            ref={railRef}
+            sx={{
+              display: "flex",
+              justifyContent: hasMultipleEvents ? "flex-start" : "center",
+              gap: 2.5,
+              overflowX: "auto",
+              paddingBottom: 2,
+              scrollSnapType: "x mandatory",
+              scrollbarWidth: "none",
+              "&::-webkit-scrollbar": {
+                display: "none"
+              }
+            }}
+          >
+            {eventCards}
           </Box>
 
-        </Reveal>
-      </Box>
-    </>
+          {hasMultipleEvents && (
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                gap: 1.25,
+                marginTop: 1
+              }}
+            >
+              {imageData.map((_, index) => (
+                <Box
+                  key={`dot-${index}`}
+                  onClick={() => setActiveIndex(index)}
+                  sx={{
+                    width: index === activeIndex ? "36px" : "10px",
+                    height: "10px",
+                    borderRadius: "999px",
+                    backgroundColor: index === activeIndex
+                      ? "#ffffff"
+                      : "rgba(255,255,255,0.35)",
+                    transition: "all 0.2s ease",
+                    cursor: "pointer"
+                  }}
+                />
+              ))}
+            </Box>
+          )}
+        </Box>
+
+        <Box
+          sx={{
+            textAlign: "center",
+            marginTop: "40px",
+          }}
+        >
+          <Button
+            variant="contained"
+            size="large"
+            href="https://campus.hellorubric.com/?s=12437"
+            target="_blank"
+            rel="noopener noreferrer"
+            sx={{
+              fontFamily: "Ubuntu Sans",
+              fontSize: "18px",
+              padding: "12px 30px",
+            }}
+          >
+            View Our Events
+          </Button>
+        </Box>
+      </Reveal>
+    </Box>
   );
 };
 

@@ -97,11 +97,11 @@ const Sponsor = () => {
             {/* Sponsor Grid */}
             <Box
               sx={{
-                display: "grid",
-                gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
+                display: "flex",
+                flexWrap: "wrap",
+                justifyContent: "center",
                 gap: "40px",
                 alignItems: "center",
-                justifyItems: "center",
               }}
             >
               {sponsors.map((sponsor, index) => (
