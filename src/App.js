@@ -1,4 +1,4 @@
-import { HashRouter, Route, Routes } from "react-router-dom";
+import { HashRouter, Route, Routes, useLocation } from "react-router-dom";
 import Home from "./pages/Home";
 import Join from "./pages/Join";
 import Merch from "./pages/Merch";
@@ -13,28 +13,38 @@ import AdminDashboard from "./admin/AdminDashboard";
 
 import FloatingSocials from "./components/FloatingSocials";
 
+function AppContent() {
+  const location = useLocation();
+  const isAdminRoute = location.pathname.startsWith("/admin");
+
+  return (
+    <>
+      {!isAdminRoute && <FloatingSocials />}
+
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/join" element={<Join />} />
+        <Route path="/merch" element={<Merch />} />
+        <Route path="/shop" element={<Shop />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/product/:id" element={<ProductDetail />} />
+        <Route path="/payment-success" element={<PaymentSuccess />} />
+        <Route path="/payment-canceled" element={<PaymentCanceled />} />
+
+        {/* Admin Routes */}
+        <Route path="/admin" element={<AdminLogin />} />
+        <Route path="/admin/dashboard" element={<AdminDashboard />} />
+      </Routes>
+    </>
+  );
+}
+
 function App() {
   return (
     <div className="App">
       <HashRouter>
-
-        <FloatingSocials />
-
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/join" element={<Join />} />
-          <Route path="/merch" element={<Merch />} />
-          <Route path="/shop" element={<Shop />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/product/:id" element={<ProductDetail />} />
-          <Route path="/payment-success" element={<PaymentSuccess />} />
-          <Route path="/payment-canceled" element={<PaymentCanceled />} />
-
-          {/* Admin Routes */}
-          <Route path="/admin" element={<AdminLogin />} />
-          <Route path="/admin/dashboard" element={<AdminDashboard />} />
-        </Routes>
+        <AppContent />
       </HashRouter>
     </div>
   );

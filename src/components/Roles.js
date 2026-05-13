@@ -53,8 +53,8 @@ const Roles = () => {
     const handleChange = (event) => {
         setPortfolio(event.target.value);
         const index = portfolios.indexOf(event.target.value);
-        console.log(index);
-        console.log(portfolios[index]);
+        // console.log(index);
+        // console.log(portfolios[index]);
         setPortfolioDescription(portfolio_description[index]);
     };
 
