@@ -24,8 +24,8 @@ export default function PhotoStack({ images }) {
       sx={{
         position: "relative",
         width: { xs: "100%", md: 290 },
-        height: { xs: 280, md: 400 },
-        maxWidth: 420,
+        height: { xs: 240, md: 400 },
+        maxWidth: { xs: 320, md: 420 },
         cursor: "pointer",
       }}
     >
@@ -83,7 +83,7 @@ export default function PhotoStack({ images }) {
                   marginTop: "10px",
                   textAlign: "center",
                   fontFamily: "Permanent Marker",
-                  fontSize: "30px",
+                  fontSize: { xs: "22px", md: "30px" },
                   color: "#222",
                 }}
               >

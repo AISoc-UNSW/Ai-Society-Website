@@ -34,8 +34,8 @@ export default function FloatingSocials() {
         right: 8,
         top: "50%",
         zIndex: 99999,
+        display: { xs: "none", md: "flex" },
 
-        display: "flex",
         flexDirection: "column",
         alignItems: "flex-end",
         gap: "14px",

@@ -79,17 +79,17 @@ const MeetUs = () => {
 
           <Grid container spacing={2}>
             {team.map((person, index) => (
-              <Grid item xs={12} sm={6} md={4} key={index}>
+              <Grid item xs={6} sm={6} md={4} key={index}>
                 <Box
                   sx={{
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
                     flexDirection: "column",
-                    marginBottom: "30px",
+                    marginBottom: { xs: "20px", md: "30px" },
                   }}
                 >
-                  {person.name === "Andrew" || "Ray" ? (
+                  {person.name === "Andrew" || person.name === "Ray" ? (
                     <Egg
                       name={person.name}
                       image={person.image}
@@ -149,8 +149,8 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
   },
   image: {
-    width: "180px",
-    height: "180px",
+    width: "clamp(132px, 34vw, 180px)",
+    height: "clamp(132px, 34vw, 180px)",
     borderRadius: "50%",
     objectFit: "cover",
     objectPosition: "center",

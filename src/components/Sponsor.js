@@ -100,7 +100,7 @@ const Sponsor = () => {
                 display: "flex",
                 flexWrap: "wrap",
                 justifyContent: "center",
-                gap: "40px",
+                gap: { xs: "20px", md: "40px" },
                 alignItems: "center",
               }}
             >
@@ -112,8 +112,9 @@ const Sponsor = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   sx={{
-                    width: "180px",
-                    height: "90px",
+                    width: { xs: "calc(50% - 10px)", sm: "180px" },
+                    maxWidth: "180px",
+                    height: { xs: "72px", sm: "90px" },
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
@@ -140,8 +141,11 @@ const Sponsor = () => {
                     src={sponsor.logo}
                     alt={sponsor.name}
                     sx={{
-                      width: `${sponsor.size}px`,
-                      height: "70px",
+                      width: {
+                        xs: `min(${sponsor.size}px, 100%)`,
+                        sm: `${sponsor.size}px`
+                      },
+                      height: { xs: "56px", sm: "70px" },
                       objectFit: "contain",
                       filter: "grayscale(0.15) brightness(0.95) contrast(1.05)",
                       transition: "filter 0.25s ease, transform 0.2s ease",

@@ -34,14 +34,17 @@ const About = () => {
             flexDirection: { xs: "column", md: "row" },
             flexWrap: "wrap",
             alignItems: "center",
+            rowGap: { xs: 3, md: 0 },
           }}
         >
           {/* LEFT SIDE */}
           <Box
             sx={{
               width: { xs: "100%", md: "55%" },
+              order: { xs: 2, md: 1 },
               textAlign: "left",
               paddingRight: { md: "30px" },
+              paddingTop: { xs: "30px", md: 0 },
               paddingBottom: { xs: "30px", md: 0 },
             }}
           >
@@ -96,9 +99,11 @@ const About = () => {
           <Box
             sx={{
               width: { xs: "100%", md: "40%" },
+              order: { xs: 1, md: 2 },
               display: "flex",
               flexDirection: "column",
-              alignItems: { xs: "flex-start", md: "flex-end" },
+              alignItems: { xs: "center", md: "flex-end" },
+              paddingBottom: { xs: "20px", md: 0 },
             }}
           >
             <PhotoStack images={images} />
