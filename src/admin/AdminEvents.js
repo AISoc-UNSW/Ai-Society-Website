@@ -84,6 +84,30 @@ function AdminEvents() {
     [events]
   );
 
+  const { upcomingEvents, pastEvents } = useMemo(() => {
+    const now = Date.now();
+
+    return sortedEvents.reduce(
+      (groups, eventItem) => {
+        const eventTimestamp = new Date(
+          `${eventItem.date}T${eventItem.time || "00:00"}`
+        ).getTime();
+
+        if (eventTimestamp >= now) {
+          groups.upcomingEvents.push(eventItem);
+        } else {
+          groups.pastEvents.push(eventItem);
+        }
+
+        return groups;
+      },
+      {
+        upcomingEvents: [],
+        pastEvents: []
+      }
+    );
+  }, [sortedEvents]);
+
   const beginEditing = (event) => {
     setEditingId(event.docId);
     setDrafts((current) => ({
@@ -205,7 +229,82 @@ function AdminEvents() {
         </Typography>
       ) : (
         <Stack spacing={3}>
-          {sortedEvents.map((eventItem) => {
+          <EventSection
+            title="Upcoming Events"
+            events={upcomingEvents}
+            editingId={editingId}
+            drafts={drafts}
+            pendingFiles={pendingFiles}
+            beginEditing={beginEditing}
+            updateDraft={updateDraft}
+            cancelEditing={cancelEditing}
+            handleSave={handleSave}
+            setPendingFiles={setPendingFiles}
+            setDeleteTarget={setDeleteTarget}
+          />
+
+          <EventSection
+            title="Past Events"
+            events={pastEvents}
+            emptyMessage="No past events yet."
+            editingId={editingId}
+            drafts={drafts}
+            pendingFiles={pendingFiles}
+            beginEditing={beginEditing}
+            updateDraft={updateDraft}
+            cancelEditing={cancelEditing}
+            handleSave={handleSave}
+            setPendingFiles={setPendingFiles}
+            setDeleteTarget={setDeleteTarget}
+          />
+        </Stack>
+      )}
+
+      <Dialog open={Boolean(deleteTarget)} onClose={() => setDeleteTarget(null)}>
+        <DialogTitle>Delete Event</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            This will permanently remove the event{deleteTarget ? ` "${deleteTarget.title}"` : ""} from Firestore and delete its banner from Storage.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setDeleteTarget(null)}>Cancel</Button>
+          <Button color="error" variant="contained" onClick={confirmDelete}>
+            Delete
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </AdminShell>
+  );
+}
+
+function EventSection({
+  title,
+  events,
+  emptyMessage = "No events in this section.",
+  editingId,
+  drafts,
+  pendingFiles,
+  beginEditing,
+  updateDraft,
+  cancelEditing,
+  handleSave,
+  setPendingFiles,
+  setDeleteTarget
+}) {
+  return (
+    <Box>
+      <Typography variant="h5" sx={{ mb: 2 }}>
+        {title}
+      </Typography>
+
+      {events.length === 0 ? (
+        <Typography color="text.secondary" sx={{ mb: 1 }}>
+          {emptyMessage}
+        </Typography>
+      ) : (
+        <Stack spacing={3}>
+          {events.map((eventItem) => {
             const isEditing = editingId === eventItem.docId;
             const draft = drafts[eventItem.docId] || {};
 
@@ -420,22 +519,7 @@ function AdminEvents() {
           })}
         </Stack>
       )}
-
-      <Dialog open={Boolean(deleteTarget)} onClose={() => setDeleteTarget(null)}>
-        <DialogTitle>Delete Event</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            This will permanently remove the event{deleteTarget ? ` "${deleteTarget.title}"` : ""} from Firestore and delete its banner from Storage.
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={() => setDeleteTarget(null)}>Cancel</Button>
-          <Button color="error" variant="contained" onClick={confirmDelete}>
-            Delete
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </AdminShell>
+    </Box>
   );
 }
 

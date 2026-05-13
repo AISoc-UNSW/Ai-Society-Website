@@ -252,7 +252,7 @@ function AdminDashboard() {
             label="Your Name"
             fullWidth
             sx={{ mb: 3 }}
-            helperText="This will be stored as the creator and latest updater for transparency."
+            helperText="This will be stored as the creator and latest updater for transparency. E.g. Alice - Projects"
             value={form.updatedBy}
             onChange={handleChange("updatedBy")}
           />
