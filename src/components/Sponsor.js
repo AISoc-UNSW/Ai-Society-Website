@@ -1,13 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Box, Typography, Button } from "@mui/material";
-import UNSWFounders from "../assets/companies/webp/unsw-founders1.webp";
-import Microsoft from "../assets/companies/webp/microsoft.webp";
-import Quantium from "../assets/companies/webp/quantium.webp";
-import Lovable from "../assets/companies/webp/lovable.webp";
-import Notion from "../assets/companies/webp/notion.webp";
-import Lorikeet from "../assets/companies/webp/lorikeet.webp";
-import Preve from "../assets/companies/webp/preve.webp";
-import CGI from "../assets/companies/webp/cgi.webp";
+import UNSWFounders from "../assets/companies/png/unsw-founders1.png";
+import Microsoft from "../assets/companies/png/microsoft.png";
+import Quantium from "../assets/companies/png/quantium.png";
+import Lovable from "../assets/companies/png/lovable.png";
+import Notion from "../assets/companies/png/notion.png";
+import Lorikeet from "../assets/companies/png/lorikeet.png";
+import Preve from "../assets/companies/png/preve.png";
+import CGI from "../assets/companies/png/cgi.png";
 import Reveal from "../util/Reveal";
 
 const handleClick = () => {
