@@ -5,7 +5,7 @@ service cloud.firestore {
     function isAdminUser() {
       return request.auth != null
         && request.auth.token.email != null
-        && request.auth.token.email.matches('^unswai\\.soc\\..+@gmail\\.com$');
+        && (request.auth.token.email.matches('^unswai\\.soc\\..+@gmail\\.com$') || request.auth.token.email.matches('partnerships@unswaisoc.com'));
     }
 
     match /events/{eventId} {
