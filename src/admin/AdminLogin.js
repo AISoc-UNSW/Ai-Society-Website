@@ -23,8 +23,8 @@ function AdminLogin() {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
 
-      console.log("Logged in user:", user);
-      console.log("Logged in email:", user.email);
+      // console.log("Logged in user:", user);
+      // console.log("Logged in email:", user.email);
 
       const email = user.email.toLowerCase();
 

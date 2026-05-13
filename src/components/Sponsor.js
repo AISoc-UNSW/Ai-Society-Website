@@ -1,17 +1,17 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Box, Typography, Button } from "@mui/material";
-import UNSWFounders from "../assets/companies/unsw-founders1.webp";
-import Microsoft from "../assets/companies/microsoft.webp";
-import Quantium from "../assets/companies/quantium.webp";
-import Lovable from "../assets/companies/lovable.webp";
-import Notion from "../assets/companies/notion.webp";
-import Lorikeet from "../assets/companies/lorikeet.webp";
-import Preve from "../assets/companies/preve.webp";
-import CGI from "../assets/companies/cgi.webp";
+import UNSWFounders from "../assets/companies/webp/unsw-founders1.webp";
+import Microsoft from "../assets/companies/webp/microsoft.webp";
+import Quantium from "../assets/companies/webp/quantium.webp";
+import Lovable from "../assets/companies/webp/lovable.webp";
+import Notion from "../assets/companies/webp/notion.webp";
+import Lorikeet from "../assets/companies/webp/lorikeet.webp";
+import Preve from "../assets/companies/webp/preve.webp";
+import CGI from "../assets/companies/webp/cgi.webp";
 import Reveal from "../util/Reveal";
 
 const handleClick = () => {
-  window.location.href = "mailto:unswai.soc.partnerships@gmail.com";
+  window.location.href = "mailto:partnerships@unswaisoc.com";
 };
 
 const sponsors = [
@@ -20,8 +20,8 @@ const sponsors = [
   { name: "Quantium", logo: Quantium, url: "https://www.quantium.com", size: 130 },
   { name: "Lovable", logo: Lovable, url: "https://lovable.dev", size: 700 },
   { name: "Notion", logo: Notion, url: "https://www.notion.so", size: 400 },
-  { name: "Lorikeet", logo: Lorikeet, url: "https://lorikeet.com", size: 125 },
-  { name: "Preve", logo: Preve, url: "https://preve.com", size: 110 },
+  { name: "Lorikeet", logo: Lorikeet, url: "https://lorikeetcx.ai", size: 125 },
+  { name: "Preve", logo: Preve, url: "https://preve.co", size: 110 },
   { name: "CGI", logo: CGI, url: "https://www.cgi.com", size: 60 },
 ];
 

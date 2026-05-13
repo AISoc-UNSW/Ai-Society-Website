@@ -41,7 +41,7 @@ async function getDb() {
   await client.connect();
   // Ping to verify connection
   await client.db("admin").command({ ping: 1 });
-  console.log("Connected to MongoDB (ping ok).");
+  // console.log("Connected to MongoDB (ping ok).");
   cachedDb = client.db(MONGODB_DB);
   return cachedDb;
 }
@@ -71,7 +71,7 @@ const corsOptions = {
       }
       
       // Log and reject everything else
-      console.log(`CORS rejected origin: ${origin}`);
+      // console.log(`CORS rejected origin: ${origin}`);
       callback(new Error("Not allowed by CORS"));
     },
     credentials: true,
