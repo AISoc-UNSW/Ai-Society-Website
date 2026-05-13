@@ -23,7 +23,10 @@ const About = () => {
     <Box
       id="about"
       sx={{
-        padding: "5% 10% 5% 10%",
+        paddingTop: { xs: "2%", md: "3%" },
+        paddingRight: "10%",
+        paddingBottom: "5%",
+        paddingLeft: "10%",
         color: "white",
       }}
     >

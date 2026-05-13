@@ -161,9 +161,11 @@ const Brain = () => {
             alignContent: "center",
             maxWidth: isMobile ? "100%" : "40%",
             maxHeight: "100%",
-            padding: isMobile ? "20px" : "5%",
-            paddingLeft: isMobile ? "5%" : "10%",
-            marginTop: isMobile ? "15%" : 0,
+            paddingTop: isMobile ? "8px" : "3%",
+            paddingRight: isMobile ? "20px" : "4%",
+            paddingBottom: isMobile ? "8px" : "3%",
+            paddingLeft: isMobile ? "20px" : "8%",
+            marginTop: isMobile ? "6%" : 0,
             textAlign: isMobile ? "center" : "left", // Center text on mobile
           }}
         >
