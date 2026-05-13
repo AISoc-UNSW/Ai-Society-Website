@@ -119,7 +119,7 @@ function AdminDashboard() {
       const webhookURL =
         "https://discordapp.com/api/webhooks/1481530466136883263/d_J77WyQZ_lOBkzup1FeI9LbF-F_5VK-mcb02hNMMqbq-xQ5Lc-0IDW-qCTJCfv1Mjui";
 
-      await fetch(webhookURL, {
+      const webhookResponse = await fetch(webhookURL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -145,9 +145,15 @@ function AdminDashboard() {
       });
 
       setSubmitted(true);
-      setStatus("Event created successfully.");
+      setStatus(
+        webhookResponse.ok
+          ? "Event created successfully."
+          : "Event saved, but the Discord notification could not be delivered."
+      );
     } catch (error) {
-      setStatus("Something went wrong while submitting the event.");
+      setStatus(
+        `Something went wrong while submitting the event. ${error?.message || ""}`.trim()
+      );
     } finally {
       setIsSubmitting(false);
     }

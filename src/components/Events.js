@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import { Box, Typography, Button } from "@mui/material";
+import { Box, Typography, Button, useMediaQuery, useTheme } from "@mui/material";
 import Reveal from "../util/Reveal";
 import defaultEvent from "../assets/coming-soon.webp";
 
@@ -19,6 +19,8 @@ const fallbackEvents = [
 ];
 
 const Events = () => {
+  const theme = useTheme();
+  const isDesktop = useMediaQuery(theme.breakpoints.up("md"));
   const railRef = useRef(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [imageData, setImageData] = useState(fallbackEvents);
@@ -100,6 +102,10 @@ const Events = () => {
   }, [hasMultipleEvents, imageData.length]);
 
   useEffect(() => {
+    if (!hasMultipleEvents || (isDesktop && imageData.length <= 2)) {
+      return;
+    }
+
     const rail = railRef.current;
     if (!rail) {
       return;
@@ -114,7 +120,9 @@ const Events = () => {
       left: activeCard.offsetLeft,
       behavior: "smooth"
     });
-  }, [activeIndex]);
+  }, [activeIndex, hasMultipleEvents, imageData.length, isDesktop]);
+
+  const useDesktopGrid = isDesktop && imageData.length <= 2;
 
   const eventCards = useMemo(
     () =>
@@ -123,7 +131,8 @@ const Events = () => {
           key={`${image.title}-${index}`}
           data-event-index={index}
           sx={{
-            flex: "0 0 min(320px, 78vw)",
+            flex: useDesktopGrid ? "0 1 420px" : "0 0 min(360px, 82vw)",
+            maxWidth: useDesktopGrid ? "420px" : "none",
             scrollSnapAlign: "center"
           }}
         >
@@ -154,8 +163,13 @@ const Events = () => {
             >
               <Box
                 sx={{
-                  aspectRatio: "4 / 5",
-                  backgroundColor: "#0b0b12"
+                  aspectRatio: "4 / 4.8",
+                  background:
+                    "linear-gradient(180deg, rgba(14,14,22,0.96), rgba(9,9,14,0.98))",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  padding: "18px"
                 }}
               >
                 <Box
@@ -165,8 +179,9 @@ const Events = () => {
                   sx={{
                     width: "100%",
                     height: "100%",
-                    objectFit: "cover",
-                    display: "block"
+                    objectFit: "contain",
+                    display: "block",
+                    borderRadius: "12px"
                   }}
                 />
               </Box>
@@ -198,7 +213,7 @@ const Events = () => {
           </a>
         </Box>
       )),
-    [activeIndex, imageData]
+    [activeIndex, imageData, useDesktopGrid]
   );
 
   return (
@@ -241,11 +256,12 @@ const Events = () => {
             ref={railRef}
             sx={{
               display: "flex",
-              justifyContent: hasMultipleEvents ? "flex-start" : "center",
+              justifyContent: useDesktopGrid ? "center" : hasMultipleEvents ? "flex-start" : "center",
+              flexWrap: useDesktopGrid ? "wrap" : "nowrap",
               gap: 2.5,
-              overflowX: "auto",
+              overflowX: useDesktopGrid ? "visible" : "auto",
               paddingBottom: 2,
-              scrollSnapType: "x mandatory",
+              scrollSnapType: useDesktopGrid ? "none" : "x mandatory",
               scrollbarWidth: "none",
               "&::-webkit-scrollbar": {
                 display: "none"
@@ -255,7 +271,7 @@ const Events = () => {
             {eventCards}
           </Box>
 
-          {hasMultipleEvents && (
+          {hasMultipleEvents && !useDesktopGrid && (
             <Box
               sx={{
                 display: "flex",
