@@ -11,7 +11,7 @@ import CGI from "../assets/companies/png/cgi.png";
 import Reveal from "../util/Reveal";
 
 const handleClick = () => {
-  window.location.href = "mailto:partnerships@unswaisoc.com";
+  window.location.href = "mailto:unswai.soc.partnerships@gmail.com";
 };
 
 const sponsors = [
