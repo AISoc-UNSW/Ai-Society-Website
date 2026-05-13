@@ -19,42 +19,42 @@ import { Link } from "@mui/material";
 const cardData = [
   {
     title: "The Great Data Centre Debate, Anthropic vs. The Pentagon",
-    author: "AISociet Education",
+    author: "AI Society Education Team",
     date: "March 17, 2026",
     img: img36,
     link: "https://aisocturingpoint.beehiiv.com/p/the-turing-point-2026-version-three"
   },
   {
-    title: "The Death of Saas: A 'whodunnit' with One Suspect",
-    author: "AISociety Education",
+    title: "The Death of SaaS: A 'whodunnit' with One Suspect",
+    author: "AI Society Education Team",
     date: "March 2, 2026",
     img: img33,
     link: "https://aisocturingpoint.beehiiv.com/p/the-turing-point-2026-version-two",
   },
   {
-    title: "Google redfining Mathematics, Global RAM Shortages",
-    author: "AISociety Education",
+    title: "Google Redefining Mathematics, Global RAM Shortages",
+    author: "AI Society Education Team",
     date: "February 8, 2026",
     img: img35,
     link: "https://aisocturingpoint.beehiiv.com/p/the-turing-point-2026-version-one",
   },
   {
     title: "Entering the new AI Era, The Rise of Meta AI ",
-    author: "AISociety Education",
+    author: "AI Society Education Team",
     date: "July 3, 2025",
     img: img34,
     link: "https://aisocturingpoint.beehiiv.com/p/the-turing-point-33rd-edition",
   },
   {
     title: "Google Strikes Back: Veo 3, Gemini 2.5, and the IO Offensive",
-    author: "By AI Society Education Team",
+    author: "AI Society Education Team",
     date: "June 05, 2025",
     img: img32,
     link: "https://aisocturingpoint.beehiiv.com/p/the-turing-point-32nd-edition",
   },
   {
     title: "Rise of Autonomous Agents and a Huge Week for Open Source",
-    author: "By AI Society Education Team",
+    author: "AI Society Education Team",
     date: "March 29, 2025",
     img: img30,
     link: "https://aisocturingpoint.beehiiv.com/p/the-turing-point-30th-edition",
@@ -67,21 +67,26 @@ function handleClick() {
 
 const NewsLetter = () => {
   var settings = {
-    dots: false,
+    dots: true,
     arrows: false,
     infinite: true,
-    speed: 500,
+    speed: 650,
     slidesToShow: 4,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 2500,
+    autoplaySpeed: 4500,
+    pauseOnHover: true,
+    pauseOnFocus: true,
+    pauseOnDotsHover: true,
+    swipeToSlide: true,
+    touchThreshold: 12,
     initialSlide: 0,
     responsive: [
       {
         breakpoint: 1600,
         settings: {
           slidesToShow: 3,
-          slidesToScroll: 3,
+          slidesToScroll: 1,
           infinite: true,
           dots: true,
         },
@@ -90,8 +95,8 @@ const NewsLetter = () => {
         breakpoint: 1200,
         settings: {
           slidesToShow: 2,
-          slidesToScroll: 2,
-          initialSlide: 2,
+          slidesToScroll: 1,
+          dots: true,
         },
       },
       {
@@ -99,6 +104,8 @@ const NewsLetter = () => {
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
+          autoplay: false,
+          dots: true,
         },
       },
     ],
@@ -141,7 +148,7 @@ const NewsLetter = () => {
           <Box sx={{ marginLeft: "3vw", marginRight: "2vw" }}>
             <Slider {...settings}>
               {cardData.map((card, index) => (
-                <Link href={card.link} underline="none">
+                <Link key={card.link || index} href={card.link} underline="none">
                   <Card
                     sx={{
                       marginRight: "1vw",
