@@ -19,7 +19,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "@types/three": "^0.163.0",
-    "caniuse-lite": "^1.0.30001748",
+    "caniuse-lite": "^1.0.30001792",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
