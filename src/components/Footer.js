@@ -39,6 +39,14 @@ const Footer = ({ onLightBackground = false }) => {
           >
             © {new Date().getFullYear()} — AISoc UNSW
           </Typography>
+          <Typography
+            sx={{
+              fontFamily: "Ubuntu Sans",
+              paddingTop: "2px",
+            }}
+          >
+            Built and Maintained by Raymond Cen, Aaron Xie, Henrick Lin, Sergio Insuasti, Ishmanbir Singh, Colin Zheng, Chelsea Yang, Abhishek Moramganti, Nalin Iyer, Donggun Lim
+          </Typography>
         </Box>
       </Box>
     </Box>

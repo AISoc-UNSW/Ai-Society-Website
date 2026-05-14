@@ -1,17 +1,22 @@
 import React from "react";
 import { Box, Typography, Button } from "@mui/material";
-import AISoc from "../assets/aisoc-group-photo.webp";
 import Reveal from "../util/Reveal";
 import SocialMediaIcons from "../util/Icons";
 import PhotoStack from "../util/PhotoStack";
-import test from "../assets/build.webp";
+
+import FoundingTeamPhoto from "../assets/photobooth/build.webp";
+import OWeekPhoto from "../assets/photobooth/aisoc-group-photo.webp";
+import LovableHackathonPhoto from "../assets/photobooth/aisoc-lovable-hackathon.webp";
+import PodcastPhoto from "../assets/photobooth/neurons-and-notions.webp";
+import QuantiumPhoto from "../assets/photobooth/aisoc-quantium.webp";
 
 // Placeholder stack (same image repeated)
 const images = [
-  {src: AISoc, caption: "O-Week 2026"},
-  {src: test, caption: "Test Caption"},
-  {src: AISoc, caption: "O-Week 2026"},
-  {src: test, caption: "Test Caption"},
+  {src: LovableHackathonPhoto, caption: "AISoc X Lovable Hackathon"},
+  {src: OWeekPhoto, caption: "O-Week 2026"},
+  {src: PodcastPhoto, caption: "Neurons and Notions Podcast"},
+  {src: QuantiumPhoto, caption: "AISoc @ Quantium"},
+  {src: FoundingTeamPhoto, caption: "Founding Team"},
 ];
 
 const handleClick = () => {

@@ -3,7 +3,6 @@
   "homepage": ".",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:5008",
   "dependencies": {
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
@@ -47,7 +46,7 @@
     "start": "react-scripts start",
     "server": "node server/index.js",
     "server:dev": "nodemon server/index.js",
-    "dev": "concurrently \"npm run server:dev\" \"npm start\"",
+    "dev": "npm start",
     "build": "react-scripts build",
     "check:webp": "node scripts/check-webp-sizes.js",
     "test": "react-scripts test",

@@ -6,13 +6,15 @@ import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 
 import Typography from "@mui/material/Typography";
-import img30 from "../assets/watchtower/png/30.png";
-import img32 from "../assets/watchtower/png/32.png";
-import img33 from "../assets/watchtower/png/33.png";
-import img34 from "../assets/watchtower/png/34.png";
-import img35 from "../assets/watchtower/png/35.png";
-import img36 from "../assets/watchtower/png/36.png";
+import img30 from "../assets/watchtower/webp/30.webp";
+import img32 from "../assets/watchtower/webp/32.webp";
+import img33 from "../assets/watchtower/webp/33.webp";
+import img34 from "../assets/watchtower/webp/34.webp";
+import img35 from "../assets/watchtower/webp/35.webp";
+import img36 from "../assets/watchtower/webp/36.webp";
 import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import Reveal from "../util/Reveal";
 import { Link } from "@mui/material";
 

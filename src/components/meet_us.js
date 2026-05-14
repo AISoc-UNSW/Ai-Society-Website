@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+// import React, { useState, useEffect } from "react";
 import { Box, Typography, Grid } from "@mui/material";
 import { makeStyles } from "@material-ui/core/styles";
 import Reveal from "../util/Reveal";
@@ -8,8 +8,8 @@ import anika from "../assets/execs/Anika Chandra, Treasurer.webp";
 import diva from "../assets/execs/Diva Thakkar, Vice President (Creatives).webp";
 import nalin from "../assets/execs/Nalin Iyer, Vice President (Engineering).webp";
 import shreya from "../assets/execs/Shreya Muthiah, Vice President (Internals).webp";
-import aee from "../assets/execs/easter-egg.webp";
-import ree from "../assets/execs/easter-egg2.webp";
+// import aee from "../assets/execs/easter-egg.webp";
+// import ree from "../assets/execs/easter-egg2.webp";
 
 const MeetUs = () => {
   const team = [
@@ -189,33 +189,32 @@ const TeamMember = ({ name, image, role }) => {
 
 const Egg = ({ name, image, role }) => {
   const classes = useStyles();
-  const [clickCount, setClickCount] = useState(0);
-  const [lastClickTime, setLastClickTime] = useState(null);
-  const [currentImage, setCurrentImage] = useState(image);
+  // const [clickCount, setClickCount] = useState(0);
+  // const [lastClickTime, setLastClickTime] = useState(null);
+  // const [currentImage, setCurrentImage] = useState(image);
 
-  useEffect(() => {
-    if (clickCount === 10) {
-      setCurrentImage(name === "Andrew" ? aee : ree);
-    }
-  }, [clickCount, name]);
+  // useEffect(() => {
+  //   if (clickCount === 10) {
+  //     setCurrentImage(name === "Andrew" ? aee : ree);
+  //   }
+  // }, [clickCount, name]);
 
-  const handleImageClick = () => {
-    const currentTime = new Date().getTime();
-    if (lastClickTime && currentTime - lastClickTime > 3000) {
-      setClickCount(1);
-    } else {
-      setClickCount((prevCount) => prevCount + 1);
-    }
-    setLastClickTime(currentTime);
-  };
+  // const handleImageClick = () => {
+  //   const currentTime = new Date().getTime();
+  //   if (lastClickTime && currentTime - lastClickTime > 3000) {
+  //     setClickCount(1);
+  //   } else {
+  //     setClickCount((prevCount) => prevCount + 1);
+  //   }
+  //   setLastClickTime(currentTime);
+  // };
 
   return (
     <Box className={classes.root}>
       <img
-        src={currentImage}
+        src={image}
         alt={name}
         className={classes.image}
-        onClick={handleImageClick}
       />
       <Typography
         variant="h6"
