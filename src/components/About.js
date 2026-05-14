@@ -106,7 +106,7 @@ const About = () => {
               display: "flex",
               flexDirection: "column",
               alignItems: { xs: "center", md: "flex-end" },
-              paddingBottom: { xs: "20px", md: 0 },
+              paddingBottom: { xs: "40px", md: 0 },
             }}
           >
             <PhotoStack images={images} />

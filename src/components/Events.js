@@ -14,7 +14,8 @@ const fallbackEvents = [
     link: "https://campus.hellorubric.com/?s=12437",
     title: "AI Society Events",
     date: "",
-    time: ""
+    time: "",
+    endTime: ""
   }
 ];
 
@@ -55,9 +56,12 @@ const Events = () => {
         const upcomingEvents = events
           .map((event) => ({
             ...event,
-            eventDate: new Date(`${event.date}T${event.time || "00:00"}`)
+            eventDate: new Date(`${event.date}T${event.time || "00:00"}`),
+            eventEndDate: new Date(
+              `${event.date}T${event.endTime || event.time || "23:59"}`
+            )
           }))
-          .filter((event) => event.eventDate >= now)
+          .filter((event) => event.eventEndDate >= now)
           .sort((a, b) => a.eventDate - b.eventDate);
 
         if (!upcomingEvents.length) {
@@ -77,7 +81,8 @@ const Events = () => {
               year: "numeric"
             })
             : "",
-          time: event.time || ""
+          time: event.time || "",
+          endTime: event.endTime || ""
         }));
 
         setImageData(formattedEvents);
@@ -93,6 +98,11 @@ const Events = () => {
   }, []);
 
   const hasMultipleEvents = imageData.length > 1;
+  const useDesktopGrid = false;
+  const useDesktopCarousel = false;
+  const maxActiveIndex = useDesktopCarousel
+    ? imageData.length - 3
+    : imageData.length - 1;
 
   useEffect(() => {
     if (!hasMultipleEvents) {
@@ -100,14 +110,16 @@ const Events = () => {
     }
 
     const intervalId = window.setInterval(() => {
-      setActiveIndex((currentIndex) => (currentIndex + 1) % imageData.length);
+      setActiveIndex((currentIndex) =>
+        currentIndex >= maxActiveIndex ? 0 : currentIndex + 1
+      );
     }, 4000);
 
     return () => window.clearInterval(intervalId);
-  }, [hasMultipleEvents, imageData.length]);
+  }, [hasMultipleEvents, maxActiveIndex]);
 
   useEffect(() => {
-    if (!hasMultipleEvents || (isDesktop && imageData.length <= 2)) {
+    if (!hasMultipleEvents || useDesktopGrid || useDesktopCarousel) {
       return;
     }
 
@@ -125,9 +137,7 @@ const Events = () => {
       left: activeCard.offsetLeft,
       behavior: "smooth"
     });
-  }, [activeIndex, hasMultipleEvents, imageData.length, isDesktop]);
-
-  const useDesktopGrid = isDesktop && imageData.length <= 2;
+  }, [activeIndex, hasMultipleEvents, imageData.length, isDesktop, useDesktopCarousel, useDesktopGrid]);
 
   const eventCards = useMemo(
     () =>
@@ -136,9 +146,12 @@ const Events = () => {
           key={`${image.title}-${index}`}
           data-event-index={index}
           sx={{
-            flex: useDesktopGrid ? "0 1 420px" : "0 0 min(360px, 82vw)",
-            maxWidth: useDesktopGrid ? "420px" : "none",
-            scrollSnapAlign: "center"
+            display: "flex",
+            flex: "0 0 min(360px, 78vw)",
+            width: "auto",
+            maxWidth: "none",
+            minWidth: "auto",
+            scrollSnapAlign: { xs: "start", md: "center" }
           }}
         >
           <a
@@ -147,34 +160,42 @@ const Events = () => {
             rel="noopener noreferrer"
             style={{
               display: "block",
-              textDecoration: "none"
+              textDecoration: "none",
+              width: "100%",
+              height: "100%"
             }}
           >
             <Box
               sx={{
+                display: "flex",
+                flexDirection: "column",
+                height: "100%",
                 borderRadius: "18px",
                 overflow: "hidden",
                 backgroundColor: "rgba(255, 255, 255, 0.04)",
-                border: index === activeIndex
+                border: !useDesktopGrid && !useDesktopCarousel && index === activeIndex
                   ? "1px solid rgba(255,255,255,0.3)"
                   : "1px solid rgba(255,255,255,0.08)",
                 transition: "transform 0.25s ease, border-color 0.25s ease",
-                transform: index === activeIndex ? "translateY(-4px)" : "translateY(0)",
+                transform:
+                  !useDesktopGrid && !useDesktopCarousel && index === activeIndex
+                    ? "translateY(-4px)"
+                    : "translateY(0)",
                 "&:hover": {
-                  transform: "translateY(-4px)",
+                  transform: useDesktopGrid ? "translateY(0)" : "translateY(-4px)",
                   borderColor: "rgba(255,255,255,0.3)"
                 }
               }}
             >
               <Box
                 sx={{
-                  aspectRatio: "4 / 4.8",
+                  height: { xs: "340px", md: "320px" },
                   background:
                     "linear-gradient(180deg, rgba(14,14,22,0.96), rgba(9,9,14,0.98))",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  padding: "18px"
+                  padding: { xs: "16px", md: "14px" }
                 }}
               >
                 <Box
@@ -186,19 +207,32 @@ const Events = () => {
                     height: "100%",
                     objectFit: "contain",
                     display: "block",
+                    maxWidth: { xs: "280px", md: "252px" },
+                    maxHeight: { xs: "308px", md: "292px" },
                     borderRadius: "12px"
                   }}
                 />
               </Box>
 
-              <Box sx={{ padding: "14px 16px 16px" }}>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
+                  flexGrow: 1,
+                  minHeight: { xs: "auto", md: "92px" },
+                  padding: "12px 16px 14px"
+                }}
+              >
                 <Typography
                   sx={{
                     fontFamily: "Ubuntu Sans",
                     fontWeight: "bold",
                     fontSize: "17px",
                     color: "white",
-                    marginBottom: "6px"
+                    lineHeight: 1.2,
+                    marginBottom: "4px",
+                    minHeight: { xs: "auto", md: "42px" }
                   }}
                 >
                   {image.title}
@@ -211,21 +245,24 @@ const Events = () => {
                     color: "rgba(255, 255, 255, 0.8)"
                   }}
                 >
-                  {image.date} {image.date && image.time ? "•" : ""} {image.time}
+                  {image.date} {image.date ? "\u2022" : ""} {image.endTime ? `${image.time} - ${image.endTime}` : "ALL DAY"}
                 </Typography>
               </Box>
             </Box>
           </a>
         </Box>
       )),
-    [activeIndex, imageData, useDesktopGrid]
+    [activeIndex, imageData, useDesktopCarousel, useDesktopGrid]
   );
 
   return (
     <Box
       id="events"
       sx={{
-        padding: "5% 10% 5% 10%",
+        paddingTop: "5%",
+        paddingBottom: "5%",
+        paddingLeft: { xs: "8%", md: "5%" },
+        paddingRight: { xs: "8%", md: "5%" },
         color: "white",
       }}
     >
@@ -256,29 +293,43 @@ const Events = () => {
           </Typography>
         </Box>
 
-        <Box sx={{ margin: "0 auto", maxWidth: "1100px" }}>
+        <Box sx={{ margin: "0 auto", maxWidth: { xs: "1100px", md: "1320px" } }}>
           {fallbackState === "ready" ? (
             <>
               <Box
                 ref={railRef}
                 sx={{
-                  display: "flex",
-                  justifyContent: useDesktopGrid ? "center" : hasMultipleEvents ? "flex-start" : "center",
-                  flexWrap: useDesktopGrid ? "wrap" : "nowrap",
-                  gap: 2.5,
-                  overflowX: useDesktopGrid ? "visible" : "auto",
+                  position: "relative",
+                  width: "100%",
+                  overflowX: "auto",
+                  overflowY: "hidden",
+                  paddingTop: 1.5,
+                  paddingLeft: { xs: 2, md: 0 },
+                  paddingRight: { xs: 2, md: 0 },
                   paddingBottom: 2,
-                  scrollSnapType: useDesktopGrid ? "none" : "x mandatory",
+                  scrollSnapType: "x mandatory",
+                  scrollPaddingLeft: theme.spacing(2),
+                  scrollPaddingRight: theme.spacing(2),
                   scrollbarWidth: "none",
                   "&::-webkit-scrollbar": {
                     display: "none"
                   }
                 }}
-              >
-                {eventCards}
+                >
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "flex-start",
+                    flexWrap: "nowrap",
+                    gap: 2.5,
+                    width: "max-content"
+                  }}
+                >
+                  {eventCards}
+                </Box>
               </Box>
 
-              {hasMultipleEvents && !useDesktopGrid && (
+              {hasMultipleEvents && (
                 <Box
                   sx={{
                     display: "flex",
@@ -328,7 +379,7 @@ const Events = () => {
                 }}
               >
                 {fallbackState === "error"
-                  ? "We couldn’t load events right now."
+                  ? "We couldn\u2019t load events right now."
                   : "No upcoming events just yet."}
               </Typography>
 
@@ -342,7 +393,7 @@ const Events = () => {
               >
                 {fallbackState === "error"
                   ? "Please try again shortly, or check our events page for the latest updates."
-                  : "We’re planning the next AI Society event now. Check our events page for the latest updates."}
+                  : "We\u2019re planning the next AI Society event now. Check our events page for the latest updates."}
               </Typography>
 
               <Button
@@ -363,27 +414,29 @@ const Events = () => {
           )}
         </Box>
 
-        <Box
-          sx={{
-            textAlign: "center",
-            marginTop: "40px",
-          }}
-        >
-          <Button
-            variant="contained"
-            size="large"
-            href="https://campus.hellorubric.com/?s=12437"
-            target="_blank"
-            rel="noopener noreferrer"
+        {fallbackState === "ready" && (
+          <Box
             sx={{
-              fontFamily: "Ubuntu Sans",
-              fontSize: "18px",
-              padding: "12px 30px",
+              textAlign: "center",
+              marginTop: "40px",
             }}
           >
-            View Our Events
-          </Button>
-        </Box>
+            <Button
+              variant="contained"
+              size="large"
+              href="https://campus.hellorubric.com/?s=12437"
+              target="_blank"
+              rel="noopener noreferrer"
+              sx={{
+                fontFamily: "Ubuntu Sans",
+                fontSize: "18px",
+                padding: "12px 30px",
+              }}
+            >
+              View Our Events
+            </Button>
+          </Box>
+        )}
       </Reveal>
     </Box>
   );

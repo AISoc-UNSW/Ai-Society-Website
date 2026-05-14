@@ -19,6 +19,7 @@ const initialFormState = {
   title: "",
   date: "",
   time: "",
+  endTime: "",
   link: "",
   priority: "",
   requestedBy: "",
@@ -60,7 +61,7 @@ function AdminDashboard() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const { title, date, time, link, priority, requestedBy, updatedBy } = form;
+    const { title, date, time, endTime, link, priority, requestedBy, updatedBy } = form;
 
     if (!title || !date || !time || !link || !bannerFile || !priority || !requestedBy || !updatedBy.trim()) {
       setStatus("Please fill in all required fields.");
@@ -71,6 +72,15 @@ function AdminDashboard() {
     if (eventDateTime < new Date()) {
       setStatus("Cannot submit an event in the past.");
       return;
+    }
+
+    if (endTime) {
+      const eventEndDateTime = new Date(`${date}T${endTime}`);
+
+      if (eventEndDateTime < eventDateTime) {
+        setStatus("Event end time must be after the start time.");
+        return;
+      }
     }
 
     if (!isValidURL(link)) {
@@ -103,6 +113,7 @@ function AdminDashboard() {
         title,
         date,
         time,
+        endTime,
         priority,
         requestedBy,
         link,
@@ -114,42 +125,8 @@ function AdminDashboard() {
         lastUpdatedBy: updatedBy.trim()
       });
 
-      setStatus("Sending Discord ticket...");
-
-      const webhookURL =
-        "https://discordapp.com/api/webhooks/1481530466136883263/d_J77WyQZ_lOBkzup1FeI9LbF-F_5VK-mcb02hNMMqbq-xQ5Lc-0IDW-qCTJCfv1Mjui";
-
-      const webhookResponse = await fetch(webhookURL, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          embeds: [
-            {
-              title: "New AISoc Event Submission",
-              color: 5814783,
-              fields: [
-                { name: "Event Title", value: title },
-                { name: "Date", value: date },
-                { name: "Time", value: time },
-                { name: "Priority", value: priority },
-                { name: "Requested By", value: requestedBy },
-                { name: "Submitted By", value: updatedBy.trim() },
-                { name: "Event Link", value: link },
-                { name: "Banner Image URL", value: imageURL }
-              ]
-            }
-          ]
-        })
-      });
-
       setSubmitted(true);
-      setStatus(
-        webhookResponse.ok
-          ? "Event created successfully."
-          : "Event saved, but the Discord notification could not be delivered."
-      );
+      setStatus("Event created successfully.");
     } catch (error) {
       setStatus(
         `Something went wrong while submitting the event. ${error?.message || ""}`.trim()
@@ -171,7 +148,7 @@ function AdminDashboard() {
           </Typography>
 
           <Typography sx={{ mb: 4 }}>
-            The Projects team has been notified on Discord and the event is now stored in Firebase.
+            Thank you for submitting an event for AISoc! The event has successfully been saved!
           </Typography>
 
           <Button variant="contained" onClick={resetForm}>
@@ -207,6 +184,17 @@ function AdminDashboard() {
             InputLabelProps={{ shrink: true }}
             value={form.time}
             onChange={handleChange("time")}
+          />
+
+          <TextField
+            label="Event End Time (Optional)"
+            type="time"
+            fullWidth
+            sx={{ mb: 3 }}
+            helperText="Leave blank to show this event as ALL DAY on the public page."
+            InputLabelProps={{ shrink: true }}
+            value={form.endTime}
+            onChange={handleChange("endTime")}
           />
 
           <FormControl fullWidth sx={{ mb: 3 }}>

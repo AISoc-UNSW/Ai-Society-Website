@@ -84,10 +84,14 @@ export async function convertImageToWebp(file, quality = 0.82) {
 
   const dataUrl = await readFileAsDataUrl(file);
   const image = await loadImage(dataUrl);
+  const { width, height } = getOptimizedDimensions(
+    image.naturalWidth || image.width,
+    image.naturalHeight || image.height
+  );
 
   const canvas = document.createElement("canvas");
-  canvas.width = image.naturalWidth || image.width;
-  canvas.height = image.naturalHeight || image.height;
+  canvas.width = width;
+  canvas.height = height;
 
   const context = canvas.getContext("2d");
   context.drawImage(image, 0, 0, canvas.width, canvas.height);
@@ -111,6 +115,22 @@ export async function convertImageToWebp(file, quality = 0.82) {
   return new File([blob], `${outputName}.webp`, {
     type: "image/webp"
   });
+}
+
+function getOptimizedDimensions(sourceWidth, sourceHeight, maxDimension = 1600) {
+  if (!sourceWidth || !sourceHeight) {
+    return {
+      width: sourceWidth,
+      height: sourceHeight
+    };
+  }
+
+  const scale = Math.min(1, maxDimension / Math.max(sourceWidth, sourceHeight));
+
+  return {
+    width: Math.round(sourceWidth * scale),
+    height: Math.round(sourceHeight * scale)
+  };
 }
 
 function readFileAsDataUrl(file) {

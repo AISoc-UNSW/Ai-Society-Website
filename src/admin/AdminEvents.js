@@ -90,7 +90,7 @@ function AdminEvents() {
     return sortedEvents.reduce(
       (groups, eventItem) => {
         const eventTimestamp = new Date(
-          `${eventItem.date}T${eventItem.time || "00:00"}`
+          `${eventItem.date}T${eventItem.endTime || eventItem.time || "23:59"}`
         ).getTime();
 
         if (eventTimestamp >= now) {
@@ -116,6 +116,7 @@ function AdminEvents() {
         title: event.title || "",
         date: event.date || "",
         time: event.time || "",
+        endTime: event.endTime || "",
         priority: event.priority || "",
         requestedBy: event.requestedBy || "",
         link: event.link || "",
@@ -149,6 +150,16 @@ function AdminEvents() {
     if (!draft?.title || !draft.date || !draft.time || !draft.link || !draft.priority || !draft.requestedBy || !draft.updatedBy?.trim()) {
       setStatus("Please complete every field before saving.");
       return;
+    }
+
+    if (draft.endTime) {
+      const eventStartDateTime = new Date(`${draft.date}T${draft.time}`);
+      const eventEndDateTime = new Date(`${draft.date}T${draft.endTime}`);
+
+      if (eventEndDateTime < eventStartDateTime) {
+        setStatus("Event end time must be after the start time.");
+        return;
+      }
     }
 
     setStatus(`Saving ${draft.title}...`);
@@ -357,6 +368,15 @@ function EventSection({
                             onChange={(event) => updateDraft(eventItem.docId, "time", event.target.value)}
                           />
 
+                          <TextField
+                            label="Event End Time (Optional)"
+                            type="time"
+                            helperText="Leave blank to show this event as ALL DAY on the public page."
+                            InputLabelProps={{ shrink: true }}
+                            value={draft.endTime || ""}
+                            onChange={(event) => updateDraft(eventItem.docId, "endTime", event.target.value)}
+                          />
+
                           <FormControl fullWidth>
                             <InputLabel>Priority</InputLabel>
                             <Select
@@ -432,7 +452,7 @@ function EventSection({
                           </Stack>
 
                           <Typography sx={{ mb: 1 }}>
-                            {eventItem.date} at {eventItem.time}
+                            {eventItem.date} at {eventItem.endTime ? `${eventItem.time} - ${eventItem.endTime}` : "ALL DAY"}
                           </Typography>
 
                           <Typography

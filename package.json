@@ -49,6 +49,7 @@
     "server:dev": "nodemon server/index.js",
     "dev": "concurrently \"npm run server:dev\" \"npm start\"",
     "build": "react-scripts build",
+    "check:webp": "node scripts/check-webp-sizes.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
