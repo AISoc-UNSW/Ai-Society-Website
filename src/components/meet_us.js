@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Box, Typography, Button, Grid } from "@mui/material";
+import { Box, Typography, Grid } from "@mui/material";
 import { makeStyles } from "@material-ui/core/styles";
 import Reveal from "../util/Reveal";
 import ishman from "../assets/execs/Ishmanbir Singh, Co Pres (Engineering).webp";
