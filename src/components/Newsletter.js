@@ -6,43 +6,60 @@ import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 
 import Typography from "@mui/material/Typography";
-import img28 from "../assets/watchtower/28.webp";
-import img29 from "../assets/watchtower/29.webp";
-import img30 from "../assets/watchtower/30.webp";
-import img32 from "../assets/watchtower/32.webp";
+import img30 from "../assets/watchtower/webp/30.webp";
+import img32 from "../assets/watchtower/webp/32.webp";
+import img33 from "../assets/watchtower/webp/33.webp";
+import img34 from "../assets/watchtower/webp/34.webp";
+import img35 from "../assets/watchtower/webp/35.webp";
+import img36 from "../assets/watchtower/webp/36.webp";
 import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import Reveal from "../util/Reveal";
 import { Link } from "@mui/material";
 
-// TODO: get api from newsletter website to dynamically get this info
 const cardData = [
   {
+    title: "The Great Data Centre Debate, Anthropic vs. The Pentagon",
+    author: "AI Society Education Team",
+    date: "March 17, 2026",
+    img: img36,
+    link: "https://aisocturingpoint.beehiiv.com/p/the-turing-point-2026-version-three"
+  },
+  {
+    title: "The Death of SaaS: A 'whodunnit' with One Suspect",
+    author: "AI Society Education Team",
+    date: "March 2, 2026",
+    img: img33,
+    link: "https://aisocturingpoint.beehiiv.com/p/the-turing-point-2026-version-two",
+  },
+  {
+    title: "Google Redefining Mathematics, Global RAM Shortages",
+    author: "AI Society Education Team",
+    date: "February 8, 2026",
+    img: img35,
+    link: "https://aisocturingpoint.beehiiv.com/p/the-turing-point-2026-version-one",
+  },
+  {
+    title: "Entering the new AI Era, The Rise of Meta AI ",
+    author: "AI Society Education Team",
+    date: "July 3, 2025",
+    img: img34,
+    link: "https://aisocturingpoint.beehiiv.com/p/the-turing-point-33rd-edition",
+  },
+  {
     title: "Google Strikes Back: Veo 3, Gemini 2.5, and the IO Offensive",
-    author: "By AI Society Education Team",
+    author: "AI Society Education Team",
     date: "June 05, 2025",
     img: img32,
     link: "https://aisocturingpoint.beehiiv.com/p/the-turing-point-32nd-edition",
   },
   {
     title: "Rise of Autonomous Agents and a Huge Week for Open Source",
-    author: "By AI Society Education Team",
+    author: "AI Society Education Team",
     date: "March 29, 2025",
     img: img30,
     link: "https://aisocturingpoint.beehiiv.com/p/the-turing-point-30th-edition",
-  },
-  {
-    title: "Grok 3, Claude 3.7, and GPT-4.5: The AI Titans Redefining Intelligence",
-    author: "By AI Society Education Team",
-    date: "March 08, 2025",
-    img: img29,
-    link: "https://aisocturingpoint.beehiiv.com/p/the-turing-point-29th-edition",
-  },
-  {
-    title: "2024: The Year AI Took Center Stage (Recap Edition)",
-    author: "By AI Society Education Team",
-    date: "February 13, 2025",
-    img: img28,
-    link: "https://aisocturingpoint.beehiiv.com/p/the-watchtower-28th-edition-2024-recap",
   },
 ];
 
@@ -52,21 +69,26 @@ function handleClick() {
 
 const NewsLetter = () => {
   var settings = {
-    dots: false,
+    dots: true,
     arrows: false,
     infinite: true,
-    speed: 500,
+    speed: 650,
     slidesToShow: 4,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 2500,
+    autoplaySpeed: 4500,
+    pauseOnHover: true,
+    pauseOnFocus: true,
+    pauseOnDotsHover: true,
+    swipeToSlide: true,
+    touchThreshold: 12,
     initialSlide: 0,
     responsive: [
       {
         breakpoint: 1600,
         settings: {
           slidesToShow: 3,
-          slidesToScroll: 3,
+          slidesToScroll: 1,
           infinite: true,
           dots: true,
         },
@@ -75,8 +97,8 @@ const NewsLetter = () => {
         breakpoint: 1200,
         settings: {
           slidesToShow: 2,
-          slidesToScroll: 2,
-          initialSlide: 2,
+          slidesToScroll: 1,
+          dots: true,
         },
       },
       {
@@ -84,6 +106,8 @@ const NewsLetter = () => {
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
+          autoplay: false,
+          dots: true,
         },
       },
     ],
@@ -126,28 +150,28 @@ const NewsLetter = () => {
           <Box sx={{ marginLeft: "3vw", marginRight: "2vw" }}>
             <Slider {...settings}>
               {cardData.map((card, index) => (
-                <Link href={card.link} underline="none">
+                <Link key={card.link || index} href={card.link} underline="none">
                   <Card
                     sx={{
                       marginRight: "1vw",
                       height: "430px",
-                      backgroundColor: "#1a1a1a", // Darker shade of gray for the card background
-                      color: "#f2f2f2", // Light gray text for better contrast
+                      backgroundColor: "#1a1a1a", 
+                      color: "#f2f2f2", 
                       "&:hover": {
-                        backgroundColor: "#2c2c2c", // Slightly lighter shade of gray on hover
-                        boxShadow: "0 4px 20px rgba(0, 0, 0, 0.2)", // Add a subtle shadow on hover
+                        backgroundColor: "#2c2c2c", 
+                        boxShadow: "0 4px 20px rgba(0, 0, 0, 0.2)", 
                       },
                     }}
                   >
                     <CardMedia
                       component="img"
                       alt={card.title}
-                      height={{ xs: "70vh" }}
                       image={card.img}
                       sx={{
-                        maxHeight: "60%",
-                        objectFit: "cover",
-                        filter: "brightness(0.9)", // Slightly reduce the brightness of the image
+                        height: "220px",         
+                        width: "100%",
+                        objectFit: "cover",       
+                        filter: "brightness(0.9)"
                       }}
                     />
                     <CardContent>
@@ -156,19 +180,19 @@ const NewsLetter = () => {
                         variant="h5"
                         fontWeight="bold"
                         component="div"
-                        sx={{ color: "#f2f2f2" }} // Light gray text for the title
+                        sx={{ color: "#f2f2f2" }} 
                       >
                         {card.title}
                       </Typography>
                       <Typography
                         variant="body2"
-                        sx={{ color: "#b2b2b2" }} // Medium gray text for the author
+                        sx={{ color: "#b2b2b2" }} 
                       >
                         {card.author}
                       </Typography>
                       <Typography
                         variant="body2"
-                        sx={{ color: "#8c8c8c" }} // Light gray text for the date
+                        sx={{ color: "#8c8c8c" }} 
                       >
                         {card.date}
                       </Typography>

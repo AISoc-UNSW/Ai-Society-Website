@@ -8,7 +8,7 @@ import NewsLetter from "../components/Newsletter";
 import LoadingScreen from "../components/LoadingScreen";
 import Footer from "../components/Footer";
 import Brain from "../components/Brain";
-import Chatbot from "../components/ChatBot";
+// import Chatbot from "../components/ChatBot";
 import { useState, useEffect } from "react";
 import ParticlePattern from "../components/ParticlePattern";
 import Stars from "../components/Stars";
@@ -31,7 +31,7 @@ const Home = () => {
         <About />
         <Events />
         <NewsLetter />
-        <Chatbot />
+        {/* <Chatbot /> */}
         <MeetUs />
         <Faq />
         <Sponsor />

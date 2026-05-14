@@ -65,6 +65,16 @@
         <title>Artificial Intelligence Society - UNSW</title>
     </head>
     <body>
+
+        <script>
+          (function () {
+            var path = window.location.pathname;
+            if (path.startsWith("/admin")) {
+              window.location.replace("/#" + path);
+            }
+          })();
+        </script>
+
         <noscript>You need to enable JavaScript to run this app.</noscript>
         <div id="root"></div>
     </body>

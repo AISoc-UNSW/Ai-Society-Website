@@ -1,27 +1,54 @@
-import { HashRouter, Route, Routes } from "react-router-dom";
+import { HashRouter, Route, Routes, useLocation } from "react-router-dom";
 import Home from "./pages/Home";
-import Join from "./pages/Join";
-import Merch from "./pages/Merch";
-import ProductDetail from "./pages/ProductDetail";
-import Shop from "./pages/Shop";
-import Cart from "./pages/Cart";
-import PaymentSuccess from "./pages/PaymentSuccess";
-import PaymentCanceled from "./pages/PaymentCanceled";
+// import Join from "./pages/Join";
+// import Merch from "./pages/Merch";
+// import ProductDetail from "./pages/ProductDetail";
+// import Shop from "./pages/Shop";
+// import Cart from "./pages/Cart";
+// import PaymentSuccess from "./pages/PaymentSuccess";
+// import PaymentCanceled from "./pages/PaymentCanceled";
+
+import AdminLogin from "./admin/AdminLogin";
+import AdminHome from "./admin/AdminHome";
+import AdminDashboard from "./admin/AdminDashboard";
+import AdminEvents from "./admin/AdminEvents";
+
+import FloatingSocials from "./components/FloatingSocials";
+
+function AppContent() {
+  const location = useLocation();
+  const isAdminRoute = location.pathname.startsWith("/admin");
+
+  return (
+    <>
+      {!isAdminRoute && <FloatingSocials />}
+
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/home" element={<Home />} />
+        {/* <Route path="/join" element={<Join />} /> */}
+        {/* <Route path="/merch" element={<Merch />} />
+        <Route path="/shop" element={<Shop />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/product/:id" element={<ProductDetail />} />
+        <Route path="/payment-success" element={<PaymentSuccess />} />
+        <Route path="/payment-canceled" element={<PaymentCanceled />} /> */}
+
+        {/* Admin Routes */}
+        <Route path="/admin" element={<AdminLogin />} />
+        <Route path="/admin/dashboard" element={<AdminHome />} />
+        <Route path="/admin/events/new" element={<AdminDashboard />} />
+        <Route path="/admin/events" element={<AdminEvents />} />
+      </Routes>
+    </>
+  );
+}
+
 function App() {
   return (
     <div className="App">
       <HashRouter>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/join" element={<Join />} />
-          <Route path="/merch" element={<Merch />} />
-          <Route path="/shop" element={<Shop />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/product/:id" element={<ProductDetail />} />
-          <Route path="/payment-success" element={<PaymentSuccess />} />
-          <Route path="/payment-canceled" element={<PaymentCanceled />} />
-        </Routes>
+        <AppContent />
       </HashRouter>
     </div>
   );

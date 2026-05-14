@@ -16,7 +16,7 @@ import { textList } from "../util/typingText";
 import { shuffleArray } from "../util/shuffle";
 import { swapRandomLetters } from "../util/typoEffect";
 import { Link } from "react-scroll";
-import { Link as RouterLink } from "react-router-dom";
+// import { Link as RouterLink } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -291,7 +291,7 @@ const NavBar = () => {
                                     SPONSOR
                                 </Button>
                             </Link>
-                            <Button
+                            {/* <Button
                                 color="inherit"
                                 sx={{ width: "100vw" }}
                                 component={RouterLink}
@@ -299,7 +299,7 @@ const NavBar = () => {
                                 onClick={toggleMenu}
                             >
                                 MERCH
-                            </Button>
+                            </Button> */}
                         </Box>
                     </Drawer>
                 </Hidden>
@@ -347,9 +347,9 @@ const NavBar = () => {
                                 NEWSLETTER
                             </Button>
                         </Link>
-                        <Button color="inherit" sx={buttonStyles} component={RouterLink} to="/merch">
+                        {/* <Button color="inherit" sx={buttonStyles} component={RouterLink} to="/merch">
                             MERCH
-                        </Button>
+                        </Button> */}
                         <Link
                             activeClass="active"
                             to="team"
